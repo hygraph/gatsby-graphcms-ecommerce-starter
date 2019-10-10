@@ -1,0 +1,15 @@
+{
+  "name": "demo",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "dev": "gatsby develop"
+  },
+  "dependencies": {
+    "gatsby": "2.15.35",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  }
+}

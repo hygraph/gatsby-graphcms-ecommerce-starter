@@ -1,0 +1,12 @@
+{
+  "name": "gatsby-theme-storefront",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "gatsby": "2.15.35",
+    "gatsby-theme-cart": "*",
+    "gatsby-theme-catalog": "*",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  }
+}

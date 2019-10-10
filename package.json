@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "workspaces": [
+    "demo",
+    "packages/**"
+  ],
+  "scripts": {
+    "build": "yarn workspace demo build",
+    "dev": "yarn workspace demo dev",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "1.18.2"
+  }
+}

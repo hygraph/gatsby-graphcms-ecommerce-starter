@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-theme-catalog",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "gatsby": "2.15.35",
+    "gatsby-source-graphql": "2.1.18",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "gatsby-theme-cart",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "gatsby": "2.15.35",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  }
+}
