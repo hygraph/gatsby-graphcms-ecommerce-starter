@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "build": "yarn workspace demo build",
+    "clean": "yarn workspace demo clean",
     "dev": "yarn workspace demo dev",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
