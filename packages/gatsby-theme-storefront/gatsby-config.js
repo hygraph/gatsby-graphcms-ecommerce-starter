@@ -1,5 +1,9 @@
 module.exports = themeOptions => {
-  const { graphcmsEndpoint, graphcmsToken } = themeOptions;
+  const {
+    graphcmsEndpoint,
+    graphcmsToken,
+    enableCartPage = false,
+  } = themeOptions;
 
   return {
     plugins: [
@@ -10,7 +14,12 @@ module.exports = themeOptions => {
           graphcmsToken,
         },
       },
-      `gatsby-theme-cart`,
+      {
+        resolve: `gatsby-theme-cart`,
+        options: {
+          enableCartPage,
+        },
+      },
     ],
   };
 };
