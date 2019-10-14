@@ -1,19 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import CartContext from '../context/CartContext';
+import Cart from '../components/Cart';
 
 function CartPage() {
-  const { items } = useContext(CartContext);
-
-  return (
-    <React.Fragment>
-      <h1>Cart</h1>
-
-      {items.map((item, i) => (
-        <li key={i}>{item.name}</li>
-      ))}
-    </React.Fragment>
-  );
+  return <Cart />;
 }
 
 export default CartPage;
