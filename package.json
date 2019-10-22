@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "dev": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "currency-formatter": "1.5.5",
+    "gatsby": "2.16.4",
+    "gatsby-plugin-postcss": "2.1.13",
+    "gatsby-plugin-prefetch-google-fonts": "1.4.3",
+    "gatsby-plugin-purgecss": "4.0.1",
+    "gatsby-source-graphql": "2.1.20",
+    "graphcms-image": "^1.1.0-beta4",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  },
+  "devDependencies": {
+    "dotenv": "8.2.0",
+    "husky": "3.0.9",
+    "postcss-preset-env": "6.7.0",
+    "prettier": "1.18.2",
+    "pretty-quick": "2.0.0",
+    "tailwindcss": "1.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}

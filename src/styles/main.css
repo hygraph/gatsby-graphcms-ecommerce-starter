@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#___gatsby {
+  @apply h-full;
+}
+
+html {
+  @apply bg-white font-sans text-lg;
+}
+
+.site-nav {
+  @apply hidden;
+}
+
+.site-nav.open {
+  @apply block;
+}
+
+@media sm {
+  .site-nav {
+    @apply block;
+  }
+
+  .site-nav.open {
+    @apply block;
+  }
+}
