@@ -1,15 +1,8 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 
 import ProductGrid from '../components/ProductGrid';
 
-function CategoryPage({
-  data: {
-    cms: { category },
-  },
-}) {
-  const { products = [] } = category;
-
+function CategoryPage({ pageContext: { category, products = [] } }) {
   return (
     <React.Fragment>
       <h1 className="font-bold text-6xl mb-3 text-slategray">
@@ -22,25 +15,5 @@ function CategoryPage({
     </React.Fragment>
   );
 }
-
-export const query = graphql`
-  query CategoryPageQuery($id: ID!) {
-    cms {
-      category(where: { id: $id }) {
-        id
-        title
-        products {
-          id
-          name
-          images {
-            handle
-            width
-            height
-          }
-        }
-      }
-    }
-  }
-`;
 
 export default CategoryPage;

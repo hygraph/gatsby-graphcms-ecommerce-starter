@@ -1,11 +1,6 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 
-function ProductPage({
-  data: {
-    cms: { product },
-  },
-}) {
+function ProductPage({ pageContext: { product } }) {
   return (
     <React.Fragment>
       <h1>{product.name}</h1>
@@ -16,21 +11,5 @@ function ProductPage({
     </React.Fragment>
   );
 }
-
-export const query = graphql`
-  query ProductPageQuery($id: ID!) {
-    cms {
-      product(where: { id: $id }) {
-        id
-        name
-        images {
-          handle
-          width
-          height
-        }
-      }
-    }
-  }
-`;
 
 export default ProductPage;
