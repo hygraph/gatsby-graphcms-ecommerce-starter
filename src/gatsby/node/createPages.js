@@ -4,42 +4,63 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       cms: { categories, collections, products },
     },
   } = await graphql(`
+    fragment ProductInfo on GraphCMS_Product {
+      id
+      name
+      price
+      images {
+        handle
+        width
+        height
+      }
+    }
+
     {
       cms {
         categories {
           id
+          title
           slug
+          products {
+            ...ProductInfo
+          }
         }
         collections {
           id
+          title
           slug
+          products {
+            ...ProductInfo
+          }
         }
         products {
-          id
+          ...ProductInfo
         }
       }
     }
   `);
 
   if (categories) {
-    categories.forEach(({ id, slug }) =>
+    categories.forEach(({ products, ...category }) =>
       createPage({
-        path: `/categories/${slug}`,
+        path: `/categories/${category.slug}`,
         component: require.resolve(`../../templates/CategoryPage.js`),
         context: {
-          id,
+          category,
+          products,
         },
       })
     );
   }
 
   if (collections) {
-    collections.forEach(({ id, slug }) =>
+    collections.forEach(({ products, ...collection }) =>
       createPage({
-        path: `/collections/${slug}`,
+        path: `/collections/${collection.slug}`,
         component: require.resolve(`../../templates/CollectionPage.js`),
         context: {
-          id,
+          collection,
+          products,
         },
       })
     );
@@ -49,14 +70,17 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     createPage({
       path: `/products`,
       component: require.resolve(`../../templates/ProductsPage.js`),
+      context: {
+        products,
+      },
     });
 
-    products.forEach(({ id }) =>
+    products.forEach(product =>
       createPage({
-        path: `/products/${id}`,
+        path: `/products/${product.id}`,
         component: require.resolve(`../../templates/ProductPage.js`),
         context: {
-          id,
+          product,
         },
       })
     );
