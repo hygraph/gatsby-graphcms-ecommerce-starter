@@ -13,6 +13,14 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         width
         height
       }
+      reviews {
+        id
+        name
+        headline
+        rating
+        message
+        updatedAt
+      }
     }
 
     {
@@ -75,12 +83,13 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       },
     });
 
-    products.forEach(product =>
+    products.forEach(({ reviews, ...product }) =>
       createPage({
         path: `/products/${product.id}`,
         component: require.resolve(`../../templates/ProductPage.js`),
         context: {
           product,
+          reviews,
         },
       })
     );
