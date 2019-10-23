@@ -3,12 +3,6 @@ require(`dotenv`).config();
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-theme-cart`,
-      options: {
-        enableCartPage: true,
-      },
-    },
-    {
       resolve: `gatsby-source-graphql`,
       options: {
         typeName: `GraphCMS`,
