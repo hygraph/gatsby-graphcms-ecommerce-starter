@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "create-intent",
+  "version": "1.0.0",
+  "dependencies": {
+    "stripe": "7.10.0"
+  }
+}
