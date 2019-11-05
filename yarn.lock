@@ -4683,10 +4683,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gatsby-cli@^2.8.2:
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.8.2.tgz#a1fd7dbeecf2a3abcccf430501aa0bf4a6fc7e2f"
-  integrity sha512-++SIGHjFLoZvW7hx8z1cq3TjghXNNXUAmWFtsSIVCDEXezfE39FuOkNQIRuvJHUCA44oqyj3uM4PZll0Ofh/Pg==
+gatsby-cli@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.8.3.tgz#42d147b345712ec0486649137f8647760a83475e"
+  integrity sha512-HJUIuRz9CR2q/Yxm79ps79Kh5dtuUDytnGdPlsO8HiYVO7vZUxDEUW/5rYxBpiLqL17uUL/UFFuLfhm/F/xuCQ==
   dependencies:
     "@babel/code-frame" "^7.5.5"
     "@babel/runtime" "^7.6.3"
@@ -4855,10 +4855,10 @@ gatsby-telemetry@^1.1.33:
     stack-utils "1.0.2"
     uuid "3.3.3"
 
-gatsby@2.16.4:
-  version "2.16.4"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.16.4.tgz#90d51740cf5a923e7d8dcc4b7b91497cc3ac0781"
-  integrity sha512-UhURO/F/o5XkwAmszdiPhA5SWxD13T/JJQ0xOKNS5xGCix4S4GrfpmR1N+NM7g/nW38/5s1yZ/s+oDPPNgKimw==
+gatsby@2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.17.0.tgz#f4a0dbe4d6897f32df3019d33ef4dee5d30b5aab"
+  integrity sha512-bi+Hv6nLj6u1eH/qNR8Df7yjSSNWje4GuP3IKS0l/dBH+a4WDZTuh8OR4oby9M06lwXfi8kfUlRStDzzjthfQA==
   dependencies:
     "@babel/code-frame" "^7.5.5"
     "@babel/core" "^7.6.4"
@@ -4920,7 +4920,7 @@ gatsby@2.16.4:
     flat "^4.1.0"
     fs-exists-cached "1.0.0"
     fs-extra "^8.1.0"
-    gatsby-cli "^2.8.2"
+    gatsby-cli "^2.8.3"
     gatsby-core-utils "^1.0.15"
     gatsby-graphiql-explorer "^0.2.25"
     gatsby-link "^2.2.22"
@@ -5299,7 +5299,7 @@ graphql-playground-middleware-express@^1.7.12:
   dependencies:
     graphql-playground-html "1.6.12"
 
-graphql-request@^1.5.0:
+graphql-request@1.8.2, graphql-request@^1.5.0:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.8.2.tgz#398d10ae15c585676741bde3fc01d5ca948f8fbe"
   integrity sha512-dDX2M+VMsxXFCmUX0Vo0TopIZIX4ggzOtiCsThgtrKR4niiaagsGTDIHj3fsOMFETpa064vzovI+4YV4QnMbcg==
@@ -9015,6 +9015,11 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
+qs@^6.6.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
+  integrity sha512-27RP4UotQORTpmNQDX8BHPukOnBP3p1uUJY5UnDhaJB+rMt9iMsok724XL+UHU23bEFOHRMQ2ZhI99qOWUMGFA==
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -10385,6 +10390,13 @@ strip-outer@^1.0.0:
   integrity sha512-k55yxKHwaXnpYGsOzg4Vl8+tDrWylxDEpknGjhTiZB8dFRU5rTo9CAzeycivxV3s+zlTKwrs6WxMxR95n26kwg==
   dependencies:
     escape-string-regexp "^1.0.2"
+
+stripe@7.10.0:
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-7.10.0.tgz#1b6894d128eb4b3b6d7cff63338064657c972b4e"
+  integrity sha512-mwW6iIZ+h957CJAcJEt8zb2ZnVvGNceG8dNQPANu6O8Zzm1pr+noC/mxvZSCuAAvMq04VWqbXBON5QvBCT5miw==
+  dependencies:
+    qs "^6.6.0"
 
 style-loader@^0.23.1:
   version "0.23.1"
