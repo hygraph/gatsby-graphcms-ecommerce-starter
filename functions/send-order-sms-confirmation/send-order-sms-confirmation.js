@@ -1,9 +1,9 @@
-const twilio = require('twilio');
+// const twilio = require('twilio');
 
-const twilioClient = new twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// const twilioClient = new twilio(
+//   process.env.TWILIO_ACCOUNT_SID,
+//   process.env.TWILIO_AUTH_TOKEN
+// );
 
 exports.handler = async event => {
   try {
