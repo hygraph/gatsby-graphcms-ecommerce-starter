@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "send-order-sms-confirmation",
+  "version": "1.0.0",
+  "dependencies": {
+    "twilio": "3.37.0"
+  }
+}
