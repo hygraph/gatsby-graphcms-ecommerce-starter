@@ -21,6 +21,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-graphql`,
       options: {
@@ -38,5 +39,6 @@ module.exports = {
         apiKey: process.env.PRINTFUL_API_KEY,
       },
     },
+    `gatsby-transformer-sharp`,
   ],
 };
