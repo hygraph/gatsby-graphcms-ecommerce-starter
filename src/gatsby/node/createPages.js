@@ -8,7 +8,6 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       id
       name
       price
-      printfulProductId
       images {
         handle
         width
