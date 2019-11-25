@@ -18,7 +18,8 @@
     "gatsby-source-printful": "1.1.0",
     "graphcms-image": "^1.1.0-beta4",
     "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "react-dom": "16.10.2",
+    "react-use-cart": "1.1.3"
   },
   "devDependencies": {
     "dotenv": "8.2.0",
@@ -32,8 +33,5 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "workspaces": [
-    "functions/*"
-  ]
+  }
 }
