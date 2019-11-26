@@ -76,7 +76,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
 
   if (products) {
     createPage({
-      path: `/products`,
+      path: `/`,
       component: require.resolve(`../../templates/ProductsPage.js`),
       context: {
         products,
