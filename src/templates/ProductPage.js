@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import { useCart } from 'react-use-cart';
 
 function ProductPage({
   data: {
@@ -8,6 +9,7 @@ function ProductPage({
   },
 }) {
   const [activeVariantId, setActiveVariantId] = useState(null);
+  const { addItem } = useCart();
 
   const activeVariant = product.printfulProduct.variants.find(
     variant => variant.id === activeVariantId
@@ -59,6 +61,24 @@ function ProductPage({
               );
             })}
           </select>
+          <div>
+            <button
+              className={`bg-primary px-4 py-2 rounded text-white ${
+                !activeVariant ? 'opacity-50' : 'opacity-100'
+              }`}
+              onClick={() =>
+                addItem({
+                  id: activeVariant.id,
+                  price: activeVariant.retail_price,
+                  name: activeVariant.name,
+                  description: product.description.markdown,
+                })
+              }
+              disabled={!activeVariant}
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </React.Fragment>
