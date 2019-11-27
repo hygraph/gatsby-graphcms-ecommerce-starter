@@ -21,6 +21,9 @@ function ProductsPage() {
                 }
               }
             }
+            variants {
+              retail_price
+            }
           }
         }
       }
