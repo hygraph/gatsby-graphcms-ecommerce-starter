@@ -54,6 +54,9 @@ function ProductPage({
           <select
             onChange={({ target: { value } }) => setActiveVariantId(value)}
           >
+            <option selected disabled>
+              Select an option
+            </option>
             {product.printfulProduct.variants.map((variant, index) => {
               const [, splitVariantName] = variant.name.split(' - ');
 
