@@ -8,6 +8,7 @@ function ProductPage({
     cms: { product },
   },
 }) {
+  const [variantQuantity, setVariantQuantity] = useState(1);
   const [activeVariantId, setActiveVariantId] = useState(null);
   const { addItem } = useCart();
 
@@ -50,7 +51,9 @@ function ProductPage({
               {product.description.markdown}
             </p>
           )}
-          <select onChange={e => setActiveVariantId(e.target.value)}>
+          <select
+            onChange={({ target: { value } }) => setActiveVariantId(value)}
+          >
             {product.printfulProduct.variants.map((variant, index) => {
               const [, splitVariantName] = variant.name.split(' - ');
 
@@ -62,17 +65,34 @@ function ProductPage({
             })}
           </select>
           <div>
+            <select
+              className="mx-4 w-2/6"
+              onChange={({ target: { value } }) => setVariantQuantity(value)}
+            >
+              {new Array(5)
+                .fill(0)
+                .map((v, k) => k + 1)
+                .map(i => ({ value: i, label: i }))
+                .map(({ value, label }) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+            </select>
             <button
               className={`bg-primary px-4 py-2 rounded text-white ${
                 !activeVariant ? 'opacity-50' : 'opacity-100'
               }`}
               onClick={() =>
-                addItem({
-                  id: activeVariant.id,
-                  price: activeVariant.retail_price,
-                  name: activeVariant.name,
-                  description: product.description.markdown,
-                })
+                addItem(
+                  {
+                    id: activeVariant.id,
+                    price: activeVariant.retail_price,
+                    name: activeVariant.name,
+                    description: product.description.markdown,
+                  },
+                  variantQuantity
+                )
               }
               disabled={!activeVariant}
             >
