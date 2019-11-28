@@ -1,5 +1,7 @@
 const order = require('./query/order');
+
 const checkout = require('./mutation/checkout');
+const submitReview = require('./mutation/submitReview');
 
 const resolvers = {
   Query: {
@@ -7,6 +9,7 @@ const resolvers = {
   },
   Mutation: {
     checkout,
+    submitReview,
   },
 };
 

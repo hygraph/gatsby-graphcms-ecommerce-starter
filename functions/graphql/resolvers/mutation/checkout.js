@@ -4,7 +4,7 @@ const checkoutResolver = async (_, args, ctx) => {
     const order = await ctx.dataSources.GraphCMSAPI.createOrder(args);
 
     return order;
-  } catch (e) {
+  } catch (err) {
     return err;
   }
 };
