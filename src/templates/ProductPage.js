@@ -57,15 +57,11 @@ function ProductPage({
             <option selected disabled>
               Select an option
             </option>
-            {product.printfulProduct.variants.map((variant, index) => {
-              const [, splitVariantName] = variant.name.split(' - ');
-
-              return (
-                <option key={index} value={variant.id}>
-                  {splitVariantName}
-                </option>
-              );
-            })}
+            {product.printfulProduct.variants.map((variant, index) => (
+              <option key={index} value={variant.id}>
+                {variant.splitName}
+              </option>
+            ))}
           </select>
           <div>
             <select
@@ -129,6 +125,7 @@ export const pageQuery = graphql`
             id
             name
             retail_price
+            splitName
             variantImage {
               childImageSharp {
                 fluid(maxWidth: 560) {

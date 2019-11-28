@@ -11,6 +11,16 @@ const createResolvers = ({ createResolvers }) => {
         },
       },
     },
+    PrintfulVariant: {
+      splitName: {
+        type: `String!`,
+        resolve: ({ name }, args, context, info) => {
+          const [, splitVariantName] = name.split(' - ');
+
+          return splitVariantName;
+        },
+      },
+    },
   };
 
   createResolvers(resolvers);
