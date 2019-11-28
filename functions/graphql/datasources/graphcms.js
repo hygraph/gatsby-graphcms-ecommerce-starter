@@ -23,6 +23,29 @@ const createOrderMutation = gql`
   }
 `;
 
+const createReviewMutation = gql`
+  mutation createReview(
+    $name: String!
+    $headline: String!
+    $rating: Int!
+    $message: String!
+    $productId: ID!
+  ) {
+    createReview(
+      data: {
+        name: $name
+        headline: $headline
+        rating: $rating
+        message: $message
+        product: { connect: { id: $productId } }
+      }
+    ) {
+      id
+      name
+    }
+  }
+`;
+
 class GraphCMSAPI extends GraphQLDataSource {
   constructor() {
     super();
@@ -56,6 +79,16 @@ class GraphCMSAPI extends GraphQLDataSource {
       return data.createOrder;
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  async submitReview(variables) {
+    try {
+      const { data } = await this.mutation(createReviewMutation, { variables });
+
+      return data.createReview;
+    } catch (err) {
+      console.log(err);
     }
   }
 }
