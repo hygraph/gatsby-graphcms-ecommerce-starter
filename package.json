@@ -22,6 +22,7 @@
     "gatsby-source-printful": "1.1.0",
     "gatsby-transformer-sharp": "^2.3.5",
     "graphcms-image": "^1.1.0-beta4",
+    "graphql-hooks": "4.1.1",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-use-cart": "1.1.3"

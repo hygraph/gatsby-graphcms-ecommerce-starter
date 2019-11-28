@@ -1,7 +1,12 @@
 import React from 'react';
 import { CartProvider } from 'react-use-cart';
+import { GraphQLClient, ClientContext } from 'graphql-hooks';
 
 import Layout from './src/components/Layout';
+
+const client = new GraphQLClient({
+  url: '/.netlify/functions/graphql',
+});
 
 const randomCartId = () =>
   Math.random()
@@ -13,5 +18,9 @@ export const wrapPageElement = ({ element, props }) => {
 };
 
 export const wrapRootElement = ({ element }) => {
-  return <CartProvider id={randomCartId()}>{element}</CartProvider>;
+  return (
+    <ClientContext.Provider value={client}>
+      <CartProvider id={randomCartId()}>{element}</CartProvider>
+    </ClientContext.Provider>
+  );
 };
