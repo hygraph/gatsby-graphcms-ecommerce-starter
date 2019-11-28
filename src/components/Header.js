@@ -64,7 +64,7 @@ function Header() {
           </ul>
 
           <div>
-            <Link to={'/cart'}>
+            <Link to="/cart">
               <span className="text-primary">
                 <svg
                   className="fill-current w-4"
