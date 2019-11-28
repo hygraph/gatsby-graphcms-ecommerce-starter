@@ -12,6 +12,15 @@ const createResolvers = ({ createResolvers }) => {
       },
     },
     PrintfulVariant: {
+      formattedPrice: {
+        type: `String!`,
+        resolve: ({ retail_price }, args, context, info) => {
+          return new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+          }).format(retail_price / 100);
+        },
+      },
       splitName: {
         type: `String!`,
         resolve: ({ name }, args, context, info) => {

@@ -40,11 +40,7 @@ function ProductPage({
         </div>
         <div className="px-4 md:w-3/5">
           <p className="font-semibold text-2xl">
-            {activeVariant &&
-              new Intl.NumberFormat('en-GB', {
-                style: 'currency',
-                currency: 'EUR',
-              }).format(activeVariant.retail_price / 100)}
+            {activeVariant && activeVariant.formattedPrice}
           </p>
           {product.description && (
             <p className="leading-loose text-lightgray text-sm">
@@ -123,6 +119,7 @@ export const pageQuery = graphql`
           }
           variants {
             id
+            formattedPrice
             name
             retail_price
             splitName
