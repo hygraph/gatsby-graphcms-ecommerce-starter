@@ -4,93 +4,52 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       cms: { categories, collections, products },
     },
   } = await graphql(`
-    fragment ProductInfo on GraphCMS_Product {
-      id
-      name
-      price
-      images {
-        handle
-        width
-        height
-      }
-      reviews {
-        id
-        name
-        headline
-        rating
-        message
-        updatedAt
-      }
-    }
-
     {
       cms {
         categories {
-          id
-          title
           slug
-          products {
-            ...ProductInfo
-          }
         }
         collections {
-          id
-          title
           slug
-          products {
-            ...ProductInfo
-          }
         }
         products {
-          ...ProductInfo
+          id
         }
       }
     }
   `);
 
+  createPage({
+    path: `/`,
+    component: require.resolve(`../../templates/ProductsPage.js`),
+  });
+
   if (categories) {
-    categories.forEach(({ products, ...category }) =>
+    categories.forEach(({ slug }) =>
       createPage({
-        path: `/categories/${category.slug}`,
+        path: `/categories/${slug}`,
         component: require.resolve(`../../templates/CategoryPage.js`),
-        context: {
-          category,
-          products,
-        },
+        context: { slug },
       })
     );
   }
 
   if (collections) {
-    collections.forEach(({ products, ...collection }) =>
+    collections.forEach(({ slug }) =>
       createPage({
-        path: `/collections/${collection.slug}`,
+        path: `/collections/${slug}`,
         component: require.resolve(`../../templates/CollectionPage.js`),
-        context: {
-          collection,
-          products,
-        },
+        context: { slug },
       })
     );
   }
 
   if (products) {
-    createPage({
-      path: `/`,
-      component: require.resolve(`../../templates/ProductsPage.js`),
-      context: {
-        products,
-      },
-    });
-
-    products.forEach(({ reviews, ...product }) =>
+    products.forEach(({ id }) =>
       createPage({
-        path: `/products/${product.id}`,
+        path: `/products/${id}`,
         component: require.resolve(`../../templates/ProductPage.js`),
-        context: {
-          product,
-          reviews,
-        },
+        context: { id },
       })
     );
   }
