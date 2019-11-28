@@ -29,7 +29,7 @@ module.exports = {
         fieldName: `cms`,
         url: process.env.GRAPHCMS_ENDPOINT,
         headers: {
-          Authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
+          Authorization: `Bearer ${process.env.GRAPHCMS_QUERY_TOKEN}`,
         },
       },
     },

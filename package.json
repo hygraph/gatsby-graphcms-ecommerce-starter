@@ -8,6 +8,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
   "dependencies": {
+    "apollo-datasource-graphql": "1.3.2",
+    "apollo-server-lambda": "2.9.12",
     "classnames": "^2.2.6",
     "currency-formatter": "1.5.5",
     "gatsby": "2.17.0",

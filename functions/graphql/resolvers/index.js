@@ -1,15 +1,12 @@
+const order = require('./query/order');
+const checkout = require('./mutation/checkout');
+
 const resolvers = {
   Query: {
-    hello: (parent, args, context) => {
-      return 'Hello, world!';
-    },
+    order,
   },
   Mutation: {
-    checkout: async (root, args, context) => {
-      const order = await context.dataSources.GraphCMSAPI.createOrder(args);
-
-      return order;
-    },
+    checkout,
   },
 };
 

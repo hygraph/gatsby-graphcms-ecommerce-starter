@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-lambda');
 
 const typeDefs = gql`
   type Query {
-    hello: String
+    order(id: ID!): Order
   }
 
   type Mutation {

@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "pay",
-  "version": "1.0.0",
-  "dependencies": {
-    "stripe": "7.10.0"
-  }
-}
