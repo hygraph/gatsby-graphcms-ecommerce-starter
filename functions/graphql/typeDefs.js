@@ -7,6 +7,7 @@ const typeDefs = gql`
 
   type Mutation {
     checkout(name: String!, email: String!, total: Int!): Order
+    submitReview(input: SubmitReviewInput!): Review
   }
 
   type Order {
@@ -14,6 +15,18 @@ const typeDefs = gql`
     name: String!
     email: String
     total: Int!
+  }
+
+  type Review {
+    id: ID!
+  }
+
+  input SubmitReviewInput {
+    name: String!
+    headline: String!
+    rating: Int!
+    message: String
+    productId: ID!
   }
 `;
 
