@@ -8,11 +8,13 @@ function ProductPage({
     cms: { product },
   },
 }) {
+  const { variants } = product.printfulProduct;
+  const [, , , , , , , , , , , , , , , , , initialVariant] = variants;
   const [variantQuantity, setVariantQuantity] = useState(1);
-  const [activeVariantId, setActiveVariantId] = useState(null);
+  const [activeVariantId, setActiveVariantId] = useState(initialVariant.id);
   const { addItem } = useCart();
 
-  const activeVariant = product.printfulProduct.variants.find(
+  const activeVariant = variants.find(
     variant => variant.id === activeVariantId
   );
 
@@ -48,12 +50,10 @@ function ProductPage({
             </p>
           )}
           <select
+            defaultValue={activeVariantId}
             onChange={({ target: { value } }) => setActiveVariantId(value)}
           >
-            <option selected disabled>
-              Select an option
-            </option>
-            {product.printfulProduct.variants.map((variant, index) => (
+            {variants.map((variant, index) => (
               <option key={index} value={variant.id}>
                 {variant.splitName}
               </option>
