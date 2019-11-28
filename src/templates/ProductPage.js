@@ -2,19 +2,36 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { useCart } from 'react-use-cart';
+import queryString from 'query-string';
+import { navigate } from '@reach/router';
 
 function ProductPage({
   data: {
     cms: { product },
   },
+  location,
 }) {
+  const { variantId } = queryString.parse(location.search);
+  const { variants } = product.printfulProduct;
+  const [firstVariant] = variants;
   const [variantQuantity, setVariantQuantity] = useState(1);
-  const [activeVariantId, setActiveVariantId] = useState(null);
+  const [activeVariantId, setActiveVariantId] = useState(
+    variantId || firstVariant.id
+  );
   const { addItem } = useCart();
 
-  const activeVariant = product.printfulProduct.variants.find(
+  const activeVariant = variants.find(
     variant => variant.id === activeVariantId
   );
+
+  const firstVariantSelected = firstVariant === activeVariant;
+
+  if (firstVariantSelected) navigate(`?variantId=${activeVariantId}`);
+
+  const handleVariantChange = value => {
+    setActiveVariantId(value);
+    navigate(`?variantId=${value}`);
+  };
 
   return (
     <React.Fragment>
@@ -48,12 +65,10 @@ function ProductPage({
             </p>
           )}
           <select
-            onChange={({ target: { value } }) => setActiveVariantId(value)}
+            defaultValue={activeVariantId}
+            onChange={({ target: { value } }) => handleVariantChange(value)}
           >
-            <option selected disabled>
-              Select an option
-            </option>
-            {product.printfulProduct.variants.map((variant, index) => (
+            {variants.map((variant, index) => (
               <option key={index} value={variant.id}>
                 {variant.splitName}
               </option>
