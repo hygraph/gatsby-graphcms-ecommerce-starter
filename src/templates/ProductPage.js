@@ -9,7 +9,7 @@ function ProductPage({
   },
 }) {
   const { variants } = product.printfulProduct;
-  const [, , , , , , , , , , , , , , , , , initialVariant] = variants;
+  const [initialVariant] = variants;
   const [variantQuantity, setVariantQuantity] = useState(1);
   const [activeVariantId, setActiveVariantId] = useState(initialVariant.id);
   const { addItem } = useCart();
