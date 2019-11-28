@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 import React from 'react';
 import { CartProvider } from 'react-use-cart';
 import { GraphQLClient, ClientContext } from 'graphql-hooks';
