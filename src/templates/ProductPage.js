@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { useCart } from 'react-use-cart';
+import queryString from 'query-string';
 
 function ProductPage({
   data: {
     cms: { product },
   },
+  location,
 }) {
+  const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
-  const [initialVariant] = variants;
+  const [firstVariant] = variants;
   const [variantQuantity, setVariantQuantity] = useState(1);
-  const [activeVariantId, setActiveVariantId] = useState(initialVariant.id);
+  const [activeVariantId, setActiveVariantId] = useState(
+    variantId || firstVariant.id
+  );
   const { addItem } = useCart();
 
   const activeVariant = variants.find(
