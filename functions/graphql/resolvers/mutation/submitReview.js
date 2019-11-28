@@ -1,6 +1,6 @@
-const submitReviewResolver = async (_, args, ctx) => {
+const submitReviewResolver = async (_, { input }, ctx) => {
   try {
-    const review = await ctx.dataSources.GraphCMSAPI.submitReview(args);
+    const review = await ctx.dataSources.GraphCMSAPI.submitReview(input);
 
     return review;
   } catch (err) {
