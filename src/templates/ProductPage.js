@@ -10,6 +10,7 @@ function ProductPage({
     cms: { product },
   },
   location,
+  pageContext: { name, description },
 }) {
   const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
@@ -31,9 +32,7 @@ function ProductPage({
   return (
     <React.Fragment>
       <div className="mb-6">
-        <h1 className="font-bold text-6xl mb-3 text-slategray">
-          {product.name}
-        </h1>
+        <h1 className="font-bold text-6xl mb-3 text-slategray">{name}</h1>
         <hr className="border-b border-gainsboro w-10" />
       </div>
       <div className="md:flex -mx-4">
@@ -45,8 +44,8 @@ function ProductPage({
                   ? activeVariant.variantImage.childImageSharp.fluid
                   : product.printfulProduct.productImage.childImageSharp.fluid
               }
-              alt={product.name}
-              title={product.name}
+              alt={name}
+              title={name}
             />
           </div>
         </div>
@@ -56,7 +55,7 @@ function ProductPage({
           </p>
           {product.description && (
             <p className="leading-loose text-lightgray text-sm">
-              {product.description.markdown}
+              {description.markdown}
             </p>
           )}
           <select
@@ -94,7 +93,7 @@ function ProductPage({
                     id: activeVariant.id,
                     price: activeVariant.retail_price,
                     name: activeVariant.name,
-                    description: product.description.markdown,
+                    description: description.markdown,
                   },
                   variantQuantity
                 )
@@ -114,10 +113,6 @@ export const pageQuery = graphql`
   query ProductQuery($id: ID!) {
     cms {
       product(where: { id: $id }) {
-        description {
-          markdown
-        }
-        name
         printfulProductId
         printfulProduct {
           productImage {

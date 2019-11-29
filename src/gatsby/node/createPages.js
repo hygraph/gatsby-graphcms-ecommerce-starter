@@ -1,7 +1,10 @@
+const { buildLocalePath } = require('../../utils/gatsby-node-helpers');
+const locales = require('../../../config/locales');
+
 const createPages = async ({ graphql, actions: { createPage } }) => {
   const {
     data: {
-      cms: { categories, collections, products },
+      cms: { categories, collections, ...products },
     },
   } = await graphql(`
     {
@@ -12,8 +15,19 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         collections {
           slug
         }
-        products {
+        deProducts: products {
           id
+          description(locale: DE) {
+            markdown
+          }
+          name(locale: DE)
+        }
+        enProducts: products {
+          id
+          description(locale: EN) {
+            markdown
+          }
+          name(locale: EN)
         }
       }
     }
@@ -45,13 +59,24 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
   }
 
   if (products) {
-    products.forEach(({ id }) =>
-      createPage({
-        path: `/products/${id}`,
-        component: require.resolve(`../../templates/ProductPage.js`),
-        context: { id },
-      })
-    );
+    Object.entries(products).forEach(([key, pages]) => {
+      pages.forEach(({ id, ...page }) => {
+        const [localeKey, type] = key
+          .split(/(?=[A-Z])/)
+          .map(s => s.toLowerCase());
+
+        const locale = locales.find(locale => locale.path === localeKey);
+
+        createPage({
+          path: buildLocalePath({ locale, type, identifier: id }),
+          component: require.resolve(`../../templates/ProductPage.js`),
+          context: {
+            ...page,
+            id,
+          },
+        });
+      });
+    });
   }
 };
 
