@@ -60,7 +60,7 @@ function ProductPage({
             </p>
           )}
           <select
-            defaultValue={activeVariantId}
+            value={activeVariantId}
             onChange={({ target: { value } }) => setActiveVariantId(value)}
           >
             {variants.map((variant, index) => (
