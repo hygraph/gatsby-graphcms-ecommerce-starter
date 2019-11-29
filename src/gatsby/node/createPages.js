@@ -73,6 +73,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
           context: {
             ...page,
             id,
+            locale: locale.path,
           },
         });
       });
