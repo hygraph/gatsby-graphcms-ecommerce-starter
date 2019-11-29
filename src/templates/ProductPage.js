@@ -24,9 +24,7 @@ function ProductPage({
     variant => variant.id === activeVariantId
   );
 
-  const firstVariantSelected = firstVariant.id === activeVariantId;
-
-  if (firstVariantSelected) navigate(`?variantId=${activeVariantId}`);
+  if (!variantId) navigate(`?variantId=${activeVariantId}`);
 
   const handleVariantChange = value => {
     setActiveVariantId(value);
