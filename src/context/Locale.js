@@ -5,14 +5,14 @@ const LocaleContext = createContext();
 function reducer(state, { type, locale }) {
   switch (type) {
     case 'UPDATE_LOCALE':
-      return { ...state, locale };
+      return { ...state, activeLocale: locale };
     default:
       throw new Error('Invalid action');
   }
 }
 
 function LocaleProvider({ children, locale = 'en' }) {
-  const [state, dispatch] = useReducer(reducer, { locale: 'en' });
+  const [state, dispatch] = useReducer(reducer, { activeLocale: 'en' });
 
   useEffect(() => {
     updateLocale(locale);
