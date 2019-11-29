@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { useCart } from 'react-use-cart';
@@ -24,12 +24,9 @@ function ProductPage({
     variant => variant.id === activeVariantId
   );
 
-  if (!variantId) navigate(`?variantId=${activeVariantId}`);
-
-  const handleVariantChange = value => {
-    setActiveVariantId(value);
-    navigate(`?variantId=${value}`);
-  };
+  useEffect(() => {
+    navigate(`?variantId=${activeVariantId}`);
+  }, [activeVariantId]);
 
   return (
     <React.Fragment>
@@ -64,7 +61,7 @@ function ProductPage({
           )}
           <select
             defaultValue={activeVariantId}
-            onChange={({ target: { value } }) => handleVariantChange(value)}
+            onChange={({ target: { value } }) => setActiveVariantId(value)}
           >
             {variants.map((variant, index) => (
               <option key={index} value={variant.id}>
