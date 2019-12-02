@@ -26,8 +26,20 @@ function Header() {
   return (
     <header className="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-between border-b border-gainsboro">
       <div className="container mx-auto p-6 w-full">
-        <nav className="flex md:items-center justify-between flex-wrap">
-          <ul className="text-sm md:flex-grow">
+        <nav className="md:flex md:items-center md:justify-between flex-wrap">
+          <div className="md:flex md:items-center">
+            <Link to="/">
+              <svg
+                className="fill-current text-primary w-5"
+                viewBox="0 0 94 144"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
+              </svg>
+            </Link>
+          </div>
+
+          <ul className="text-sm md:flex-grow md:ml-4">
             <li className="block my-4 md:inline-block md:my-0">
               <Link className="text-slategray hover:text-primary mr-4" to="/">
                 Catalog
