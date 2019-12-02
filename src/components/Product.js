@@ -6,7 +6,7 @@ function Product({ id, name, printfulProduct }) {
   const [{ formattedPrice }] = printfulProduct.variants;
 
   return (
-    <article key={id} className="px-6 py-3 w-full md:p-6 md:w-1/2 lg:w-1/3">
+    <article key={id} className="px-6 py-3 w-full md:p-6 md:w-1/2">
       <Link to={`/products/${id}`} className="no-underline w-full h-full block">
         <div className="cursor-pointer w-full overflow-hidden relative p-3 bg-gainsboro">
           <Img
