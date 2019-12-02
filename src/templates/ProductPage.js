@@ -10,7 +10,6 @@ function ProductPage({
     cms: { product },
   },
   location,
-  pageContext: { name, description },
 }) {
   const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
@@ -32,7 +31,9 @@ function ProductPage({
   return (
     <React.Fragment>
       <div className="mb-6">
-        <h1 className="font-bold text-6xl mb-3 text-slategray">{name}</h1>
+        <h1 className="font-bold text-6xl mb-3 text-slategray">
+          {product.name}
+        </h1>
         <hr className="border-b border-gainsboro w-10" />
       </div>
       <div className="md:flex -mx-4">
@@ -44,8 +45,8 @@ function ProductPage({
                   ? activeVariant.variantImage.childImageSharp.fluid
                   : product.printfulProduct.productImage.childImageSharp.fluid
               }
-              alt={name}
-              title={name}
+              alt={product.name}
+              title={product.name}
             />
           </div>
         </div>
@@ -55,7 +56,7 @@ function ProductPage({
           </p>
           {product.description && (
             <p className="leading-loose text-lightgray text-sm">
-              {description.markdown}
+              {product.description.markdown}
             </p>
           )}
           <select
@@ -93,7 +94,7 @@ function ProductPage({
                     id: activeVariant.id,
                     price: activeVariant.retail_price,
                     name: activeVariant.name,
-                    description: description.markdown,
+                    description: product.description.markdown,
                   },
                   variantQuantity
                 )
@@ -110,9 +111,13 @@ function ProductPage({
 }
 
 export const pageQuery = graphql`
-  query ProductQuery($id: ID!) {
+  query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
     cms {
       product(where: { id: $id }) {
+        description(locale: $locale) {
+          markdown
+        }
+        name(locale: $locale)
         printfulProductId
         printfulProduct {
           productImage {

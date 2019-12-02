@@ -4,7 +4,7 @@ const locales = require('../../../config/locales');
 const createPages = async ({ graphql, actions: { createPage } }) => {
   const {
     data: {
-      cms: { categories, collections, ...products },
+      cms: { categories, collections, products },
     },
   } = await graphql(`
     {
@@ -15,19 +15,8 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         collections {
           slug
         }
-        deProducts: products {
+        products {
           id
-          description(locale: DE) {
-            markdown
-          }
-          name(locale: DE)
-        }
-        enProducts: products {
-          id
-          description(locale: EN) {
-            markdown
-          }
-          name(locale: EN)
         }
       }
     }
@@ -59,21 +48,14 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
   }
 
   if (products) {
-    Object.entries(products).forEach(([key, pages]) => {
-      pages.forEach(({ id, ...page }) => {
-        const [localeKey, type] = key
-          .split(/(?=[A-Z])/)
-          .map(s => s.toLowerCase());
-
-        const locale = locales.find(locale => locale.path === localeKey);
-
+    locales.map(locale => {
+      products.forEach(({ id }) => {
         createPage({
-          path: buildLocalePath({ locale, type, identifier: id }),
+          path: buildLocalePath({ locale, type: 'products', identifier: id }),
           component: require.resolve(`../../templates/ProductPage.js`),
           context: {
-            ...page,
             id,
-            locale: locale.path,
+            locale: locale.path.toUpperCase(),
           },
         });
       });
