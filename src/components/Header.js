@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
+import { useCart } from 'react-use-cart';
 
 const query = graphql`
   query NavQuery {
@@ -22,6 +23,8 @@ function Header() {
   const {
     cms: { categories, collections },
   } = useStaticQuery(query);
+
+  const { isEmpty, totalItems } = useCart();
 
   return (
     <header className="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-between border-b border-gainsboro">
@@ -76,7 +79,13 @@ function Header() {
           </ul>
 
           <div>
-            <Link to="/cart">
+            <Link to="/cart" className="flex items-center">
+              {!isEmpty && (
+                <span className="flex items-center justify-center mr-3 text-white text-xs w-5 h-5 bg-slategray rounded">
+                  {totalItems}
+                </span>
+              )}
+
               <span className="text-primary">
                 <svg
                   className="fill-current w-4"
