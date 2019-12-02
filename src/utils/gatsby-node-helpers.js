@@ -1,8 +1,4 @@
 exports.buildLocalePath = ({
-  locale: { default: isDefault = false, path },
-  type,
-  identifier,
-}) =>
-  isDefault
-    ? `/${type}/${identifier}`
-    : `/${path.toLowerCase()}/${type}/${identifier}`;
+  locale: { default: isDefault = false, path: localePath },
+  path,
+}) => (isDefault ? `${path}` : `/${localePath.toLowerCase()}${path}`);
