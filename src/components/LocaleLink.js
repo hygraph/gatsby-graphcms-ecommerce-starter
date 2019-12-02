@@ -9,7 +9,9 @@ function LocaleLink({ children, props, to }) {
 
   const currentLocale = locales.find(({ path }) => path === activeLocale);
 
-  const path = currentLocale.default ? to : `/${currentLocale.path}${to}`;
+  const path = currentLocale.default
+    ? to
+    : `/${currentLocale.path.toLowerCase()}${to}`;
 
   return (
     <Link {...props} to={path}>

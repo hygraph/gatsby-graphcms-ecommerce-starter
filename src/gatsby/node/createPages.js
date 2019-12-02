@@ -55,7 +55,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
           component: require.resolve(`../../templates/ProductPage.js`),
           context: {
             id,
-            locale: locale.path.toUpperCase(),
+            locale: locale.path,
           },
         });
       });

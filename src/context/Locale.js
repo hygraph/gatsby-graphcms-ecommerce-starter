@@ -11,8 +11,8 @@ function reducer(state, { type, locale }) {
   }
 }
 
-function LocaleProvider({ children, locale = 'en' }) {
-  const [state, dispatch] = useReducer(reducer, { activeLocale: 'en' });
+function LocaleProvider({ children, locale = 'EN' }) {
+  const [state, dispatch] = useReducer(reducer, { activeLocale: 'EN' });
 
   useEffect(() => {
     updateLocale(locale);
