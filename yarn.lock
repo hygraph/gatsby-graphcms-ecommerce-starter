@@ -10528,6 +10528,13 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.11, postcss@^7.0.14, postcss@^7.0.1
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+postmark@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/postmark/-/postmark-2.3.4.tgz#1ad0341360a0b3cbc4fb9e3a04dcc87e73ed63bb"
+  integrity sha512-pL4rVAF2pLkBZnZS2zIuqI7IhtiNLy6WQ7BeCSEp4bE3uHIqcb9+DmzCQsN4DYNPh47ZzNczK90rrlE9eAu3kg==
+  dependencies:
+    request "^2.88.0"
+
 potrace@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/potrace/-/potrace-2.1.2.tgz#61473a326be1e734abac6d14d54e1880eed35471"
@@ -11270,7 +11277,7 @@ replace-ext@^1.0.0:
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
 
-request@^2.83.0:
+request@^2.83.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
