@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
+
+import LocaleContext from '../context/Locale';
+import locales from '../../config/locales';
 
 const query = graphql`
   query NavQuery {
@@ -22,6 +25,7 @@ function Header() {
   const {
     cms: { categories, collections },
   } = useStaticQuery(query);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
 
   return (
     <header className="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-between border-b border-gainsboro">
@@ -62,7 +66,16 @@ function Header() {
               </li>
             ))}
           </ul>
-
+          <select
+            value={activeLocale}
+            onChange={({ target: { value } }) => updateLocale(value)}
+          >
+            {locales.map(({ locale, path }, index) => (
+              <option key={index} value={path}>
+                {locale}
+              </option>
+            ))}
+          </select>
           <div>
             <Link to="/cart">
               <span className="text-primary">
