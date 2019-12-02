@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 
 import LocaleContext from '../context/Locale';
+import LocaleLink from './LocaleLink';
 import locales from '../../config/locales';
 
 const query = graphql`
@@ -33,9 +34,12 @@ function Header() {
         <nav className="flex md:items-center justify-between flex-wrap">
           <ul className="text-sm md:flex-grow">
             <li className="block my-4 md:inline-block md:my-0">
-              <Link className="text-slategray hover:text-primary mr-4" to="/">
+              <LocaleLink
+                to="/"
+                className="text-slategray hover:text-primary mr-4"
+              >
                 Catalog
-              </Link>
+              </LocaleLink>
             </li>
 
             {categories.map(category => (
