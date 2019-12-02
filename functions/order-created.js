@@ -20,7 +20,8 @@ exports.handler = async event => {
   try {
     const {
       id,
-      billing: { name, email: to },
+      email: to,
+      billingAddress: { name },
     } = responseData;
 
     await postmark.sendEmailBatchWithTemplates([
