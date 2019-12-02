@@ -72,6 +72,7 @@ function ProductPage({
           <div>
             <select
               className="mx-4 w-2/6"
+              value={variantQuantity}
               onChange={({ target: { value } }) => setVariantQuantity(value)}
             >
               {new Array(5)
