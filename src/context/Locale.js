@@ -1,4 +1,10 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+} from 'react';
+import { navigate } from '@reach/router';
 
 import locales from '../../config/locales';
 
@@ -15,16 +21,27 @@ function reducer(state, { type, locale }) {
 
 const defaultLocale = locales.find(locale => locale.default);
 
-function LocaleProvider({ children, locale = defaultLocale.path }) {
+function LocaleProvider({ children, locale = defaultLocale.path, location }) {
   const [state, dispatch] = useReducer(reducer, { activeLocale: locale });
+
+  const [, , resourcePath, identifierPath] = location.pathname.split('/');
+
+  const updateLocale = useCallback(
+    locale => {
+      dispatch({ type: 'UPDATE_LOCALE', locale });
+
+      navigate(
+        `/${locale.toLowerCase()}${resourcePath ? `/${resourcePath}` : '/'}${
+          identifierPath ? `/${identifierPath}` : ''
+        }`
+      );
+    },
+    [identifierPath, resourcePath]
+  );
 
   useEffect(() => {
     updateLocale(locale);
-  }, [locale]);
-
-  function updateLocale(locale) {
-    dispatch({ type: 'UPDATE_LOCALE', locale });
-  }
+  }, [locale, updateLocale]);
 
   return (
     <LocaleContext.Provider
