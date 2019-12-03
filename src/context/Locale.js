@@ -33,10 +33,10 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
       navigate(
         `/${locale.toLowerCase()}${resourcePath ? `/${resourcePath}` : '/'}${
           identifierPath ? `/${identifierPath}` : ''
-        }`
+        }${location.search ? `/${location.search}` : ''}`
       );
     },
-    [identifierPath, resourcePath]
+    [identifierPath, location.search, resourcePath]
   );
 
   useEffect(() => {
