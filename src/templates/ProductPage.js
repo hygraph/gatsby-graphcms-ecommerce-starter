@@ -93,6 +93,7 @@ function ProductPage({
                   {
                     id: activeVariant.id,
                     price: activeVariant.retail_price,
+                    image: activeVariant.variantImage,
                     name: activeVariant.name,
                     description: product.description.markdown,
                   },

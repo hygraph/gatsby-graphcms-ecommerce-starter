@@ -5,13 +5,13 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       white: '#fff',
-      primary: 'rgb(105, 54, 180)',
+      primary: '#5828e8',
       gainsboro: 'rgba(0, 0, 0, 0.05)',
       lightgray: 'rgba(0, 0, 0, 0.5)',
-      slategray: 'rgba(0, 0, 0, 0.8)',
+      slategray: '#101b42',
     },
     fontFamily: {
-      sans: ['Roboto', ...fontFamily.sans],
+      sans: ['Inter', ...fontFamily.sans],
     },
     extend: {
       spacing: {
