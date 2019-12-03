@@ -2,16 +2,13 @@ import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 
 import LocaleContext from '../context/Locale';
-import locales from '../../config/locales';
 
 function LocaleLink({ children, to, ...props }) {
   const { activeLocale } = useContext(LocaleContext);
 
-  const currentLocale = locales.find(({ path }) => path === activeLocale);
-
-  const path = currentLocale.default
+  const path = ['cart'].includes(to)
     ? to
-    : `/${currentLocale.path.toLowerCase()}${to}`;
+    : `/${activeLocale.toLowerCase()}${to}`;
 
   return (
     <Link {...props} to={path}>
