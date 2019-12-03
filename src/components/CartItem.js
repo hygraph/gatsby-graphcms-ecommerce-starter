@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCart } from 'react-use-cart';
-// import Img from 'graphcms-image';
+import Img from 'gatsby-image';
 
 function CartItem({ id, name, quantity, price, image }) {
   const { updateItemQuantity, removeItem } = useCart();
@@ -24,8 +24,13 @@ function CartItem({ id, name, quantity, price, image }) {
   return (
     <div key={id} className="md:flex md:items-center py-3 md:py-6">
       <div className="md:w-2/3 flex items-center">
-        <div className="w-16 md:w-20 h-16 md:h-20 bg-gainsboro p-2 flex items-center justify-center mr-3 lg:mr-6 relative rounded">
-          {/* <Img fluid={image} alt={name} title={name} /> */}
+        <div className="mr-3 lg:mr-6 relative">
+          <Img
+            className="h-16 md:h-20 w-16 md:w-20"
+            fluid={image.childImageSharp.fluid}
+            alt={name}
+            title={name}
+          />
           <button
             className="w-5 h-5 bg-slategray hover:bg-primary text-white text-xs flex items-center justify-center absolute top-0 right-0 -mt-1 -mr-1 rounded"
             onClick={remove}
