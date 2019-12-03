@@ -24,19 +24,29 @@ const defaultLocale = locales.find(locale => locale.default);
 function LocaleProvider({ children, locale = defaultLocale.path, location }) {
   const [state, dispatch] = useReducer(reducer, { activeLocale: locale });
 
-  const [, , resourcePath, identifierPath] = location.pathname.split('/');
-
   const updateLocale = useCallback(
     locale => {
-      dispatch({ type: 'UPDATE_LOCALE', locale });
+      if (locale === state.activeLocale) return;
 
-      navigate(
-        `/${locale.toLowerCase()}${resourcePath ? `/${resourcePath}` : '/'}${
-          identifierPath ? `/${identifierPath}` : ''
-        }${location.search ? `/${location.search}` : ''}`
-      );
+      ['cart'].forEach(key => {
+        if (!location.pathname.includes(key)) {
+          dispatch({ type: 'UPDATE_LOCALE', locale });
+
+          const [, , resourcePath, identifierPath] = location.pathname.split(
+            '/'
+          );
+
+          navigate(
+            `/${locale.toLowerCase()}${
+              resourcePath ? `/${resourcePath}` : '/'
+            }${identifierPath ? `/${identifierPath}` : ''}${
+              location.search ? `/${location.search}` : ''
+            }`
+          );
+        }
+      });
     },
-    [identifierPath, location.search, resourcePath]
+    [location.pathname, location.search]
   );
 
   useEffect(() => {

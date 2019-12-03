@@ -6,12 +6,8 @@ import LocaleContext from '../context/Locale';
 function LocaleLink({ children, to, ...props }) {
   const { activeLocale } = useContext(LocaleContext);
 
-  const path = ['cart'].includes(to)
-    ? to
-    : `/${activeLocale.toLowerCase()}${to}`;
-
   return (
-    <Link {...props} to={path}>
+    <Link {...props} to={`/${activeLocale.toLowerCase()}${to}`}>
       {children}
     </Link>
   );
