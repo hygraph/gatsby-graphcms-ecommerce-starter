@@ -36,7 +36,7 @@ function Header() {
       <div className="container mx-auto p-6 w-full">
         <nav className="md:flex md:items-center md:justify-between flex-wrap">
           <div className="md:flex md:items-center">
-            <Link to="/">
+            <LocaleLink to="/">
               <svg
                 className="fill-current text-primary w-5"
                 viewBox="0 0 94 144"
@@ -44,7 +44,7 @@ function Header() {
               >
                 <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
               </svg>
-            </Link>
+            </LocaleLink>
           </div>
 
           <ul className="text-sm md:flex-grow md:ml-4">
@@ -62,12 +62,12 @@ function Header() {
                 key={category.id}
                 className="block my-4 md:inline-block md:my-0"
               >
-                <Link
+                <LocaleLink
                   className="text-slategray hover:text-primary mr-4"
                   to={`/categories/${category.slug}`}
                 >
                   {category.name}
-                </Link>
+                </LocaleLink>
               </li>
             ))}
 
@@ -76,12 +76,12 @@ function Header() {
                 key={collection.id}
                 className="block my-4 md:inline-block md:my-0"
               >
-                <Link
+                <LocaleLink
                   className="text-slategray hover:text-primary mr-4"
                   to={`/collections/${collection.slug}`}
                 >
                   {collection.name}
-                </Link>
+                </LocaleLink>
               </li>
             ))}
           </ul>
