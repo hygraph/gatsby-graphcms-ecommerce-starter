@@ -11,7 +11,7 @@ function CollectionPage({
   return (
     <React.Fragment>
       <h1 className="font-bold text-6xl mb-3 text-slategray">
-        {collection.title}
+        {collection.name}
       </h1>
 
       <hr className="border-b border-gainsboro w-10" />
@@ -25,7 +25,7 @@ export const pageQuery = graphql`
   query CollectionQuery($slug: String!) {
     cms {
       collection(where: { slug: $slug }) {
-        title
+        name
         slug
         products {
           id

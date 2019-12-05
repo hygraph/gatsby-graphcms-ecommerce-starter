@@ -11,13 +11,13 @@ const query = graphql`
     cms {
       categories {
         id
+        name
         slug
-        title
       }
       collections {
         id
+        name
         slug
-        title
       }
     }
   }
@@ -66,7 +66,7 @@ function Header() {
                   className="text-slategray hover:text-primary mr-4"
                   to={`/categories/${category.slug}`}
                 >
-                  {category.title}
+                  {category.name}
                 </Link>
               </li>
             ))}
@@ -80,7 +80,7 @@ function Header() {
                   className="text-slategray hover:text-primary mr-4"
                   to={`/collections/${collection.slug}`}
                 >
-                  {collection.title}
+                  {collection.name}
                 </Link>
               </li>
             ))}
