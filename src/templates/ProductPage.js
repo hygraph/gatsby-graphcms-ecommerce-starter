@@ -30,15 +30,9 @@ function ProductPage({
 
   return (
     <React.Fragment>
-      <div className="mb-6">
-        <h1 className="font-bold text-6xl mb-3 text-slategray">
-          {product.name}
-        </h1>
-        <hr className="border-b border-gainsboro w-10" />
-      </div>
       <div className="md:flex -mx-4">
-        <div className="mb-8 px-4 md:mb-0 md:w-2/5">
-          <div className="cursor-pointer w-full overflow-hidden relative p-3 bg-gainsboro">
+        <div className="mb-8 px-4 md:mb-0 md:w-1/2">
+          <div className="cursor-pointer w-full overflow-hidden relative p-px bg-gainsboro rounded">
             <Img
               fluid={
                 activeVariant
@@ -47,48 +41,112 @@ function ProductPage({
               }
               alt={product.name}
               title={product.name}
+              className="rounded"
             />
           </div>
         </div>
-        <div className="px-4 md:w-3/5">
-          <p className="font-semibold text-2xl">
-            {activeVariant && activeVariant.formattedPrice}
-          </p>
-          {product.description && (
-            <p className="leading-loose text-lightgray text-sm">
-              {product.description.markdown}
+
+        <div className="px-4 md:w-1/2">
+          <div className="mb-6">
+            <h1 className="font-bold text-3xl md:text-6xl mb-3 text-slategray">
+              {product.name}
+            </h1>
+            <hr className="border-b border-gainsboro w-10" />
+          </div>
+
+          <div className="mb-6">
+            <p className="font-semibold text-2xl text-primary">
+              {activeVariant && activeVariant.formattedPrice}
             </p>
+          </div>
+
+          {product.description && (
+            <div className="mb-6">
+              <p className="leading-loose text-lightgray text-sm">
+                {product.description.markdown}
+              </p>
+            </div>
           )}
-          <select
-            value={activeVariantId}
-            onChange={({ target: { value } }) => setActiveVariantId(value)}
-          >
-            {variants.map((variant, index) => (
-              <option key={index} value={variant.id}>
-                {variant.splitName}
-              </option>
-            ))}
-          </select>
-          <div>
-            <select
-              className="mx-4 w-2/6"
-              value={variantQuantity}
-              onChange={({ target: { value } }) => setVariantQuantity(value)}
-            >
-              {new Array(5)
-                .fill(0)
-                .map((v, k) => k + 1)
-                .map(i => ({ value: i, label: i }))
-                .map(({ value, label }) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-            </select>
+          <div className="md:flex md:flex-wrap -mx-3">
+            <div className="md:w-3/4 px-3 mb-6">
+              <label
+                className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
+                htmlFor="style"
+              >
+                Style
+              </label>
+
+              <div className="relative">
+                <select
+                  id="style"
+                  value={activeVariantId}
+                  onChange={({ target: { value } }) =>
+                    setActiveVariantId(value)
+                  }
+                  className="block appearance-none w-full bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                >
+                  {variants.map((variant, index) => (
+                    <option key={index} value={variant.id}>
+                      {variant.splitName}
+                    </option>
+                  ))}
+                </select>
+
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div className="md:w-1/4 px-3 mb-6">
+              <label
+                className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
+                htmlFor="quantity"
+              >
+                Quantity
+              </label>
+
+              <div className="relative">
+                <select
+                  id="quantity"
+                  value={variantQuantity}
+                  className="block appearance-none w-full bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                  onChange={({ target: { value } }) =>
+                    setVariantQuantity(value)
+                  }
+                >
+                  {new Array(5)
+                    .fill(0)
+                    .map((v, k) => k + 1)
+                    .map(i => ({ value: i, label: i }))
+                    .map(({ value, label }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                </select>
+
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mb-6">
             <button
-              className={`bg-primary px-4 py-2 rounded text-white ${
-                !activeVariant ? 'opacity-50' : 'opacity-100'
-              }`}
+              className="block w-full bg-primary px-4 py-3 rounded text-white text-xs font-bold tracking-widest uppercase"
               onClick={() =>
                 addItem(
                   {
