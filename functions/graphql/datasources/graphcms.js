@@ -19,6 +19,9 @@ const createOrderMutation = gql`
       name
       email
       total
+      billingAddress {
+        name
+      }
     }
   }
 `;

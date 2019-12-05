@@ -6,7 +6,7 @@ import CartItem from './CartItem';
 function CartItemList() {
   const { items } = useCart();
 
-  return <div>{items.map(CartItem)}</div>;
+  return <div className="py-3">{items.map(CartItem)}</div>;
 }
 
 export default CartItemList;
