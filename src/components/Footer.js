@@ -36,6 +36,7 @@ function Footer() {
                 <a
                   href="https://github.com/graphcms/gatsby-graphcms-ecommere-starter"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
                   <span className="text-slategray group-hover:text-primary">
@@ -55,6 +56,7 @@ function Footer() {
                 <a
                   href="http://slack.graphcms.com"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
                   <span className="text-slategray group-hover:text-primary">
@@ -131,6 +133,7 @@ function Footer() {
                 <a
                   href="https://twitter.com/graphcms"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-slategray hover:text-primary text-sm"
                 >
                   <svg
@@ -147,6 +150,7 @@ function Footer() {
                 <a
                   href="https://www.linkedin.com/company/graphcms"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-slategray hover:text-primary text-sm"
                 >
                   <svg
@@ -162,6 +166,7 @@ function Footer() {
                 <a
                   href="https://www.facebook.com/GraphCMS"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-slategray hover:text-primary text-sm"
                 >
                   <svg
