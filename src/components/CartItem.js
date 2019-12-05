@@ -24,7 +24,7 @@ function CartItem({ id, name, quantity, price, image }) {
   return (
     <div
       key={id}
-      className="bg-white shadow rounded md:flex md:items-center py-3 md:py-6 px-3"
+      className="bg-gainsboro rounded md:flex md:items-center py-3 md:py-6 px-3 md:px-6"
     >
       <div className="md:w-2/3 flex items-center">
         <div className="mr-3 lg:mr-6 relative">

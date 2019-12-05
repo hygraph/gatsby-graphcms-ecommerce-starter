@@ -11,7 +11,7 @@ body,
 }
 
 html {
-  @apply bg-white font-sans text-lg;
+  @apply bg-white font-sans;
 }
 
 .site-nav {

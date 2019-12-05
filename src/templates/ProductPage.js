@@ -30,7 +30,7 @@ function ProductPage({
 
   return (
     <React.Fragment>
-      <div className="p-3 md:p-6 bg-white shadow rounded">
+      <div className="md:p-6 md:bg-gainsboro md:rounded">
         <div className="lg:flex -mx-6">
           <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
             <div className="w-full overflow-hidden relative">
@@ -59,7 +59,7 @@ function ProductPage({
 
             {product.description && (
               <div className="mb-6">
-                <p className="leading-loose text-lightgray text-sm">
+                <p className="leading-loose text-lightgray">
                   {product.description.markdown}
                 </p>
               </div>
@@ -67,7 +67,7 @@ function ProductPage({
             <div className="md:flex md:flex-wrap -mx-3">
               <div className="md:w-3/4 px-3 mb-6">
                 <label
-                  className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
+                  className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
                   htmlFor="style"
                 >
                   Style
@@ -80,7 +80,7 @@ function ProductPage({
                     onChange={({ target: { value } }) =>
                       setActiveVariantId(value)
                     }
-                    className="block appearance-none w-full bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                    className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
                   >
                     {variants.map((variant, index) => (
                       <option key={index} value={variant.id}>
@@ -89,7 +89,7 @@ function ProductPage({
                     ))}
                   </select>
 
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slategray">
                     <svg
                       className="fill-current h-4 w-4"
                       xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ function ProductPage({
 
               <div className="md:w-1/4 px-3 mb-6">
                 <label
-                  className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
+                  className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
                   htmlFor="quantity"
                 >
                   Quantity
@@ -113,7 +113,7 @@ function ProductPage({
                   <select
                     id="quantity"
                     value={variantQuantity}
-                    className="block appearance-none w-full bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                    className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
                     onChange={({ target: { value } }) =>
                       setVariantQuantity(value)
                     }
@@ -129,7 +129,7 @@ function ProductPage({
                       ))}
                   </select>
 
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slategray">
                     <svg
                       className="fill-current h-4 w-4"
                       xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +143,7 @@ function ProductPage({
             </div>
             <div className="mb-6">
               <button
-                className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-xs font-bold tracking-widest uppercase"
+                className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase"
                 onClick={() =>
                   addItem(
                     {

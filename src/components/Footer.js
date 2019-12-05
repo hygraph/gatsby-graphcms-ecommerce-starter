@@ -3,11 +3,11 @@ import { Link } from 'gatsby';
 
 function Footer() {
   return (
-    <div className="bg-white py-6 md:py-12">
-      <div className="container mx-auto px-6">
+    <div className="container mx-auto px-6">
+      <div className="border-t-2 border-gainsboro py-6 md:py-12">
         <div className="md:flex -mx-3">
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-4">
+            <h4 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">
               SWAG Store
             </h4>
 
@@ -23,7 +23,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
+            <h4 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">
               DIY Commerce
             </h4>
 
@@ -73,7 +73,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
+            <h4 className="text-primary text-sm font-bold tracking-widest uppercase mb-3">
               Legal
             </h4>
             <ul>
@@ -107,7 +107,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
+            <h4 className="text-primary text-sm font-bold tracking-widest uppercase mb-3">
               Keep updated
             </h4>
             <ul className="mb-5">
