@@ -21,17 +21,17 @@ function CollectionPage({
 }
 
 export const pageQuery = graphql`
-  query CollectionQuery($slug: String!) {
+  query CollectionQuery($slug: String!, $locale: GraphCMS_Locale!) {
     cms {
       collection(where: { slug: $slug }) {
-        name
+        name(locale: $locale)
         slug
         products {
           id
-          description {
+          description(locale: $locale) {
             markdown
           }
-          name
+          name(locale: $locale)
           printfulProductId
           printfulProduct {
             productImage {

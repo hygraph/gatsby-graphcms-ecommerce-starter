@@ -36,15 +36,15 @@ function Header() {
     <header className="bg-white md:shadow md:sticky md:top-0 md:z-10 w-full block flex-grow flex items-center w-auto justify-between">
       <div className="container mx-auto p-6 w-full">
         <nav className="flex items-center justify-between flex-wrap">
-          <Link to="/">
-            <svg
-              className="fill-current text-primary w-5"
-              viewBox="0 0 94 144"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
-            </svg>
-          </Link>
+            <LocaleLink to="/">
+              <svg
+                className="fill-current text-primary w-5"
+                viewBox="0 0 94 144"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
+              </svg>
+            </LocaleLink>
 
           <ul className="hidden md:block text-sm md:flex-grow md:ml-4">
             <li className="block my-4 md:inline-block md:my-0">
@@ -61,12 +61,12 @@ function Header() {
                 key={category.id}
                 className="block my-4 md:inline-block md:my-0"
               >
-                <Link
+                <LocaleLink
                   className="text-slategray hover:text-primary mr-4"
                   to={`/categories/${category.slug}`}
                 >
                   {category.name}
-                </Link>
+                </LocaleLink>
               </li>
             ))}
 
@@ -75,27 +75,39 @@ function Header() {
                 key={collection.id}
                 className="block my-4 md:inline-block md:my-0"
               >
-                <Link
+                <LocaleLink
                   className="text-slategray hover:text-primary mr-4"
                   to={`/collections/${collection.slug}`}
                 >
                   {collection.name}
-                </Link>
+                </LocaleLink>
               </li>
             ))}
           </ul>
 
           <div className="flex">
-            <select
-              value={activeLocale}
-              onChange={({ target: { value } }) => updateLocale(value)}
-            >
-              {locales.map(({ locale, path }, index) => (
-                <option key={index} value={path}>
-                  {locale}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={activeLocale}
+                className="block appearance-none bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                onChange={({ target: { value } }) => updateLocale(value)}
+              >
+                {locales.map(({ label, path }, index) => (
+                  <option key={index} value={path}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
 
             <div className="ml-3">
               <Link to="/cart" className="flex items-center relative">
