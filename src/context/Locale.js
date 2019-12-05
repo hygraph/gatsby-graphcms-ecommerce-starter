@@ -35,11 +35,13 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
     locale => {
       dispatch({ type: 'UPDATE_LOCALE', locale });
 
-      const path = location.pathname.substring(4);
-
-      navigate(`/${locale.toLowerCase()}/${path}`);
+      navigate(
+        `/${locale.toLowerCase()}${location.pathname.substring(3)}${
+          location.search
+        }`
+      );
     },
-    [location.pathname]
+    [location.pathname, location.search]
   );
 
   useEffect(() => {
