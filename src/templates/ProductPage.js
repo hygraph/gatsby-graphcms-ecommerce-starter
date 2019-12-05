@@ -25,144 +25,142 @@ function ProductPage({
   );
 
   useEffect(() => {
-    navigate(`?variantId=${activeVariantId}`);
+    navigate(`?variantId=${activeVariantId}`, { replace: true });
   }, [activeVariantId]);
 
   return (
     <React.Fragment>
-      <div className="md:flex -mx-4">
-        <div className="mb-8 px-4 md:mb-0 md:w-1/2">
-          <div className="cursor-pointer w-full overflow-hidden relative p-px bg-gainsboro rounded">
-            <Img
-              fluid={
-                activeVariant
-                  ? activeVariant.variantImage.childImageSharp.fluid
-                  : product.printfulProduct.productImage.childImageSharp.fluid
-              }
-              alt={product.name}
-              title={product.name}
-              className="rounded"
-            />
+      <div className="md:p-6 md:bg-gainsboro md:rounded">
+        <div className="lg:flex -mx-6">
+          <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
+            <div className="w-full overflow-hidden relative">
+              <Img
+                fluid={
+                  activeVariant
+                    ? activeVariant.variantImage.childImageSharp.fluid
+                    : product.printfulProduct.productImage.childImageSharp.fluid
+                }
+                alt={product.name}
+                title={product.name}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="px-4 md:w-1/2">
-          <div className="mb-6">
-            <h1 className="font-bold text-3xl md:text-6xl mb-3 text-slategray">
+          <div className="px-6 md:py-3 lg:w-1/2">
+            <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary leading-tight">
               {product.name}
             </h1>
-            <hr className="border-b border-gainsboro w-10" />
-          </div>
 
-          <div className="mb-6">
-            <p className="font-semibold text-2xl text-primary">
-              {activeVariant && activeVariant.formattedPrice}
-            </p>
-          </div>
-
-          {product.description && (
             <div className="mb-6">
-              <p className="leading-loose text-lightgray text-sm">
-                {product.description.markdown}
+              <p className="font-semibold text-2xl text-slategray">
+                {activeVariant && activeVariant.formattedPrice}
               </p>
             </div>
-          )}
-          <div className="md:flex md:flex-wrap -mx-3">
-            <div className="md:w-3/4 px-3 mb-6">
-              <label
-                className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
-                htmlFor="style"
-              >
-                Style
-              </label>
 
-              <div className="relative">
-                <select
-                  id="style"
-                  value={activeVariantId}
-                  onChange={({ target: { value } }) =>
-                    setActiveVariantId(value)
-                  }
-                  className="block appearance-none w-full bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
-                >
-                  {variants.map((variant, index) => (
-                    <option key={index} value={variant.id}>
-                      {variant.splitName}
-                    </option>
-                  ))}
-                </select>
-
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
+            {product.description && (
+              <div className="mb-6">
+                <p className="leading-loose text-lightgray">
+                  {product.description.markdown}
+                </p>
               </div>
-            </div>
-
-            <div className="md:w-1/4 px-3 mb-6">
-              <label
-                className="block text-xs font-bold tracking-widest uppercase mb-3 text-slategray"
-                htmlFor="quantity"
-              >
-                Quantity
-              </label>
-
-              <div className="relative">
-                <select
-                  id="quantity"
-                  value={variantQuantity}
-                  className="block appearance-none w-full bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
-                  onChange={({ target: { value } }) =>
-                    setVariantQuantity(value)
-                  }
+            )}
+            <div className="md:flex md:flex-wrap -mx-3">
+              <div className="md:w-3/4 px-3 mb-6">
+                <label
+                  className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
+                  htmlFor="style"
                 >
-                  {new Array(5)
-                    .fill(0)
-                    .map((v, k) => k + 1)
-                    .map(i => ({ value: i, label: i }))
-                    .map(({ value, label }) => (
-                      <option key={value} value={value}>
-                        {label}
+                  Style
+                </label>
+
+                <div className="relative">
+                  <select
+                    id="style"
+                    value={activeVariantId}
+                    onChange={({ target: { value } }) =>
+                      setActiveVariantId(value)
+                    }
+                    className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
+                  >
+                    {variants.map((variant, index) => (
+                      <option key={index} value={variant.id}>
+                        {variant.splitName}
                       </option>
                     ))}
-                </select>
+                  </select>
 
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-lightgray">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slategray">
+                    <svg
+                      className="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:w-1/4 px-3 mb-6">
+                <label
+                  className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
+                  htmlFor="quantity"
+                >
+                  Quantity
+                </label>
+
+                <div className="relative">
+                  <select
+                    id="quantity"
+                    value={variantQuantity}
+                    className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
+                    onChange={({ target: { value } }) =>
+                      setVariantQuantity(value)
+                    }
                   >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
+                    {new Array(5)
+                      .fill(0)
+                      .map((v, k) => k + 1)
+                      .map(i => ({ value: i, label: i }))
+                      .map(({ value, label }) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ))}
+                  </select>
+
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slategray">
+                    <svg
+                      className="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="mb-6">
-            <button
-              className="block w-full bg-primary px-4 py-3 rounded text-white text-xs font-bold tracking-widest uppercase"
-              onClick={() =>
-                addItem(
-                  {
-                    id: activeVariant.id,
-                    price: activeVariant.retail_price,
-                    image: activeVariant.variantImage,
-                    name: activeVariant.name,
-                    description: product.description.markdown,
-                  },
-                  variantQuantity
-                )
-              }
-              disabled={!activeVariant}
-            >
-              Add to cart
-            </button>
+            <div className="mb-6">
+              <button
+                className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase"
+                onClick={() =>
+                  addItem(
+                    {
+                      id: activeVariant.id,
+                      price: activeVariant.retail_price,
+                      image: activeVariant.variantImage,
+                      name: activeVariant.name,
+                      description: product.description.markdown,
+                    },
+                    variantQuantity
+                  )
+                }
+                disabled={!activeVariant}
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -10,10 +10,7 @@ function CategoryPage({
 }) {
   return (
     <React.Fragment>
-      <h1 className="font-bold text-6xl mb-3 text-slategray">
-        {category.name}
-      </h1>
-
+      <h1 className="font-bold text-6xl mb-3 text-primary">{category.name}</h1>
       <hr className="border-b border-gainsboro w-10" />
 
       <ProductGrid products={category.products} />
