@@ -36,15 +36,15 @@ function Header() {
     <header className="bg-white md:shadow md:sticky md:top-0 md:z-10 w-full block flex-grow flex items-center w-auto justify-between">
       <div className="container mx-auto p-6 w-full">
         <nav className="flex items-center justify-between flex-wrap">
-            <LocaleLink to="/">
-              <svg
-                className="fill-current text-primary w-5"
-                viewBox="0 0 94 144"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
-              </svg>
-            </LocaleLink>
+          <LocaleLink to="/">
+            <svg
+              className="fill-current text-primary w-5 md:w-8"
+              viewBox="0 0 94 144"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
+            </svg>
+          </LocaleLink>
 
           <ul className="hidden md:block text-sm md:flex-grow md:ml-4">
             <li className="block my-4 md:inline-block md:my-0">
@@ -85,11 +85,11 @@ function Header() {
             ))}
           </ul>
 
-          <div className="flex">
+          <div className="flex items-center">
             <div className="relative">
               <select
                 value={activeLocale}
-                className="block appearance-none bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                className="block appearance-none bg-white border-none px-4 py-0 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
                 onChange={({ target: { value } }) => updateLocale(value)}
               >
                 {locales.map(({ label, path }, index) => (
@@ -109,7 +109,7 @@ function Header() {
               </div>
             </div>
 
-            <div className="ml-3">
+            <div className="ml-4">
               <Link to="/cart" className="flex items-center relative">
                 {!isEmpty && (
                   <span className="absolute top-0 right-0 -mt-1 -mr-2 w-2 h-2 bg-primary rounded-full"></span>

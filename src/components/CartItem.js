@@ -24,7 +24,7 @@ function CartItem({ id, name, quantity, price, image }) {
   return (
     <div
       key={id}
-      className="bg-gainsboro rounded md:flex md:items-center py-3 md:py-6 px-3 md:px-6"
+      className="md:bg-gainsboro md:rounded md:flex md:items-center py-3 md:py-6 md:px-3 md:px-6 md:mb-3"
     >
       <div className="md:w-2/3 flex items-center">
         <div className="mr-3 lg:mr-6 relative">
@@ -49,8 +49,8 @@ function CartItem({ id, name, quantity, price, image }) {
         </div>
 
         <div>
-          <h4 className="text-slategray font-medium mb-3">{name}</h4>
-          <p className="text-lightgray text-sm">SKU</p>
+          <h4 className="text-slategray font-medium">{name}</h4>
+          <p className="text-lightgray text-xs">SKU</p>
         </div>
       </div>
 
