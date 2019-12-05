@@ -11,11 +11,12 @@ const query = graphql`
     cms {
       categories {
         id
-        slug
         name
+        slug
       }
       collections {
         id
+        name
         slug
         name
       }
