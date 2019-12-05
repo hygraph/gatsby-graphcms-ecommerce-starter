@@ -28,7 +28,7 @@ function Footer() {
             </h4>
 
             <p className="text-lightgray text-sm mb-6">
-              DIY commerce with GraphCMS, Gatsby, and Stripe.
+              DIY commerce with GraphCMS, Printful, Gatsby, and Stripe.
             </p>
 
             <ul>
@@ -179,7 +179,7 @@ function Footer() {
 
         <div className="border-t border-gainsboro py-6 text-center">
           <p className="text-lightgray text-sm">
-            Powered by GraphCMS, Gatsby &amp; Stripe
+            Powered by GraphCMS, Printful, Gatsby &amp; Stripe
           </p>
         </div>
       </div>
