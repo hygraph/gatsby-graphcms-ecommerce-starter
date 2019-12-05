@@ -12,7 +12,11 @@ function Layout({ children, location, pageContext: { locale } }) {
     <React.Fragment>
       <LocaleProvider locale={locale} location={location}>
         <Header />
-        <div className="container mx-auto px-6 py-12">{children}</div>
+        <main className="bg-gainsboro">
+          <div className="container mx-auto p-6 md:py-12 lg:py-16">
+            {children}
+          </div>
+        </main>
         <Footer />
       </LocaleProvider>
     </React.Fragment>

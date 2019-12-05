@@ -3,11 +3,11 @@ import { Link } from 'gatsby';
 
 function Footer() {
   return (
-    <div className="container mx-auto px-6">
-      <div className="border-t border-gainsboro">
-        <div className="md:flex -mx-3 pt-6 lg:pt-12">
+    <div className="bg-white py-6 md:py-12">
+      <div className="container mx-auto px-6">
+        <div className="md:flex -mx-3">
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-slategray text-lg font-bold uppercase mb-4">
+            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-4">
               SWAG Store
             </h4>
 
@@ -23,7 +23,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-slategray text-lg font-bold uppercase mb-3">
+            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
               DIY Commerce
             </h4>
 
@@ -38,7 +38,7 @@ function Footer() {
                   target="_blank"
                   className="group inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
-                  <span className="text-slategray group-hover:text-primary">
+                  <span className="text-lightgray group-hover:text-primary">
                     <svg
                       className="fill-current w-5 h-5 mr-3"
                       viewBox="0 0 24 24"
@@ -57,7 +57,7 @@ function Footer() {
                   target="_blank"
                   className="group inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
-                  <span className="text-slategray group-hover:text-primary">
+                  <span className="text-lightgray group-hover:text-primary">
                     <svg
                       className="fill-current w-5 h-5 mr-3"
                       viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-slategray text-lg font-bold uppercase mb-3">
+            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
               Legal
             </h4>
             <ul>
@@ -107,7 +107,7 @@ function Footer() {
           </div>
 
           <div className="md:w-1/4 px-3 mb-6 lg:mb-12">
-            <h4 className="text-slategray text-lg font-bold uppercase mb-3">
+            <h4 className="text-primary text-xs font-bold tracking-widest uppercase mb-3">
               Keep updated
             </h4>
             <ul className="mb-5">
@@ -131,7 +131,7 @@ function Footer() {
                 <a
                   href="https://twitter.com/graphcms"
                   target="_blank"
-                  className="inline-flex items-center text-slategray hover:text-primary text-sm"
+                  className="inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
                   <svg
                     className="fill-current w-5 h-5 mr-3"
@@ -147,7 +147,7 @@ function Footer() {
                 <a
                   href="https://www.linkedin.com/company/graphcms"
                   target="_blank"
-                  className="inline-flex items-center text-slategray hover:text-primary text-sm"
+                  className="inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
                   <svg
                     className="fill-current w-5 h-5 mr-3"
@@ -162,7 +162,7 @@ function Footer() {
                 <a
                   href="https://www.facebook.com/GraphCMS"
                   target="_blank"
-                  className="inline-flex items-center text-slategray hover:text-primary text-sm"
+                  className="inline-flex items-center text-lightgray hover:text-primary text-sm"
                 >
                   <svg
                     className="fill-current w-5 h-5 mr-3"
@@ -177,8 +177,8 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gainsboro py-6 text-center">
-          <p className="text-lightgray text-sm">
+        <div className="border-t-2 border-gainsboro py-6 text-center">
+          <p className="text-lightgray text-xs">
             Powered by GraphCMS, Printful, Gatsby &amp; Stripe
           </p>
         </div>
