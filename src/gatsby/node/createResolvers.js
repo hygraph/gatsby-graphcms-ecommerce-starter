@@ -26,7 +26,7 @@ const createResolvers = ({ createResolvers }) => {
         resolve: ({ name }, args, context, info) => {
           const [, splitVariantName] = name.split(' - ');
 
-          return splitVariantName;
+          return splitVariantName ? splitVariantName : name;
         },
       },
     },
