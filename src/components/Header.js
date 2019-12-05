@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import { useCart } from 'react-use-cart';
+
+import LocaleContext from '../context/Locale';
+import LocaleLink from './LocaleLink';
+import locales from '../../config/locales';
 
 const query = graphql`
   query NavQuery {
@@ -23,6 +27,7 @@ function Header() {
   const {
     cms: { categories, collections },
   } = useStaticQuery(query);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
 
   const { isEmpty, totalItems } = useCart();
 
@@ -44,9 +49,12 @@ function Header() {
 
           <ul className="text-sm md:flex-grow md:ml-4">
             <li className="block my-4 md:inline-block md:my-0">
-              <Link className="text-slategray hover:text-primary mr-4" to="/">
+              <LocaleLink
+                to="/"
+                className="text-slategray hover:text-primary mr-4"
+              >
                 Catalog
-              </Link>
+              </LocaleLink>
             </li>
 
             {categories.map(category => (
@@ -77,7 +85,16 @@ function Header() {
               </li>
             ))}
           </ul>
-
+          <select
+            value={activeLocale}
+            onChange={({ target: { value } }) => updateLocale(value)}
+          >
+            {locales.map(({ locale, path }, index) => (
+              <option key={index} value={path}>
+                {locale}
+              </option>
+            ))}
+          </select>
           <div>
             <Link to="/cart" className="flex items-center">
               {!isEmpty && (

@@ -67,7 +67,6 @@ function ProductPage({
               </p>
             </div>
           )}
-
           <div className="md:flex md:flex-wrap -mx-3">
             <div className="md:w-3/4 px-3 mb-6">
               <label
@@ -116,6 +115,7 @@ function ProductPage({
               <div className="relative">
                 <select
                   id="quantity"
+                  value={variantQuantity}
                   className="block appearance-none w-full bg-white border border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
                   onChange={({ target: { value } }) =>
                     setVariantQuantity(value)
@@ -144,7 +144,6 @@ function ProductPage({
               </div>
             </div>
           </div>
-
           <div className="mb-6">
             <button
               className="block w-full bg-primary px-4 py-3 rounded text-white text-xs font-bold tracking-widest uppercase"

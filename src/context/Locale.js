@@ -1,4 +1,13 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+} from 'react';
+import { navigate } from '@reach/router';
+
+import locales from '../../config/locales';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const LocaleContext = createContext();
 
@@ -11,16 +20,33 @@ function reducer(state, { type, locale }) {
   }
 }
 
-function LocaleProvider({ children, locale = 'en' }) {
-  const [state, dispatch] = useReducer(reducer, { activeLocale: 'en' });
+const defaultLocale = locales.find(locale => locale.default);
+
+function LocaleProvider({ children, locale = defaultLocale.path, location }) {
+  const [savedLocale, saveLocale] = useLocalStorage(
+    'graphcms-swag-store',
+    JSON.stringify({
+      activeLocale: locale,
+    })
+  );
+  const [state, dispatch] = useReducer(reducer, JSON.parse(savedLocale));
+
+  const updateLocale = useCallback(
+    locale => {
+      dispatch({ type: 'UPDATE_LOCALE', locale });
+
+      navigate(
+        `/${locale.toLowerCase()}${location.pathname.substring(3)}${
+          location.search
+        }`
+      );
+    },
+    [location.pathname, location.search]
+  );
 
   useEffect(() => {
-    updateLocale(locale);
-  }, [locale]);
-
-  function updateLocale(locale) {
-    dispatch({ type: 'UPDATE_LOCALE', locale });
-  }
+    saveLocale(JSON.stringify(state));
+  }, [state, saveLocale]);
 
   return (
     <LocaleContext.Provider

@@ -22,9 +22,14 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     }
   `);
 
-  createPage({
-    path: `/`,
-    component: require.resolve(`../../templates/ProductsPage.js`),
+  locales.map(locale => {
+    createPage({
+      path: buildLocalePath({ locale, path: `/` }),
+      component: require.resolve(`../../templates/ProductsPage.js`),
+      context: {
+        locale: locale.path,
+      },
+    });
   });
 
   if (categories) {
@@ -51,11 +56,11 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     locales.map(locale => {
       products.forEach(({ id }) => {
         createPage({
-          path: buildLocalePath({ locale, type: 'products', identifier: id }),
+          path: buildLocalePath({ locale, path: `/products/${id}` }),
           component: require.resolve(`../../templates/ProductPage.js`),
           context: {
             id,
-            locale: locale.path.toUpperCase(),
+            locale: locale.path,
           },
         });
       });

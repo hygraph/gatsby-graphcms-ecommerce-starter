@@ -1,36 +1,13 @@
 import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import ProductGrid from '../components/ProductGrid';
 
-function ProductsPage() {
-  const {
+function ProductsPage({
+  data: {
     cms: { products },
-  } = useStaticQuery(graphql`
-    {
-      cms {
-        products {
-          id
-          name
-          printfulProductId
-          printfulProduct {
-            productImage {
-              childImageSharp {
-                fluid(maxWidth: 560) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            variants {
-              formattedPrice
-              retail_price
-            }
-          }
-        }
-      }
-    }
-  `);
-
+  },
+}) {
   return (
     <React.Fragment>
       <h1 className="font-bold text-6xl mb-3 text-slategray">Latest</h1>
@@ -41,5 +18,30 @@ function ProductsPage() {
     </React.Fragment>
   );
 }
+
+export const pageQuery = graphql`
+  query ProductsQuery($locale: GraphCMS_Locale!) {
+    cms {
+      products {
+        id
+        name(locale: $locale)
+        printfulProductId
+        printfulProduct {
+          productImage {
+            childImageSharp {
+              fluid(maxWidth: 560) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          variants {
+            formattedPrice
+            retail_price
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default ProductsPage;
