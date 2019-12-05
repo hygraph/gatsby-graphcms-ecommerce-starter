@@ -143,7 +143,7 @@ function ProductPage({
             </div>
             <div className="mb-6">
               <button
-                className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase"
+                className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
                 onClick={() =>
                   addItem(
                     {
