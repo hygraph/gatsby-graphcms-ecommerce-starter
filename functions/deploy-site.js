@@ -19,6 +19,12 @@ const BUILD_TRIGGERS = [
 ];
 
 exports.handler = async event => {
+  if (!event.body)
+    return {
+      statusCode: 405,
+      message: 'You must provide a payload.',
+    };
+
   const {
     stageName,
     info: { fieldName },
