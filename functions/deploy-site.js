@@ -22,21 +22,12 @@ exports.handler = async event => {
   if (!event.body)
     return {
       statusCode: 405,
-      message: 'You must provide a payload.',
     };
 
   const {
     stageName,
     info: { fieldName },
   } = JSON.parse(event.body);
-
-  if (!req.body)
-    return {
-      statusCode: 422,
-      body: JSON.stringify({
-        message: 'No action required.',
-      }),
-    };
 
   try {
     if (
