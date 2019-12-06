@@ -33,16 +33,20 @@ function Header() {
   const { isEmpty } = useCart();
 
   return (
-    <header className="bg-white md:shadow md:sticky md:top-0 md:z-10 w-full block flex-grow flex items-center w-auto justify-between">
+    <header className="bg-white border-b-2 border-gainsboro md:sticky md:top-0 md:z-10 w-full block flex-grow flex items-center w-auto justify-between">
       <div className="container mx-auto p-6 w-full">
         <nav className="flex items-center justify-between flex-wrap">
           <LocaleLink to="/">
             <svg
-              className="fill-current text-primary w-5 md:w-8"
-              viewBox="0 0 94 144"
+              className="fill-current text-primary w-5"
+              viewBox="0 0 26 44"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="m78.235.93v17.853l-61.845 35.709v53.557l46.384-26.781v-17.852l-30.923 17.853v-17.853l46.384-26.78v53.556l-15.461 8.933-61.844 35.704 15.456 8.924 77.314-44.639v-89.26z" />
+              <path
+                clipRule="evenodd"
+                d="m20.7997 5.86658-5.1998 2.9335-5.1998 2.93312-5.20027 2.9335v5.8665 2.9336 2.933 2.9335 2.9335l5.20027-2.9335 5.1998-2.9335v-2.933-2.9336l-5.1998 2.9336v-5.8666l5.1998-2.9335 5.1998-2.9335v2.9335 2.9335 2.933 2.9336 2.933 2.9335l-5.1998 2.9335-5.1998 2.9331-5.20027 2.9335-5.19983 2.9331 5.19983 2.9335 5.20027-2.9335 5.1998-2.9331 5.1998-2.9335 5.2003-2.9331v-5.867-5.8666-5.8665-2.2501-3.61652-5.86658l-5.2003-2.9335z"
+                fillRule="evenodd"
+              />
             </svg>
           </LocaleLink>
 
