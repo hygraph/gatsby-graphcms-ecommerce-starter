@@ -33,7 +33,7 @@ function Header() {
   const { isEmpty } = useCart();
 
   return (
-    <header className="bg-white border-b-2 border-gainsboro md:sticky md:top-0 md:z-10 w-full block flex-grow flex items-center w-auto justify-between">
+    <header className="bg-white border-b-2 border-gainsboro w-full block flex-grow flex items-center w-auto justify-between">
       <div className="container mx-auto p-6 w-full">
         <nav className="flex items-center justify-between flex-wrap">
           <LocaleLink to="/">
