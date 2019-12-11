@@ -1,9 +1,8 @@
-const checkoutResolver = async (_, args, ctx) => {
+const checkoutResolver = async (_, args, { dataSources }) => {
   try {
-    // placeholder
-    const order = await ctx.dataSources.GraphCMSAPI.createOrder(args);
+    const gcmsOrder = await dataSources.GraphCMSAPI.createOrder(args);
 
-    return order;
+    return gcmsOrder;
   } catch (err) {
     return err;
   }
