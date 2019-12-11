@@ -3,6 +3,9 @@ import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
+import Input from './Input';
+import Checkbox from './Checkbox';
+
 const CHECKOUT_MUTATION = `
   mutation checkout($name: String!, $email: String!, $total: Int!) {
     id
@@ -62,22 +65,20 @@ function CheckoutPage({ stripe }) {
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="email"
               type="email"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
               placeholder="Email address"
-              ref={register({ required: true })}
+              register={register({ required: true })}
             />
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="tel"
               type="tel"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
-              placeholder="Phone no."
-              ref={register({ required: true })}
+              placeholder="Contact no."
+              register={register}
             />
           </div>
         </div>
@@ -90,88 +91,68 @@ function CheckoutPage({ stripe }) {
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="shipping.firstName"
-              type="text"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
               placeholder="First name"
-              ref={register({ required: true })}
+              register={register({ required: true })}
             />
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="shipping.lastName"
-              type="text"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
               placeholder="Last name"
-              ref={register({ required: true })}
+              register={register({ required: true })}
             />
           </div>
         </div>
 
         <div className="mb-3 md:mb-6">
-          <input
+          <Input
             name="shipping.line1"
-            type="text"
-            className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
-            placeholder="Address"
-            ref={register({ required: true })}
+            placeholder="Address line 1"
+            register={register({ required: true })}
           />
         </div>
 
         <div className="mb-3 md:mb-6">
-          <input
+          <Input
             name="shipping.line2"
-            type="text"
-            className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
             placeholder="Apartment, suite, etc. (optional)"
-            ref={register()}
+            register={register}
           />
         </div>
 
         <div className="mb-3 md:mb-6">
-          <input
+          <Input
             name="shipping.city"
-            type="text"
-            className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
             placeholder="City"
-            ref={register({ required: true })}
+            register={register({ required: true })}
           />
         </div>
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="shipping.country"
-              type="text"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
               placeholder="Country"
-              ref={register({ required: true })}
+              register={register({ required: true })}
             />
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <input
+            <Input
               name="shipping.postcode"
-              type="text"
-              className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
               placeholder="ZIP / Postcode"
-              ref={register({ required: true })}
+              register={register({ required: true })}
             />
           </div>
         </div>
 
         <div className="flex items-center justify-between">
-          <label className="block cursor-pointer">
-            <input
-              name="separateBilling"
-              type="checkbox"
-              className="mr-3 leading-tight"
-              ref={register}
-            />
-            <span className="text-sm">Use different billing address</span>
-          </label>
+          <Checkbox name="separateBilling" register={register}>
+            Use different billing address
+          </Checkbox>
 
           <button
             type="submit"
@@ -181,6 +162,7 @@ function CheckoutPage({ stripe }) {
           </button>
         </div>
       </div>
+
       {/* <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
             <div className="flex items-start justify-between">
               <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6 inline-flex items-center">
@@ -204,6 +186,7 @@ function CheckoutPage({ stripe }) {
             <p>Jamie Barton</p>
             <p>123 Address Street, Line 2, Washington, United States, 12345</p>
           </div> */}
+
       {useSeparateBilling && (
         <React.Fragment>
           <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
@@ -213,74 +196,60 @@ function CheckoutPage({ stripe }) {
 
             <div className="md:flex -mx-3">
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <input
+                <Input
                   name="billing.firstName"
-                  type="text"
-                  className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                   placeholder="First name"
-                  ref={register({ required: true })}
+                  register={register({ required: true })}
                 />
               </div>
 
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <input
+                <Input
                   name="billing.lastName"
-                  type="text"
-                  className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                   placeholder="Last name"
-                  ref={register({ required: true })}
+                  register={register({ required: true })}
                 />
               </div>
             </div>
 
             <div className="mb-3 md:mb-6">
-              <input
+              <Input
                 name="billing.line1"
-                type="text"
-                className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                 placeholder="Address"
-                ref={register({ required: true })}
+                register={register({ required: true })}
               />
             </div>
 
             <div className="mb-3 md:mb-6">
-              <input
+              <Input
                 name="billing.line2"
-                type="text"
-                className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                 placeholder="Apartment, suite, etc. (optional)"
-                ref={register()}
+                register={register}
               />
             </div>
 
             <div className="mb-3 md:mb-6">
-              <input
+              <Input
                 name="billing.city"
-                type="text"
-                className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                 placeholder="City"
-                ref={register({ required: true })}
+                register={register({ required: true })}
               />
             </div>
 
             <div className="md:flex -mx-3">
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <input
+                <Input
                   name="billing.country"
-                  type="text"
-                  className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                   placeholder="Country"
-                  ref={register({ required: true })}
+                  register={register({ required: true })}
                 />
               </div>
 
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <input
+                <Input
                   name="billing.postcode"
-                  type="text"
-                  className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
                   placeholder="ZIP / Postcode"
-                  ref={register({ required: true })}
+                  register={register({ required: true })}
                 />
               </div>
             </div>
