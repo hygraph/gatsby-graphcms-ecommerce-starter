@@ -1,6 +1,7 @@
 import React from 'react';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const CHECKOUT_MUTATION = `
   mutation checkout($name: String!, $email: String!, $total: Int!) {
@@ -271,7 +272,6 @@ function CheckoutPage() {
               </button>
             </div>
           </div>
-
           <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
             <div className="flex items-start justify-between">
               <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6 inline-flex items-center">
@@ -297,8 +297,30 @@ function CheckoutPage() {
           </div>
         </React.Fragment>
       )}
+
+      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
+        <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
+          Pay
+        </h3>
+
+        <div className="mb-3 md:mb-6">
+          <CardElement
+            className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
+            hidePostalCode={true}
+          />
+        </div>
+
+        <div className="flex items-center justify-end">
+          <button
+            type="submit"
+            className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
+          >
+            Pay for order
+          </button>
+        </div>
+      </div>
     </form>
   );
 }
 
-export default CheckoutPage;
+export default injectStripe(CheckoutPage);
