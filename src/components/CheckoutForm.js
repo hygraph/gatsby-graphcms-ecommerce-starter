@@ -38,7 +38,10 @@ function CheckoutPage({ stripe }) {
       } = values;
 
       const checkoutItems = items.map(
-        ({ id, description, image, ...rest }) => ({ variantId: id, ...rest })
+        ({ id: variantId, description, image, ...rest }) => ({
+          variantId,
+          ...rest,
+        })
       );
 
       const shippingAddress = { name, ...rest };
