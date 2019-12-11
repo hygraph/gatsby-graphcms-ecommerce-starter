@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
@@ -14,22 +14,44 @@ const CHECKOUT_MUTATION = `
 
 function CheckoutPage() {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
-  const { handleSubmit, register, watch } = useForm();
+  const { handleSubmit, register, watch, setValue } = useForm();
   const useSeparateBilling = watch('separateBilling', false);
+  const [checkoutError, setCheckoutError] = useState(null);
+  const [cardElement, setCardElement] = useState(null);
+
+  useEffect(() => {
+    register({ name: 'stripe' });
+  }, [register]);
 
   const onSubmit = async values => {
     console.log(values);
 
-    const { email, tel, shipping, billing = shipping } = values;
+    try {
+      const {
+        paymentMethod: { id: paymentMethod },
+      } = await Stripe.createPaymentMethod('card');
 
-    console.log({ billing });
+      console.log({ paymentMethod });
 
-    const name = 'Test User';
-    const total = 1000;
+      // Create intent
+      // Handle intent status
+      // Create order
 
-    // run mutation
-    await checkout({ variables: { name, email, total } });
+      const { email, tel, shipping, billing = shipping } = values;
+
+      const name = 'Test User';
+      const total = 1000;
+
+      // run mutation
+      await checkout({ variables: { name, email, total } });
+    } catch (err) {
+      setCheckoutError(
+        err.message || 'Unable to process order. Please try again.'
+      );
+    }
   };
+
+  const handleStripeChange = e => setValue('stripe', e);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -307,6 +329,8 @@ function CheckoutPage() {
           <CardElement
             className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
             hidePostalCode={true}
+            onChange={handleStripeChange}
+            onReady={el => setCardElement(el)}
           />
         </div>
 
