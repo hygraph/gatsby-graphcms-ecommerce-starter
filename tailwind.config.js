@@ -6,8 +6,8 @@ module.exports = {
       transparent: 'transparent',
       white: '#fff',
       primary: '#5828e8',
-      gainsboro: 'rgba(0, 0, 0, 0.05)',
-      lightgray: 'rgba(0, 0, 0, 0.5)',
+      gainsboro: 'rgba(0, 0, 0, 0.1)',
+      lightgray: 'rgba(0, 0, 0, 0.25)',
       slategray: '#101b42',
     },
     fontFamily: {
