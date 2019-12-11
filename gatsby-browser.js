@@ -4,6 +4,7 @@ import React from 'react';
 import { CartProvider } from 'react-use-cart';
 import { GraphQLClient, ClientContext } from 'graphql-hooks';
 
+import StripeProvider from './src/components/StripeProvider';
 import Layout from './src/components/Layout';
 
 const client = new GraphQLClient({
@@ -21,8 +22,10 @@ export const wrapPageElement = ({ element, props }) => {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <ClientContext.Provider value={client}>
-      <CartProvider id={randomCartId()}>{element}</CartProvider>
-    </ClientContext.Provider>
+    <StripeProvider>
+      <ClientContext.Provider value={client}>
+        <CartProvider id={randomCartId()}>{element}</CartProvider>
+      </ClientContext.Provider>
+    </StripeProvider>
   );
 };
