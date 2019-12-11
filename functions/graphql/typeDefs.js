@@ -40,6 +40,7 @@ const typeDefs = gql`
   input CheckoutItemInput {
     name: String!
     variantId: ID!
+    price: Int!
     quantity: Int = 1
   }
 

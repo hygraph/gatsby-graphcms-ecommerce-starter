@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import { useCart } from 'react-use-cart';
 
 import Input from './Input';
 import Checkbox from './Checkbox';
 
-const CHECKOUT_MUTATION = `
-  mutation checkout($name: String!, $email: String!, $total: Int!) {
+const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
+  checkout(name: $name, email: $email, total: $total, billingAddress: $billingAddress, shippingAddress: $shippingAddress, items: $items) {
     id
     name
     email
     total
   }
-`;
+}`;
 
 function CheckoutPage({ stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
+  const { cartTotal, items } = useCart();
   const { handleSubmit, register, watch, setValue } = useForm();
   const useSeparateBilling = watch('separateBilling', false);
   const [checkoutError, setCheckoutError] = useState(null);
@@ -27,26 +29,30 @@ function CheckoutPage({ stripe }) {
   }, [register]);
 
   const onSubmit = async values => {
-    console.log(values);
-
     try {
       const {
-        paymentMethod: { id: paymentMethod },
-      } = await stripe.createPaymentMethod('card');
+        email,
+        tel,
+        shipping: { name, ...rest },
+        billing: billingAddress,
+      } = values;
 
-      console.log({ paymentMethod });
+      const checkoutItems = items.map(
+        ({ id, description, image, ...rest }) => ({ variantId: id, ...rest })
+      );
 
-      // Create intent
-      // Handle intent status
-      // Create order
+      const shippingAddress = { name, ...rest };
 
-      const { email, tel, shipping, billing = shipping } = values;
-
-      const name = 'Test User';
-      const total = 1000;
-
-      // run mutation
-      await checkout({ variables: { name, email, total } });
+      await checkout({
+        variables: {
+          name,
+          email,
+          total: cartTotal,
+          shippingAddress,
+          billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
+          items: checkoutItems,
+        },
+      });
     } catch (err) {
       setCheckoutError(
         err.message || 'Unable to process order. Please try again.'
@@ -89,27 +95,17 @@ function CheckoutPage({ stripe }) {
           Shipping
         </h3>
 
-        <div className="md:flex -mx-3">
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
-              name="shipping.firstName"
-              placeholder="First name"
-              register={register({ required: true })}
-            />
-          </div>
-
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
-              name="shipping.lastName"
-              placeholder="Last name"
-              register={register({ required: true })}
-            />
-          </div>
+        <div className="mb-3 md:mb-6">
+          <Input
+            name="shipping.name"
+            placeholder="Name"
+            register={register({ required: true })}
+          />
         </div>
 
         <div className="mb-3 md:mb-6">
           <Input
-            name="shipping.line1"
+            name="shipping.address1"
             placeholder="Address line 1"
             register={register({ required: true })}
           />
@@ -117,18 +113,27 @@ function CheckoutPage({ stripe }) {
 
         <div className="mb-3 md:mb-6">
           <Input
-            name="shipping.line2"
+            name="shipping.address2"
             placeholder="Apartment, suite, etc. (optional)"
             register={register}
           />
         </div>
 
-        <div className="mb-3 md:mb-6">
-          <Input
-            name="shipping.city"
-            placeholder="City"
-            register={register({ required: true })}
-          />
+        <div className="md:flex -mx-3">
+          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+            <Input
+              name="shipping.city"
+              placeholder="City"
+              register={register({ required: true })}
+            />
+          </div>
+          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+            <Input
+              name="shipping.state"
+              placeholder="State / County"
+              register={register({ required: true })}
+            />
+          </div>
         </div>
 
         <div className="md:flex -mx-3">
@@ -142,7 +147,7 @@ function CheckoutPage({ stripe }) {
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
-              name="shipping.postcode"
+              name="shipping.zip"
               placeholder="ZIP / Postcode"
               register={register({ required: true })}
             />
@@ -194,27 +199,17 @@ function CheckoutPage({ stripe }) {
               Billing
             </h3>
 
-            <div className="md:flex -mx-3">
-              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.firstName"
-                  placeholder="First name"
-                  register={register({ required: true })}
-                />
-              </div>
-
-              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.lastName"
-                  placeholder="Last name"
-                  register={register({ required: true })}
-                />
-              </div>
+            <div className="mb-3 md:mb-6">
+              <Input
+                name="billing.name"
+                placeholder="Name"
+                register={register({ required: true })}
+              />
             </div>
 
             <div className="mb-3 md:mb-6">
               <Input
-                name="billing.line1"
+                name="billing.address1"
                 placeholder="Address"
                 register={register({ required: true })}
               />
@@ -222,18 +217,27 @@ function CheckoutPage({ stripe }) {
 
             <div className="mb-3 md:mb-6">
               <Input
-                name="billing.line2"
+                name="billing.address2"
                 placeholder="Apartment, suite, etc. (optional)"
                 register={register}
               />
             </div>
 
-            <div className="mb-3 md:mb-6">
-              <Input
-                name="billing.city"
-                placeholder="City"
-                register={register({ required: true })}
-              />
+            <div className="md:flex -mx-3">
+              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+                <Input
+                  name="billing.city"
+                  placeholder="City"
+                  register={register({ required: true })}
+                />
+              </div>
+              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+                <Input
+                  name="billing.state"
+                  placeholder="State / County"
+                  register={register({ required: true })}
+                />
+              </div>
             </div>
 
             <div className="md:flex -mx-3">
@@ -247,7 +251,7 @@ function CheckoutPage({ stripe }) {
 
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
                 <Input
-                  name="billing.postcode"
+                  name="billing.zip"
                   placeholder="ZIP / Postcode"
                   register={register({ required: true })}
                 />
