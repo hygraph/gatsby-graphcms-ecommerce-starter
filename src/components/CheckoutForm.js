@@ -12,7 +12,7 @@ const CHECKOUT_MUTATION = `
   }
 `;
 
-function CheckoutPage() {
+function CheckoutPage({ stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const { handleSubmit, register, watch, setValue } = useForm();
   const useSeparateBilling = watch('separateBilling', false);
@@ -29,7 +29,7 @@ function CheckoutPage() {
     try {
       const {
         paymentMethod: { id: paymentMethod },
-      } = await Stripe.createPaymentMethod('card');
+      } = await stripe.createPaymentMethod('card');
 
       console.log({ paymentMethod });
 
