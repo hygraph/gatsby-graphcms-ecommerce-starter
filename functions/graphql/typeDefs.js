@@ -15,7 +15,7 @@ const typeDefs = gql`
       shippingAddress: CheckoutAddressInput!
       billingAddress: CheckoutAddressInput!
     ): Order
-    createPaymentIntent(input: PaymentInput!): PaymentIntent
+    createPaymentIntent(input: PaymentIntentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
   }
 

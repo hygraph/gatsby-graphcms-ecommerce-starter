@@ -13,9 +13,13 @@ class PrintfulAPI extends RESTDataSource {
     );
   }
 
-  async createOrder({ recipient, items }) {
+  async createOrder({ external_id, items, recipient }) {
     try {
-      const { result: data } = await this.post(`orders`, { recipient, items });
+      const { result: data } = await this.post(`orders`, {
+        external_id,
+        items,
+        recipient,
+      });
 
       return data;
     } catch (err) {
