@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
@@ -41,6 +42,12 @@ function CheckoutPage({ elements, stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, items } = useCart();
+  const [activeBillingCountryCode, setActiveBillingCountryCode] = useState(
+    null
+  );
+  const [activeShippingCountryCode, setActiveShippingCountryCode] = useState(
+    null
+  );
   const values = watch();
   const useSeparateBilling = !!values.separateBilling;
 
@@ -107,7 +114,31 @@ function CheckoutPage({ elements, stripe }) {
     }
   };
 
+  const {
+    allPrintfulCountry: { nodes: shippingCountries },
+  } = useStaticQuery(graphql`
+    {
+      allPrintfulCountry(sort: { fields: name }) {
+        nodes {
+          name
+          id
+          code
+          states {
+            code
+            name
+          }
+        }
+      }
+    }
+  `);
+
   const handleStripeChange = e => setValue('stripe', e);
+  const activeBillingCountry = shippingCountries.find(
+    country => country.code === activeBillingCountryCode
+  );
+  const activeShippingCountry = shippingCountries.find(
+    country => country.code === activeShippingCountryCode
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -168,21 +199,34 @@ function CheckoutPage({ elements, stripe }) {
               register={register({ required: true })}
             />
           </div>
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
-              name="shipping.state"
-              placeholder="State / County"
-              register={register({ required: true })}
-            />
-          </div>
+          {activeShippingCountry && activeShippingCountry.states && (
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Select
+                name="shipping.state"
+                register={register({ required: true })}
+                options={activeShippingCountry.states.map(
+                  ({ code: value, name }) => ({
+                    value,
+                    name,
+                  })
+                )}
+              />
+            </div>
+          )}
         </div>
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.country"
+              onChange={({ target: { value } }) =>
+                setActiveShippingCountryCode(value)
+              }
               register={register({ required: true })}
-              options={[{ name: 1, value: 1 }, { name: 2, value: 2 }]}
+              options={shippingCountries.map(({ code: value, name }) => ({
+                value,
+                name,
+              }))}
             />
           </div>
 
@@ -240,21 +284,34 @@ function CheckoutPage({ elements, stripe }) {
                 register={register({ required: true })}
               />
             </div>
-            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-              <Input
-                name="billing.state"
-                placeholder="State / County"
-                register={register({ required: true })}
-              />
-            </div>
+            {activeBillingCountry && activeBillingCountry.states && (
+              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+                <Select
+                  name="billing.state"
+                  register={register({ required: true })}
+                  options={activeBillingCountry.states.map(
+                    ({ code: value, name }) => ({
+                      value,
+                      name,
+                    })
+                  )}
+                />
+              </div>
+            )}
           </div>
 
           <div className="md:flex -mx-3">
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="billing.country"
+                onChange={({ target: { value } }) =>
+                  setActiveBillingCountryCode(value)
+                }
                 register={register({ required: true })}
-                options={[{ name: 1, value: 1 }, { name: 2, value: 2 }]}
+                options={shippingCountries.map(({ code: value, name }) => ({
+                  value,
+                  name,
+                }))}
               />
             </div>
 
