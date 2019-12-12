@@ -26,7 +26,7 @@ const defaultValues = {
   separateBilling: false,
 };
 
-function CheckoutPage({ stripe }) {
+function CheckoutPage({ elements, stripe }) {
   const {
     handleSubmit,
     register,
@@ -80,11 +80,21 @@ function CheckoutPage({ stripe }) {
         },
       });
 
-      const { id, secret_key, status } = await createPaymentIntent({
+      const {
+        data: {
+          createPaymentIntent: { clientSecret },
+        },
+      } = await createPaymentIntent({
         variables: {
           email,
           metadata: { graphCMSOrderId, printfulOrderId },
           total: cartTotal,
+        },
+      });
+
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement('card'),
         },
       });
     } catch (err) {
