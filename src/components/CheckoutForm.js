@@ -5,6 +5,7 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { useCart } from 'react-use-cart';
 
 import Input from './Input';
+import Select from './Select';
 import Checkbox from './Checkbox';
 
 const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
@@ -178,10 +179,10 @@ function CheckoutPage({ elements, stripe }) {
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
+            <Select
               name="shipping.country"
-              placeholder="Country"
               register={register({ required: true })}
+              options={[{ name: 1, value: 1 }, { name: 2, value: 2 }]}
             />
           </div>
 
@@ -250,10 +251,10 @@ function CheckoutPage({ elements, stripe }) {
 
           <div className="md:flex -mx-3">
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-              <Input
+              <Select
                 name="billing.country"
-                placeholder="Country"
                 register={register({ required: true })}
+                options={[{ name: 1, value: 1 }, { name: 2, value: 2 }]}
               />
             </div>
 
