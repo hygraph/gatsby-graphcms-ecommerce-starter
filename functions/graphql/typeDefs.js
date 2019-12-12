@@ -15,18 +15,33 @@ const typeDefs = gql`
       shippingAddress: CheckoutAddressInput!
       billingAddress: CheckoutAddressInput!
     ): Order
+    createPaymentIntent(input: PaymentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
   }
 
   type Order {
+    graphCMSOrderId: ID!
+    printfulOrderId: ID!
+  }
+
+  type PaymentIntent {
     id: ID!
-    name: String!
-    email: String
-    total: Int!
+    secretKey: String!
+    status: PaymentIntentStatus!
   }
 
   type Review {
     id: ID!
+  }
+
+  enum PaymentIntentStatus {
+    CANCELLED
+    PROCESSING
+    REQUIRES_ACTION
+    REQUIRES_CAPTURE
+    REQUIRES_CONFIRMATION
+    REQUIRES_PAYMENT_METHOD
+    SUCCEEDED
   }
 
   input SubmitReviewInput {
@@ -52,6 +67,17 @@ const typeDefs = gql`
     name: String!
     state: String!
     zip: String!
+  }
+
+  input PaymentInput {
+    email: String!
+    metadata: PaymentIntentMeta!
+    total: Int!
+  }
+
+  input PaymentIntentMeta {
+    graphCmsOrder: ID!
+    printfulOrder: ID!
   }
 `;
 

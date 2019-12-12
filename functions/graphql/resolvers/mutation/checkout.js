@@ -1,6 +1,8 @@
 const checkoutResolver = async (_, args, { dataSources }) => {
   try {
-    const gcmsOrder = await dataSources.GraphCMSAPI.createOrder(args);
+    const { id: graphCMSOrderId } = await dataSources.GraphCMSAPI.createOrder(
+      args
+    );
 
     const {
       country: country_code,
@@ -8,9 +10,10 @@ const checkoutResolver = async (_, args, { dataSources }) => {
       ...rest
     } = args.shippingAddress;
 
-    await dataSources.PrintfulAPI.createOrder({
-      external_id: gcmsOrder.id,
+    const { id: printfulOrderId } = await dataSources.PrintfulAPI.createOrder({
+      external_id: graphCMSOrderId,
       recipient: {
+        email: args.email,
         country_code,
         state_code,
         ...rest,
@@ -21,7 +24,7 @@ const checkoutResolver = async (_, args, { dataSources }) => {
       })),
     });
 
-    return gcmsOrder;
+    return { graphCMSOrderId, printfulOrderId };
   } catch (err) {
     return err;
   }

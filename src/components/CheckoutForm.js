@@ -9,10 +9,8 @@ import Checkbox from './Checkbox';
 
 const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
   checkout(name: $name, email: $email, total: $total, billingAddress: $billingAddress, shippingAddress: $shippingAddress, items: $items) {
-    id
-    name
-    email
-    total
+    graphCMSOrderId
+    printfulOrderId
   }
 }`;
 
