@@ -14,6 +14,14 @@ const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $t
   }
 }`;
 
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($email: String!, $metadata: PaymentIntentMeta!, $total: Int!) {
+  createPaymentIntent(input: {email: $email, metadata: $metadata, total: $total}) {
+    id
+    clientSecret
+    status
+  }
+}`;
+
 const defaultValues = {
   separateBilling: false,
 };
@@ -30,6 +38,7 @@ function CheckoutPage({ stripe }) {
   } = useForm({ defaultValues });
   const { isSubmitting } = formState;
   const [checkout] = useMutation(CHECKOUT_MUTATION);
+  const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, items } = useCart();
   const values = watch();
   const useSeparateBilling = !!values.separateBilling;
@@ -56,7 +65,11 @@ function CheckoutPage({ stripe }) {
 
       const shippingAddress = { name, ...rest };
 
-      await checkout({
+      const {
+        data: {
+          checkout: { graphCMSOrderId, printfulOrderId },
+        },
+      } = await checkout({
         variables: {
           name,
           email,
@@ -64,6 +77,14 @@ function CheckoutPage({ stripe }) {
           shippingAddress,
           billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
           items: checkoutItems,
+        },
+      });
+
+      const { id, secret_key, status } = await createPaymentIntent({
+        variables: {
+          email,
+          metadata: { graphCMSOrderId, printfulOrderId },
+          total: cartTotal,
         },
       });
     } catch (err) {

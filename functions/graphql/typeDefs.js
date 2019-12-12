@@ -26,7 +26,7 @@ const typeDefs = gql`
 
   type PaymentIntent {
     id: ID!
-    secretKey: String!
+    clientSecret: String!
     status: PaymentIntentStatus!
   }
 
@@ -69,15 +69,15 @@ const typeDefs = gql`
     zip: String!
   }
 
-  input PaymentInput {
+  input PaymentIntentInput {
     email: String!
     metadata: PaymentIntentMeta!
     total: Int!
   }
 
   input PaymentIntentMeta {
-    graphCmsOrder: ID!
-    printfulOrder: ID!
+    graphCMSOrderId: ID!
+    printfulOrderId: ID!
   }
 `;
 
