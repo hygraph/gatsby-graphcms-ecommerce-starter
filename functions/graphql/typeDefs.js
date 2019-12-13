@@ -6,15 +6,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    checkout(
-      name: String!
-      email: String!
-      phone: String
-      total: Int!
-      items: [CheckoutItemInput!]!
-      shippingAddress: CheckoutAddressInput!
-      billingAddress: CheckoutAddressInput!
-    ): Order
+    checkout(input: CheckoutInput!): Order
     createPaymentIntent(input: PaymentIntentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
   }
@@ -50,6 +42,16 @@ const typeDefs = gql`
     rating: Int!
     message: String
     productId: ID!
+  }
+
+  input CheckoutInput {
+    name: String!
+    email: String!
+    phone: String
+    total: Int!
+    items: [CheckoutItemInput!]!
+    shippingAddress: CheckoutAddressInput!
+    billingAddress: CheckoutAddressInput!
   }
 
   input CheckoutItemInput {

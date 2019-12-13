@@ -1,27 +1,29 @@
-const checkoutResolver = async (_, args, { dataSources }) => {
+const checkoutResolver = async (_, { input }, { dataSources }) => {
   try {
     const { id: graphCMSOrderId } = await dataSources.GraphCMSAPI.createOrder(
-      args
+      input
     );
 
     const {
       country: country_code,
       state: state_code,
       ...rest
-    } = args.shippingAddress;
+    } = input.shippingAddress;
 
     const { id: printfulOrderId } = await dataSources.PrintfulAPI.createOrder({
       external_id: graphCMSOrderId,
       recipient: {
-        email: args.email,
+        email: input.email,
         country_code,
         state_code,
         ...rest,
       },
-      items: args.items.map(({ quantity, variantId: external_variant_id }) => ({
-        external_variant_id,
-        quantity,
-      })),
+      items: input.items.map(
+        ({ quantity, variantId: external_variant_id }) => ({
+          external_variant_id,
+          quantity,
+        })
+      ),
     });
 
     return { graphCMSOrderId, printfulOrderId };
