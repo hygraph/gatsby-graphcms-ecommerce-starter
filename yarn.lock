@@ -5965,10 +5965,10 @@ gatsby-source-graphql@2.1.20:
     node-fetch "^1.7.3"
     uuid "^3.3.3"
 
-gatsby-source-printful@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gatsby-source-printful/-/gatsby-source-printful-1.1.0.tgz#5e9f16b9dc27d81503a2334fc6912b424481c5d9"
-  integrity sha512-vAH78m9XCAPm8r3yrqrNa/UsUEFC/cCVkgDM1Id638mb9zaWagsE5dioxK6AUNamd89zKQgPvmVOrwn67C5QkQ==
+gatsby-source-printful@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gatsby-source-printful/-/gatsby-source-printful-1.2.0.tgz#6ad4542ad24f9d3556d028fad439419a29920f70"
+  integrity sha512-0dPoarJUleUe8fe8Hy9E1kp6BCIPrr+YRhQPPPEOU5vfI/F6vVupvUpqwbNP+XyKja+xcyl+uAPN6tVZ7iQ/Zw==
   dependencies:
     gatsby-source-filesystem "^2.1.35"
     isomorphic-unfetch "^3.0.0"
