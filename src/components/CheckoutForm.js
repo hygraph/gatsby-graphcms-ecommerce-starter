@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
@@ -42,13 +42,9 @@ function CheckoutPage({ elements, stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, items } = useCart();
-  const [activeBillingCountryCode, setActiveBillingCountryCode] = useState(
-    null
-  );
-  const [activeShippingCountryCode, setActiveShippingCountryCode] = useState(
-    null
-  );
   const values = watch();
+  const shippingCountryCode = watch('shipping.country');
+  const billingCountryCode = watch('billing.country');
   const useSeparateBilling = !!values.separateBilling;
 
   useEffect(() => {
@@ -133,11 +129,12 @@ function CheckoutPage({ elements, stripe }) {
   `);
 
   const handleStripeChange = e => setValue('stripe', e);
-  const activeBillingCountry = shippingCountries.find(
-    country => country.code === activeBillingCountryCode
-  );
+
   const activeShippingCountry = shippingCountries.find(
-    country => country.code === activeShippingCountryCode
+    country => country.code === shippingCountryCode
+  );
+  const activeBillingCountry = shippingCountries.find(
+    country => country.code === billingCountryCode
   );
 
   return (
@@ -219,9 +216,6 @@ function CheckoutPage({ elements, stripe }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.country"
-              onChange={({ target: { value } }) =>
-                setActiveShippingCountryCode(value)
-              }
               register={register({ required: true })}
               options={shippingCountries.map(({ code: value, name }) => ({
                 value,
@@ -304,9 +298,6 @@ function CheckoutPage({ elements, stripe }) {
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="billing.country"
-                onChange={({ target: { value } }) =>
-                  setActiveBillingCountryCode(value)
-                }
                 register={register({ required: true })}
                 options={shippingCountries.map(({ code: value, name }) => ({
                   value,
