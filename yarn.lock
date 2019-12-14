@@ -10926,10 +10926,10 @@ react-stripe-elements@6.0.1:
   dependencies:
     prop-types "15.7.2"
 
-react-use-cart@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.1.3.tgz#b72c3aefaf01b72121f001c77cc30cdd3ee9b877"
-  integrity sha512-oiZBIS/LBc2wFtZFvjcmAfMNzpgkCBIFgJ3kUMAO5Rc3UQdcqMKYhnChbTR7gMPox8/81Cg/tiWD+JaT0ku5Zw==
+react-use-cart@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.2.2.tgz#281216078031683c3ac4c16339a7d9038b4372a0"
+  integrity sha512-+m6Hf98fWxlGcdSeVqzHys7CVBarp3Qvr4/XqejMlohomNYyT9gHexFHf7tTARKW5fgKTHcZK5WBgwCLXOnLfA==
 
 react@16.10.2, react@^16.10.2:
   version "16.10.2"

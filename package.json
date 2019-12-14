@@ -32,7 +32,7 @@
     "react-dom": "16.10.2",
     "react-hook-form": "3.28.14",
     "react-stripe-elements": "6.0.1",
-    "react-use-cart": "1.1.3",
+    "react-use-cart": "1.2.2",
     "stripe": "^7.14.0"
   },
   "devDependencies": {
