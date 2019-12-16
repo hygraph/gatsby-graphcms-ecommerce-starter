@@ -67,7 +67,7 @@ const typeDefs = gql`
     city: String!
     country: String!
     name: String!
-    state: String!
+    state: String
     zip: String!
   }
 
