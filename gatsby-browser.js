@@ -17,7 +17,7 @@ import {
 const toastOptions = {
   position: 'top-center',
   draggable: false,
-  toastClassName: 'bg-primary text-white text-center p-3 shadow-none',
+  toastClassName: 'bg-primary text-white text-center p-2 shadow-none',
   progressClassName: 'h-0',
   closeButton: false,
   autoClose: 2000,
