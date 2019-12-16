@@ -1,3 +1,5 @@
+const md5 = require('md5');
+
 const createResolvers = ({ createResolvers }) => {
   const resolvers = {
     GraphCMS_Product: {
@@ -8,6 +10,17 @@ const createResolvers = ({ createResolvers }) => {
             id: printfulProductId,
             type: `PrintfulProduct`,
           });
+        },
+      },
+    },
+    GraphCMS_Review: {
+      gravatar: {
+        type: `String!`,
+        resolve: ({ email }) => {
+          const base = 'https://www.gravatar.com/avatar/';
+          const hash = md5(email.trim().toLowerCase(), { encoding: 'binary' });
+
+          return `${base}${hash}`;
         },
       },
     },
