@@ -165,7 +165,7 @@ function ProductPage({
         </div>
       </div>
 
-      <ReviewsList reviews={product.reviews} />
+      <ReviewsList productId={product.id} reviews={product.reviews} />
     </React.Fragment>
   );
 }

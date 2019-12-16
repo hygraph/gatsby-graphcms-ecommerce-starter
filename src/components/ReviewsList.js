@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Review from './Review';
+import ReviewForm from './ReviewForm';
 
-function ReviewsList({ reviews }) {
+function ReviewsList({ productId, reviews }) {
   return (
     <React.Fragment>
       <div className="py-12">
@@ -13,7 +14,9 @@ function ReviewsList({ reviews }) {
         <hr className="border-b border-gainsboro w-10" />
       </div>
 
-      <div className="flex flex-wrap -mx-6">{reviews.map(Review)}</div>
+      {reviews.map(Review)}
+
+      {/* <ReviewForm productId={productId} /> */}
     </React.Fragment>
   );
 }
