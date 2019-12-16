@@ -13,15 +13,30 @@ const getOrderQuery = gql`
 `;
 
 const createOrderMutation = gql`
-  mutation createOrder($name: String!, $email: String!, $total: Int!) {
-    createOrder(data: { name: $name, email: $email, total: $total }) {
+  mutation createOrder(
+    $name: String!
+    $email: String!
+    $phone: String
+    $total: Int!
+    $items: [OrderItemCreateWithoutOrderInput!]!
+    $billingAddress: AddressCreateWithoutBillingOrderInput!
+    $shippingAddress: AddressCreateWithoutShippingOrderInput!
+  ) {
+    createOrder(
+      data: {
+        name: $name
+        email: $email
+        phone: $phone
+        total: $total
+        billingAddress: { create: $billingAddress }
+        shippingAddress: { create: $shippingAddress }
+        orderItems: { create: $items }
+      }
+    ) {
       id
       name
       email
       total
-      billingAddress {
-        name
-      }
     }
   }
 `;

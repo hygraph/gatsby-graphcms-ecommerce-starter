@@ -9,6 +9,7 @@ module.exports = {
       gainsboro: 'rgba(0, 0, 0, 0.1)',
       lightgray: 'rgba(0, 0, 0, 0.25)',
       slategray: '#101b42',
+      red: '#DC143C',
     },
     fontFamily: {
       sans: ['Inter', ...fontFamily.sans],

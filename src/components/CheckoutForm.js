@@ -1,67 +1,156 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import { useCart } from 'react-use-cart';
 
 import Input from './Input';
+import Select from './Select';
 import Checkbox from './Checkbox';
 
-const CHECKOUT_MUTATION = `
-  mutation checkout($name: String!, $email: String!, $total: Int!) {
-    id
-    name
-    email
-    total
+const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
+  checkout(input: {name: $name, email: $email, total: $total, billingAddress: $billingAddress, shippingAddress: $shippingAddress, items: $items}) {
+    graphCMSOrderId
+    printfulOrderId
   }
-`;
+}`;
 
-function CheckoutPage({ stripe }) {
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($email: String!, $metadata: PaymentIntentMeta!, $total: Int!) {
+  createPaymentIntent(input: {email: $email, metadata: $metadata, total: $total}) {
+    id
+    clientSecret
+    status
+  }
+}`;
+
+const defaultValues = {
+  separateBilling: false,
+};
+
+function CheckoutPage({ elements, stripe }) {
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    setError,
+    errors,
+    formState,
+  } = useForm({ defaultValues });
+  const { isSubmitting } = formState;
   const [checkout] = useMutation(CHECKOUT_MUTATION);
-  const { handleSubmit, register, watch, setValue } = useForm();
-  const useSeparateBilling = watch('separateBilling', false);
-  const [checkoutError, setCheckoutError] = useState(null);
-  const [cardElement, setCardElement] = useState(null);
+  const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
+  const { cartTotal, items } = useCart();
+  const values = watch();
+  const shippingCountryCode = watch('shipping.country');
+  const billingCountryCode = watch('billing.country');
+  const useSeparateBilling = !!values.separateBilling;
 
   useEffect(() => {
     register({ name: 'stripe' });
   }, [register]);
 
   const onSubmit = async values => {
-    console.log(values);
-
     try {
       const {
-        paymentMethod: { id: paymentMethod },
-      } = await stripe.createPaymentMethod('card');
+        email,
+        tel,
+        shipping: { name, ...rest },
+        billing: billingAddress,
+      } = values;
 
-      console.log({ paymentMethod });
+      const checkoutItems = items.map(
+        ({ id: variantId, description, image, ...rest }) => ({
+          variantId,
+          ...rest,
+        })
+      );
 
-      // Create intent
-      // Handle intent status
-      // Create order
+      const shippingAddress = { name, ...rest };
 
-      const { email, tel, shipping, billing = shipping } = values;
+      const {
+        data: {
+          checkout: { graphCMSOrderId, printfulOrderId },
+        },
+      } = await checkout({
+        variables: {
+          name,
+          email,
+          total: cartTotal,
+          shippingAddress,
+          billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
+          items: checkoutItems,
+        },
+      });
 
-      const name = 'Test User';
-      const total = 1000;
+      const {
+        data: {
+          createPaymentIntent: { clientSecret },
+        },
+      } = await createPaymentIntent({
+        variables: {
+          email,
+          metadata: { graphCMSOrderId, printfulOrderId },
+          total: cartTotal,
+        },
+      });
 
-      // run mutation
-      await checkout({ variables: { name, email, total } });
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement('card'),
+        },
+      });
     } catch (err) {
-      setCheckoutError(
+      setError(
+        'checkout',
+        'unableToProceed',
         err.message || 'Unable to process order. Please try again.'
       );
     }
   };
 
+  const {
+    allPrintfulCountry: { nodes: shippingCountries },
+  } = useStaticQuery(graphql`
+    {
+      allPrintfulCountry(sort: { fields: name }) {
+        nodes {
+          name
+          id
+          code
+          states {
+            code
+            name
+          }
+        }
+      }
+    }
+  `);
+
   const handleStripeChange = e => setValue('stripe', e);
+
+  const activeShippingCountry = shippingCountries.find(
+    country => country.code === shippingCountryCode
+  );
+  const activeBillingCountry = shippingCountries.find(
+    country => country.code === billingCountryCode
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 pb-0 md:pb-0 my-3 md:my-6">
+      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
         <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
-          Contact information
+          Shipping
         </h3>
+
+        <div className="mb-3 md:mb-6">
+          <Input
+            name="shipping.name"
+            placeholder="Name"
+            register={register({ required: true })}
+          />
+        </div>
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -82,34 +171,10 @@ function CheckoutPage({ stripe }) {
             />
           </div>
         </div>
-      </div>
-
-      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
-        <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
-          Shipping
-        </h3>
-
-        <div className="md:flex -mx-3">
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
-              name="shipping.firstName"
-              placeholder="First name"
-              register={register({ required: true })}
-            />
-          </div>
-
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Input
-              name="shipping.lastName"
-              placeholder="Last name"
-              register={register({ required: true })}
-            />
-          </div>
-        </div>
 
         <div className="mb-3 md:mb-6">
           <Input
-            name="shipping.line1"
+            name="shipping.address1"
             placeholder="Address line 1"
             register={register({ required: true })}
           />
@@ -117,176 +182,148 @@ function CheckoutPage({ stripe }) {
 
         <div className="mb-3 md:mb-6">
           <Input
-            name="shipping.line2"
+            name="shipping.address2"
             placeholder="Apartment, suite, etc. (optional)"
             register={register}
-          />
-        </div>
-
-        <div className="mb-3 md:mb-6">
-          <Input
-            name="shipping.city"
-            placeholder="City"
-            register={register({ required: true })}
           />
         </div>
 
         <div className="md:flex -mx-3">
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
-              name="shipping.country"
-              placeholder="Country"
+              name="shipping.city"
+              placeholder="City"
               register={register({ required: true })}
+            />
+          </div>
+          {activeShippingCountry && activeShippingCountry.states && (
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Select
+                name="shipping.state"
+                register={register({ required: true })}
+                options={activeShippingCountry.states.map(
+                  ({ code: value, name }) => ({
+                    value,
+                    name,
+                  })
+                )}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="md:flex -mx-3">
+          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+            <Select
+              name="shipping.country"
+              register={register({ required: true })}
+              options={shippingCountries.map(({ code: value, name }) => ({
+                value,
+                name,
+              }))}
             />
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
-              name="shipping.postcode"
+              name="shipping.zip"
               placeholder="ZIP / Postcode"
               register={register({ required: true })}
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div>
           <Checkbox name="separateBilling" register={register}>
             Use different billing address
           </Checkbox>
-
-          <button
-            type="submit"
-            className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
-          >
-            Continue to {useSeparateBilling ? 'billing' : 'payment'}
-          </button>
         </div>
       </div>
 
-      {/* <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
-            <div className="flex items-start justify-between">
-              <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6 inline-flex items-center">
-                <span className="text-primary">
-                  <svg
-                    className="fill-current w-8 mr-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                  </svg>
-                </span>
-                Ship to
-              </h3>
-
-              <button className="appearance-none text-primary focus:outline-none">
-                Edit
-              </button>
-            </div>
-
-            <p>Jamie Barton</p>
-            <p>123 Address Street, Line 2, Washington, United States, 12345</p>
-          </div> */}
-
       {useSeparateBilling && (
-        <React.Fragment>
-          <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
-            <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
-              Billing
-            </h3>
+        <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
+          <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
+            Billing
+          </h3>
 
-            <div className="md:flex -mx-3">
-              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.firstName"
-                  placeholder="First name"
-                  register={register({ required: true })}
-                />
-              </div>
+          <div className="mb-3 md:mb-6">
+            <Input
+              name="billing.name"
+              placeholder="Name"
+              register={register({ required: true })}
+            />
+          </div>
 
-              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.lastName"
-                  placeholder="Last name"
-                  register={register({ required: true })}
-                />
-              </div>
-            </div>
+          <div className="mb-3 md:mb-6">
+            <Input
+              name="billing.address1"
+              placeholder="Address"
+              register={register({ required: true })}
+            />
+          </div>
 
-            <div className="mb-3 md:mb-6">
-              <Input
-                name="billing.line1"
-                placeholder="Address"
-                register={register({ required: true })}
-              />
-            </div>
+          <div className="mb-3 md:mb-6">
+            <Input
+              name="billing.address2"
+              placeholder="Apartment, suite, etc. (optional)"
+              register={register}
+            />
+          </div>
 
-            <div className="mb-3 md:mb-6">
-              <Input
-                name="billing.line2"
-                placeholder="Apartment, suite, etc. (optional)"
-                register={register}
-              />
-            </div>
-
-            <div className="mb-3 md:mb-6">
+          <div className="md:flex -mx-3">
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Input
                 name="billing.city"
                 placeholder="City"
                 register={register({ required: true })}
               />
             </div>
-
-            <div className="md:flex -mx-3">
+            {activeBillingCountry && activeBillingCountry.states && (
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.country"
-                  placeholder="Country"
+                <Select
+                  name="billing.state"
                   register={register({ required: true })}
+                  options={activeBillingCountry.states.map(
+                    ({ code: value, name }) => ({
+                      value,
+                      name,
+                    })
+                  )}
                 />
               </div>
+            )}
+          </div>
 
-              <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-                <Input
-                  name="billing.postcode"
-                  placeholder="ZIP / Postcode"
-                  register={register({ required: true })}
-                />
-              </div>
+          <div className="md:flex -mx-3">
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Select
+                name="billing.country"
+                register={register({ required: true })}
+                options={shippingCountries.map(({ code: value, name }) => ({
+                  value,
+                  name,
+                }))}
+              />
             </div>
 
-            <div className="flex items-center justify-end">
-              <button
-                type="submit"
-                className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
-              >
-                Continue to payment
-              </button>
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Input
+                name="billing.zip"
+                placeholder="ZIP / Postcode"
+                register={register({ required: true })}
+              />
             </div>
           </div>
-          <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
-            <div className="flex items-start justify-between">
-              <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6 inline-flex items-center">
-                <span className="text-primary">
-                  <svg
-                    className="fill-current w-8 mr-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                  </svg>
-                </span>
-                Bill to
-              </h3>
 
-              <button className="appearance-none text-primary focus:outline-none">
-                Edit
-              </button>
-            </div>
-
-            <p>Jamie Barton</p>
-            <p>123 Address Street, Line 2, Washington, United States, 12345</p>
+          <div className="flex items-center justify-end">
+            <button
+              type="submit"
+              className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
+            >
+              Continue to payment
+            </button>
           </div>
-        </React.Fragment>
+        </div>
       )}
 
       <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
@@ -299,14 +336,21 @@ function CheckoutPage({ stripe }) {
             className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
             hidePostalCode={true}
             onChange={handleStripeChange}
-            onReady={el => setCardElement(el)}
+            onReady={el => setValue('cardElement', el)}
           />
+
+          {values.stripe && values.stripe.error && (
+            <span className="text-red text-sm pt-3">
+              {values.stripe.error.message}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center justify-end">
           <button
             type="submit"
-            className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
+            className="bg-primary rounded text-white px-3 py-2 h-10 focus:outline-none font-bold"
+            disabled={isSubmitting}
           >
             Pay for order
           </button>

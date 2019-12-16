@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "apollo-datasource-graphql": "1.3.2",
+    "apollo-datasource-rest": "^0.6.9",
     "apollo-server-lambda": "2.9.12",
     "classnames": "^2.2.6",
     "currency-formatter": "1.5.5",
@@ -20,7 +21,7 @@
     "gatsby-plugin-sharp": "^2.3.3",
     "gatsby-plugin-stripe": "1.2.3",
     "gatsby-source-graphql": "2.1.20",
-    "gatsby-source-printful": "1.1.0",
+    "gatsby-source-printful": "1.2.0",
     "gatsby-transformer-sharp": "^2.3.5",
     "graphcms-image": "^1.1.0-beta4",
     "graphql-hooks": "4.1.1",
@@ -29,9 +30,10 @@
     "query-string": "^6.9.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
-    "react-stripe-elements": "6.0.1",
     "react-hook-form": "3.28.14",
-    "react-use-cart": "1.1.3"
+    "react-stripe-elements": "6.0.1",
+    "react-use-cart": "1.2.2",
+    "stripe": "^7.14.0"
   },
   "devDependencies": {
     "dotenv": "8.2.0",

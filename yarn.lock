@@ -1903,6 +1903,17 @@ apollo-datasource-graphql@1.3.2:
     graphql "^0.13.2"
     isomorphic-fetch "^2.2.1"
 
+apollo-datasource-rest@^0.6.9:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/apollo-datasource-rest/-/apollo-datasource-rest-0.6.9.tgz#2a46d2972e97a83341ded7ca2d59d1a173a23cd6"
+  integrity sha512-57B1R/V1UrSglfJsQLeRmhIuCin4318mD9flz4u41ppz76maFfi0gMBNTKX9d7vwtpDz0g/ExBauawzoE+a6RQ==
+  dependencies:
+    apollo-datasource "^0.6.3"
+    apollo-server-caching "^0.5.0"
+    apollo-server-env "^2.4.3"
+    apollo-server-errors "^2.3.4"
+    http-cache-semantics "^4.0.0"
+
 apollo-datasource@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/apollo-datasource/-/apollo-datasource-0.1.3.tgz#e7ae9d20f29a8a35f239b02f0c47169cfd78d70b"
@@ -5954,10 +5965,10 @@ gatsby-source-graphql@2.1.20:
     node-fetch "^1.7.3"
     uuid "^3.3.3"
 
-gatsby-source-printful@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gatsby-source-printful/-/gatsby-source-printful-1.1.0.tgz#5e9f16b9dc27d81503a2334fc6912b424481c5d9"
-  integrity sha512-vAH78m9XCAPm8r3yrqrNa/UsUEFC/cCVkgDM1Id638mb9zaWagsE5dioxK6AUNamd89zKQgPvmVOrwn67C5QkQ==
+gatsby-source-printful@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gatsby-source-printful/-/gatsby-source-printful-1.2.0.tgz#6ad4542ad24f9d3556d028fad439419a29920f70"
+  integrity sha512-0dPoarJUleUe8fe8Hy9E1kp6BCIPrr+YRhQPPPEOU5vfI/F6vVupvUpqwbNP+XyKja+xcyl+uAPN6tVZ7iQ/Zw==
   dependencies:
     gatsby-source-filesystem "^2.1.35"
     isomorphic-unfetch "^3.0.0"
@@ -6764,6 +6775,11 @@ http-cache-semantics@3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-3.8.1.tgz#39b0e16add9b605bf0a9ef3d9daaf4843b4cacd2"
   integrity sha512-5ai2iksyV8ZXmnZhHH4rWPoxxistEexSi5936zIQ1bnNTW5VnA85B6P/VpXiRM017IgRvb2kKo1a//y+0wSp3w==
+
+http-cache-semantics@^4.0.0:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.0.3.tgz#495704773277eeef6e43f9ab2c2c7d259dda25c5"
+  integrity sha512-TcIMG3qeVLgDr1TEd2XvHaTnMPwYQUQMIBLy+5pLSDKYFc7UIqj39w8EGzZkaxoLv/l2K8HaI0t5AVA+YYgUew==
 
 http-deceiver@^1.2.7:
   version "1.2.7"
@@ -10719,6 +10735,11 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
+qs@^6.6.0:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
+  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
+
 qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
@@ -10905,10 +10926,10 @@ react-stripe-elements@6.0.1:
   dependencies:
     prop-types "15.7.2"
 
-react-use-cart@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.1.3.tgz#b72c3aefaf01b72121f001c77cc30cdd3ee9b877"
-  integrity sha512-oiZBIS/LBc2wFtZFvjcmAfMNzpgkCBIFgJ3kUMAO5Rc3UQdcqMKYhnChbTR7gMPox8/81Cg/tiWD+JaT0ku5Zw==
+react-use-cart@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.2.2.tgz#281216078031683c3ac4c16339a7d9038b4372a0"
+  integrity sha512-+m6Hf98fWxlGcdSeVqzHys7CVBarp3Qvr4/XqejMlohomNYyT9gHexFHf7tTARKW5fgKTHcZK5WBgwCLXOnLfA==
 
 react@16.10.2, react@^16.10.2:
   version "16.10.2"
@@ -12292,6 +12313,13 @@ strip-outer@^1.0.0:
   integrity sha512-k55yxKHwaXnpYGsOzg4Vl8+tDrWylxDEpknGjhTiZB8dFRU5rTo9CAzeycivxV3s+zlTKwrs6WxMxR95n26kwg==
   dependencies:
     escape-string-regexp "^1.0.2"
+
+stripe@^7.14.0:
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-7.14.0.tgz#72e65cad328726ba268321f65604f57a932fc511"
+  integrity sha512-2YSSuJ18jxue0xhW2gZIoz4asC8rITvsNxzh/KuYVKK3dELK6/4M8yoGfSjFcic0D1FtJBB0j6l8Ty26a2L08w==
+  dependencies:
+    qs "^6.6.0"
 
 style-loader@^0.23.1:
   version "0.23.1"
