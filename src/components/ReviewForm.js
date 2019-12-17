@@ -13,23 +13,28 @@ const CREATE_REVIEW_MUTATION = `mutation submitReview($input: SubmitReviewInput!
 
 function ReviewForm({ productId }) {
   const { handleSubmit, register, setError, formState } = useForm();
-  const { isSubmitting } = formState;
+  const { isSubmitting, isSubmitted } = formState;
   const [submitReview] = useMutation(CREATE_REVIEW_MUTATION);
+
+  if (isSubmitted)
+    return (
+      <p className="text-primary">
+        Thank you for your review. We'll be in touch.
+      </p>
+    );
 
   const onSubmit = async values => {
     try {
-      const data = await submitReview({
+      await submitReview({
         variables: {
           input: { ...values, productId },
         },
       });
-
-      console.log(data);
     } catch (err) {
       setError(
         'submitReview',
         'somethingWentWrong',
-        err.message || 'Unable to submit your review. Please try again.'
+        err.message || 'Unable to submit review. Please try again.'
       );
     }
   };
