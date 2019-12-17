@@ -1,6 +1,14 @@
 const md5 = require('md5');
+const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
-const createResolvers = ({ createResolvers }) => {
+const createResolvers = ({
+  actions: { createNode },
+  cache,
+  createNodeId,
+  createResolvers,
+  store,
+  reporter,
+}) => {
   const resolvers = {
     GraphCMS_Product: {
       printfulProduct: {
@@ -15,12 +23,21 @@ const createResolvers = ({ createResolvers }) => {
     },
     GraphCMS_Review: {
       gravatar: {
-        type: `String!`,
-        resolve: ({ email }) => {
-          const base = 'https://www.gravatar.com/avatar/';
-          const hash = md5(email.trim().toLowerCase(), { encoding: 'binary' });
+        type: `File`,
+        resolve: ({ email }, args, context, info) => {
+          const url = `https://gravatar.com/avatar/${md5(
+            email.trim().toLowerCase(),
+            { encoding: 'binary' }
+          )}`;
 
-          return `${base}${hash}`;
+          return createRemoteFileNode({
+            url,
+            store,
+            cache,
+            createNode,
+            createNodeId,
+            reporter,
+          });
         },
       },
     },

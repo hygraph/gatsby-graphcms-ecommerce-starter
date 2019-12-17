@@ -205,7 +205,13 @@ export const pageQuery = graphql`
         reviews {
           id
           email
-          gravatar
+          gravatar {
+            childImageSharp {
+              fluid(maxWidth: 560) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
           name
           headline
           message

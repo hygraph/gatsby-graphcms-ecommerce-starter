@@ -1,4 +1,5 @@
 import React from 'react';
+import Img from 'gatsby-image';
 
 function Review({ id, gravatar, rating, name, headline, message }) {
   const Stars = () => (
@@ -24,13 +25,13 @@ function Review({ id, gravatar, rating, name, headline, message }) {
         <div className="flex h-full">
           <div className="m-auto flex flex-col items-center justify-center">
             {gravatar && (
-              <img
-                src={gravatar}
+              <Img
                 className="bg-white rounded-full w-16 h-16 mb-3"
+                fluid={gravatar.childImageSharp.fluid}
                 alt={name}
+                title={name}
               />
             )}
-
             <p className="text-slategray text-lg font-bold">{name}</p>
           </div>
         </div>
