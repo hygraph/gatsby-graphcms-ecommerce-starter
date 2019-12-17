@@ -30,5 +30,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-stripe`,
+    `gatsby-plugin-react-helmet`,
   ],
 };
