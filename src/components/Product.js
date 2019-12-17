@@ -7,7 +7,7 @@ function Product({ id, name, printfulProduct }) {
   const [{ formattedPrice }] = printfulProduct.variants;
 
   return (
-    <article key={id} className="px-6 w-full md:w-1/2 lg:w-1/3">
+    <article key={id} className="p-6 w-full md:w-1/2 lg:w-1/3">
       <LocaleLink
         to={`/products/${id}`}
         className="group no-underline w-full h-full flex"

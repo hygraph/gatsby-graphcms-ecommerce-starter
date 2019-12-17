@@ -174,6 +174,7 @@ export const pageQuery = graphql`
   query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
     cms {
       product(where: { id: $id }) {
+        id
         description(locale: $locale) {
           markdown
         }
@@ -202,7 +203,7 @@ export const pageQuery = graphql`
             }
           }
         }
-        reviews {
+        reviews(orderBy: createdAt_DESC) {
           id
           email
           gravatar {

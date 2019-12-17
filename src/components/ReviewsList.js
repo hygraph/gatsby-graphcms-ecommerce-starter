@@ -16,7 +16,7 @@ function ReviewsList({ productId, reviews }) {
 
       {reviews.map(Review)}
 
-      {/* <ReviewForm productId={productId} /> */}
+      <ReviewForm productId={productId} />
     </React.Fragment>
   );
 }
