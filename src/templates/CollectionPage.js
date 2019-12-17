@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import ProductGrid from '../components/ProductGrid';
+import SEO from '../components/SEO';
 
 function CollectionPage({
   data: {
@@ -10,6 +11,7 @@ function CollectionPage({
 }) {
   return (
     <React.Fragment>
+      <SEO pageTitle={collection.name} />
       <h1 className="font-bold text-6xl mb-3 text-primary">
         {collection.name}
       </h1>
