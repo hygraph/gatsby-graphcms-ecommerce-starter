@@ -5,6 +5,8 @@ import { useCart } from 'react-use-cart';
 import queryString from 'query-string';
 import { navigate } from '@reach/router';
 
+import ReviewsList from '../components/ReviewsList';
+
 function ProductPage({
   data: {
     cms: { product },
@@ -32,7 +34,7 @@ function ProductPage({
     <React.Fragment>
       <div className="lg:flex -mx-6">
         <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
-          <div className="w-full overflow-hidden relative bg-gainsboro rounded ">
+          <div className="w-full overflow-hidden relative bg-gainsboro rounded">
             <Img
               fluid={
                 activeVariant
@@ -162,6 +164,8 @@ function ProductPage({
           </div>
         </div>
       </div>
+
+      <ReviewsList productId={product.id} reviews={product.reviews} />
     </React.Fragment>
   );
 }
@@ -170,6 +174,7 @@ export const pageQuery = graphql`
   query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
     cms {
       product(where: { id: $id }) {
+        id
         description(locale: $locale) {
           markdown
         }
@@ -197,6 +202,21 @@ export const pageQuery = graphql`
               }
             }
           }
+        }
+        reviews(orderBy: createdAt_DESC) {
+          id
+          email
+          gravatar {
+            childImageSharp {
+              fluid(maxWidth: 560) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          name
+          headline
+          message
+          rating
         }
       }
     }
