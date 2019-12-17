@@ -36,24 +36,24 @@ function ReviewForm({ productId }) {
 
   const ratings = [
     {
-      label: 'Not good',
-      value: 1,
-    },
-    {
-      label: "It's ok",
-      value: 2,
-    },
-    {
-      label: 'Meh',
-      value: 3,
+      label: 'Really Good',
+      value: 5,
     },
     {
       label: 'Good',
       value: 4,
     },
     {
-      label: 'Great',
-      value: 5,
+      label: 'Meh',
+      value: 3,
+    },
+    {
+      label: 'Bad',
+      value: 2,
+    },
+    {
+      label: 'Really Bad',
+      value: 1,
     },
   ];
 
@@ -71,16 +71,22 @@ function ReviewForm({ productId }) {
             <div className="mb-3 md:mb-6">
               <div className="md:flex -mx-6">
                 {ratings.map(({ label, value }) => (
-                  <div key={value} className="md:w-1/5 px-6">
-                    <div className="bg-gainsboro rounded p-3 flex flex-col items-center justify-center h-full">
-                      <input
-                        type="radio"
-                        name="rating"
-                        ref={register({ required: true })}
-                        value={value}
-                      />
+                  <div key={value} className="product-rating md:w-1/5 px-6">
+                    <input
+                      id={`rating[${value}]`}
+                      type="radio"
+                      name="rating"
+                      ref={register({ required: true })}
+                      value={value}
+                      className="opacity-0 fixed w-0"
+                    />
+
+                    <label
+                      htmlFor={`rating[${value}]`}
+                      className="bg-gainsboro border-2 border-transparent rounded p-3 flex flex-col items-center justify-center h-full cursor-pointer hover:border-slategray"
+                    >
                       {label}
-                    </div>
+                    </label>
                   </div>
                 ))}
               </div>
