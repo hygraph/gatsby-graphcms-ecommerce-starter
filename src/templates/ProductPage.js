@@ -33,7 +33,15 @@ function ProductPage({
 
   return (
     <React.Fragment>
-      <SEO pageTitle={product.name} pageDescription={product.description} />
+      <SEO
+        pageTitle={product.name}
+        image={
+          activeVariant
+            ? activeVariant.variantImage.childImageSharp.fluid.src
+            : product.printfulProduct.productImage.childImageSharp.fluid.src
+        }
+      />
+
       <div className="lg:flex -mx-6">
         <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
           <div className="w-full overflow-hidden relative bg-gainsboro rounded">
