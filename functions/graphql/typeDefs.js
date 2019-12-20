@@ -38,6 +38,7 @@ const typeDefs = gql`
 
   input SubmitReviewInput {
     name: String!
+    email: String!
     headline: String!
     rating: Int!
     message: String

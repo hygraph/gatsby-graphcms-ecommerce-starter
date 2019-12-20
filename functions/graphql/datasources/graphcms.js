@@ -41,9 +41,10 @@ const createOrderMutation = gql`
   }
 `;
 
-const createReviewMutation = gql`
-  mutation createReview(
+const submitReviewMutation = gql`
+  mutation submitReview(
     $name: String!
+    $email: String!
     $headline: String!
     $rating: Int!
     $message: String!
@@ -52,6 +53,7 @@ const createReviewMutation = gql`
     createReview(
       data: {
         name: $name
+        email: $email
         headline: $headline
         rating: $rating
         message: $message
@@ -102,7 +104,7 @@ class GraphCMSAPI extends GraphQLDataSource {
 
   async submitReview(variables) {
     try {
-      const { data } = await this.mutation(createReviewMutation, { variables });
+      const { data } = await this.mutation(submitReviewMutation, { variables });
 
       return data.createReview;
     } catch (err) {

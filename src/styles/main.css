@@ -31,3 +31,11 @@ html {
     @apply block;
   }
 }
+
+.product-rating input[type='radio']:checked + label {
+  @apply bg-primary text-white border-primary;
+}
+
+.product-rating input[type='radio']:active + label {
+  @apply border-slategray;
+}
