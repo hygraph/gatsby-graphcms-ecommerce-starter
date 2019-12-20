@@ -3,8 +3,9 @@ import React from 'react';
 function Rating({ rating }) {
   return (
     <div className="flex items-center mb-3">
-      {new Array(rating).fill(0).map(() => (
+      {new Array(rating).fill(0).map((_, index) => (
         <svg
+          key={index}
           className="w-8 h-8 text-primary fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
