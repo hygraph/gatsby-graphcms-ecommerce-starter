@@ -9,15 +9,15 @@ import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
 
-const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
-  checkout(input: {name: $name, email: $email, total: $total, billingAddress: $billingAddress, shippingAddress: $shippingAddress, items: $items}) {
+const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
+  checkout(input: $input) {
     graphCMSOrderId
     printfulOrderId
   }
 }`;
 
-const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($email: String!, $metadata: PaymentIntentMeta!, $total: Int!) {
-  createPaymentIntent(input: {email: $email, metadata: $metadata, total: $total}) {
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!!) {
+  createPaymentIntent(input: $input) {
     id
     clientSecret
     status
