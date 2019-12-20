@@ -1,15 +1,18 @@
 import React from 'react';
-import { Elements } from 'react-stripe-elements';
 
-import CheckoutForm from '../components/CheckoutForm';
+import Checkout from '../components/Checkout';
 
 function CheckoutPage() {
   return (
-    <div className="max-w-4xl mx-auto">
-      <Elements>
-        <CheckoutForm />
-      </Elements>
-    </div>
+    <React.Fragment>
+      <div className="mb-6">
+        <h1 className="font-bold text-6xl mb-3 text-primary">Checkout</h1>
+
+        <hr className="border-b border-gainsboro w-10" />
+      </div>
+
+      <Checkout />
+    </React.Fragment>
   );
 }
 
