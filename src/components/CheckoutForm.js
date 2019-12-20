@@ -55,7 +55,7 @@ function CheckoutPage({ elements, stripe }) {
     try {
       const {
         email,
-        tel,
+        phone,
         shipping: { name, ...rest },
         billing: billingAddress,
       } = values;
@@ -77,6 +77,7 @@ function CheckoutPage({ elements, stripe }) {
         variables: {
           name,
           email,
+          phone,
           total: cartTotal,
           shippingAddress,
           billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
@@ -164,7 +165,7 @@ function CheckoutPage({ elements, stripe }) {
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
-              name="tel"
+              name="phone"
               type="tel"
               placeholder="Contact no."
               register={register}
