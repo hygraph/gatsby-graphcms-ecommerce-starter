@@ -69,19 +69,23 @@ function CheckoutPage({ elements, stripe }) {
 
       const shippingAddress = { name, ...rest };
 
+      const input = {
+        name,
+        email,
+        phone,
+        total: cartTotal,
+        shippingAddress,
+        billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
+        items: checkoutItems,
+      };
+
       const {
         data: {
           checkout: { graphCMSOrderId, printfulOrderId },
         },
       } = await checkout({
         variables: {
-          name,
-          email,
-          phone,
-          total: cartTotal,
-          shippingAddress,
-          billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
-          items: checkoutItems,
+          input,
         },
       });
 
@@ -91,9 +95,11 @@ function CheckoutPage({ elements, stripe }) {
         },
       } = await createPaymentIntent({
         variables: {
-          email,
-          metadata: { graphCMSOrderId, printfulOrderId },
-          total: cartTotal,
+          input: {
+            email,
+            metadata: { graphCMSOrderId, printfulOrderId },
+            total: cartTotal,
+          },
         },
       });
 
