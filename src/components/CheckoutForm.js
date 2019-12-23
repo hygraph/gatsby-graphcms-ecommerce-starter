@@ -149,8 +149,8 @@ function CheckoutPage({ elements, stripe }) {
             name="shipping.name"
             placeholder="Name"
             register={register({ required: 'Shipping name is required' })}
+            errors={errors}
           />
-          {errors['shipping.name'] && errors['shipping.name'].message}
         </div>
 
         <div className="md:flex -mx-3">
@@ -166,8 +166,8 @@ function CheckoutPage({ elements, stripe }) {
                   message: 'Email is invalid',
                 },
               })}
+              errors={errors}
             />
-            {errors.email && errors.email.message}
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -176,6 +176,7 @@ function CheckoutPage({ elements, stripe }) {
               type="tel"
               placeholder="Contact no."
               register={register}
+              errors={errors}
             />
           </div>
         </div>
@@ -187,8 +188,8 @@ function CheckoutPage({ elements, stripe }) {
             register={register({
               required: 'Shipping address line 1 is required',
             })}
+            errors={errors}
           />
-          {errors['shipping.address1'] && errors['shipping.address1'].message}
         </div>
 
         <div className="mb-3 md:mb-6">
@@ -196,6 +197,7 @@ function CheckoutPage({ elements, stripe }) {
             name="shipping.address2"
             placeholder="Apartment, suite, etc. (optional)"
             register={register}
+            errors={errors}
           />
         </div>
 
@@ -205,8 +207,8 @@ function CheckoutPage({ elements, stripe }) {
               name="shipping.city"
               placeholder="City"
               register={register({ required: 'Shipping city is required' })}
+              errors={errors}
             />
-            {errors['shipping.city'] && errors['shipping.city'].message}
           </div>
           {activeShippingCountry && activeShippingCountry.states && (
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -219,8 +221,8 @@ function CheckoutPage({ elements, stripe }) {
                     name,
                   })
                 )}
+                errors={errors}
               />
-              {errors['shipping.state'] && errors['shipping.state'].message}
             </div>
           )}
         </div>
@@ -234,8 +236,8 @@ function CheckoutPage({ elements, stripe }) {
                 value,
                 name,
               }))}
+              errors={errors}
             />
-            {errors['shipping.country'] && errors['shipping.country'].message}
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -243,8 +245,8 @@ function CheckoutPage({ elements, stripe }) {
               name="shipping.zip"
               placeholder="ZIP / Postcode"
               register={register({ required: 'Shipping ZIP is required' })}
+              errors={errors}
             />
-            {errors['shipping.zip'] && errors['shipping.zip'].message}
           </div>
         </div>
 
@@ -266,8 +268,8 @@ function CheckoutPage({ elements, stripe }) {
               name="billing.name"
               placeholder="Name"
               register={register({ required: 'Billing name is required' })}
+              errors={errors}
             />
-            {errors['billing.name'] && errors['billing.name'].message}
           </div>
 
           <div className="mb-3 md:mb-6">
@@ -277,8 +279,8 @@ function CheckoutPage({ elements, stripe }) {
               register={register({
                 required: 'Billing address line 1 is required',
               })}
+              errors={errors}
             />
-            {errors['billing.address1'] && errors['billing.address1'].message}
           </div>
 
           <div className="mb-3 md:mb-6">
@@ -286,6 +288,7 @@ function CheckoutPage({ elements, stripe }) {
               name="billing.address2"
               placeholder="Apartment, suite, etc. (optional)"
               register={register}
+              errors={errors}
             />
           </div>
 
@@ -295,8 +298,8 @@ function CheckoutPage({ elements, stripe }) {
                 name="billing.city"
                 placeholder="City"
                 register={register({ required: 'Billing city is required' })}
+                errors={errors}
               />
-              {errors['billing.city'] && errors['billing.city'].message}
             </div>
             {activeBillingCountry && activeBillingCountry.states && (
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -309,8 +312,8 @@ function CheckoutPage({ elements, stripe }) {
                       name,
                     })
                   )}
+                  errors={errors}
                 />
-                {errors['billing.state'] && errors['billing.state'].message}
               </div>
             )}
           </div>
@@ -324,8 +327,8 @@ function CheckoutPage({ elements, stripe }) {
                   value,
                   name,
                 }))}
+                errors={errors}
               />
-              {errors['billing.country'] && errors['billing.country'].message}
             </div>
 
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -333,8 +336,8 @@ function CheckoutPage({ elements, stripe }) {
                 name="billing.zip"
                 placeholder="ZIP / Postcode"
                 register={register({ required: 'Billing ZIP is required' })}
+                errors={errors}
               />
-              {errors['billing.zip'] && errors['billing.zip'].message}
             </div>
           </div>
 
