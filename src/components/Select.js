@@ -10,7 +10,7 @@ function Select({ errors = {}, register, name, options, ...rest }) {
     'block appearance-none w-full bg-white border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray rounded',
     {
       'border-red focus:border-red': hasError,
-      'border-slategrey focus:border-primary': !hasError,
+      'border-gainsboro focus:border-slategray': !hasError,
     }
   );
 

@@ -368,7 +368,7 @@ function CheckoutPage({ elements, stripe }) {
 
         <div className="mb-3 md:mb-6">
           <CardElement
-            className="appearance-none bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:border-primary focus:bg-white text-slategray focus:outline-none w-full rounded"
+            className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded"
             hidePostalCode={true}
             onChange={handleStripeChange}
             onReady={el => setValue('cardElement', el)}

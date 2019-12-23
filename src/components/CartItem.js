@@ -48,7 +48,7 @@ function CartItem({ id, name, quantity, price, image }) {
           </button>
         </div>
 
-        <div className="flex flex-col items-center mr-3">
+        <div className="flex flex-col items-center">
           <button
             className="text-slategray hover:text-primary focus:outline-none p-1"
             onClick={increment}
