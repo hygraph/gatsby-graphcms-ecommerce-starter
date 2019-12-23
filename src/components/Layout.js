@@ -6,10 +6,12 @@ import '../styles/main.css';
 
 import Header from './Header';
 import Footer from './Footer';
+import SEO from './SEO';
 
 function Layout({ children, location, pageContext: { locale } }) {
   return (
     <React.Fragment>
+      <SEO />
       <LocaleProvider locale={locale} location={location}>
         <Header />
 

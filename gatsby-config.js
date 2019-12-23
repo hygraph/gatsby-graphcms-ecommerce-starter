@@ -1,6 +1,11 @@
 require(`dotenv`).config();
 
 module.exports = {
+  siteMetadata: {
+    title: `GraphCMS SWAG Store`,
+    description: `Super cool SWAG from your favourite GraphQL CMS!`,
+    siteUrl: `https://store.graphcms.com`,
+  },
   plugins: [
     `gatsby-plugin-postcss`,
     {
@@ -30,5 +35,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-stripe`,
+    `gatsby-plugin-react-helmet`,
   ],
 };
