@@ -24,10 +24,10 @@ function CartItem({ id, name, quantity, price, image }) {
   return (
     <div
       key={id}
-      className="md:bg-gainsboro md:rounded md:flex md:items-center py-3 md:py-6 md:px-3 md:px-6 md:mb-3"
+      className="md:bg-gainsboro md:rounded flex items-center py-3 md:py-6 md:px-3 md:px-6 md:mb-3"
     >
-      <div className="md:w-2/3 flex items-center">
-        <div className="mr-3 lg:mr-6 relative">
+      <div className="w-2/3 flex flex-grow items-center">
+        <div className="relative">
           <Img
             className="h-16 md:h-20 w-16 md:w-20"
             fluid={image.childImageSharp.fluid}
@@ -48,16 +48,9 @@ function CartItem({ id, name, quantity, price, image }) {
           </button>
         </div>
 
-        <div>
-          <h4 className="text-slategray font-medium">{name}</h4>
-          <p className="text-lightgray text-xs">SKU</p>
-        </div>
-      </div>
-
-      <div className="w-full md:w-1/3 flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex flex-col items-center">
           <button
-            className="text-slategray hover:text-primary focus:outline-none p-3"
+            className="text-slategray hover:text-primary focus:outline-none p-1"
             onClick={increment}
           >
             <svg
@@ -69,10 +62,10 @@ function CartItem({ id, name, quantity, price, image }) {
             </svg>
           </button>
 
-          <span className="mx-3 md:mx-6 p-3">{quantity}</span>
+          <span className="mx-3 md:mx-6 p-1">{quantity}</span>
 
           <button
-            className="text-slategray hover:text-primary focus:outline-none p-3"
+            className="text-slategray hover:text-primary focus:outline-none p-1"
             onClick={decrement}
           >
             <svg
@@ -85,12 +78,16 @@ function CartItem({ id, name, quantity, price, image }) {
           </button>
         </div>
 
-        <div className="text-right">
-          <p className="font-medium text-slategray">{formattedLineTotal}</p>
-          {quantity > 1 && (
-            <p className="text-lightgray text-sm">{formattedUnitPrice} each</p>
-          )}
+        <div>
+          <h4 className="text-slategray font-medium">{name}</h4>
         </div>
+      </div>
+
+      <div className="text-right">
+        <p className="font-medium text-slategray">{formattedLineTotal}</p>
+        {quantity > 1 && (
+          <p className="text-lightgray text-sm">{formattedUnitPrice} each</p>
+        )}
       </div>
     </div>
   );

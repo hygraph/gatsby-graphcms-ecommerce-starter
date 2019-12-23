@@ -11,7 +11,7 @@ function Checkbox({ register, name, children, ...rest }) {
         className="mr-3 leading-tight"
         {...rest}
       />
-      <span className="text-sm">{children}</span>
+      <span className="text-sm text-slategray">{children}</span>
     </label>
   );
 }
