@@ -148,8 +148,9 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.name"
             placeholder="Name"
-            register={register({ required: true })}
+            register={register({ required: 'Shipping name is required' })}
           />
+          {errors['shipping.name'] && errors['shipping.name'].message}
         </div>
 
         <div className="md:flex -mx-3">
@@ -158,8 +159,15 @@ function CheckoutPage({ elements, stripe }) {
               name="email"
               type="email"
               placeholder="Email address"
-              register={register({ required: true })}
+              register={register({
+                required: 'Email is required',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: 'Email is invalid',
+                },
+              })}
             />
+            {errors.email && errors.email.message}
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
@@ -176,8 +184,11 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.address1"
             placeholder="Address line 1"
-            register={register({ required: true })}
+            register={register({
+              required: 'Shipping address line 1 is required',
+            })}
           />
+          {errors['shipping.address1'] && errors['shipping.address1'].message}
         </div>
 
         <div className="mb-3 md:mb-6">
@@ -193,14 +204,15 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="shipping.city"
               placeholder="City"
-              register={register({ required: true })}
+              register={register({ required: 'Shipping city is required' })}
             />
+            {errors['shipping.city'] && errors['shipping.city'].message}
           </div>
           {activeShippingCountry && activeShippingCountry.states && (
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="shipping.state"
-                register={register({ required: true })}
+                register={register({ required: 'Shipping state is required' })}
                 options={activeShippingCountry.states.map(
                   ({ code: value, name }) => ({
                     value,
@@ -208,6 +220,7 @@ function CheckoutPage({ elements, stripe }) {
                   })
                 )}
               />
+              {errors['shipping.state'] && errors['shipping.state'].message}
             </div>
           )}
         </div>
@@ -216,20 +229,22 @@ function CheckoutPage({ elements, stripe }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.country"
-              register={register({ required: true })}
+              register={register({ required: 'Shipping country is required' })}
               options={shippingCountries.map(({ code: value, name }) => ({
                 value,
                 name,
               }))}
             />
+            {errors['shipping.country'] && errors['shipping.country'].message}
           </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
               name="shipping.zip"
               placeholder="ZIP / Postcode"
-              register={register({ required: true })}
+              register={register({ required: 'Shipping ZIP is required' })}
             />
+            {errors['shipping.zip'] && errors['shipping.zip'].message}
           </div>
         </div>
 
@@ -250,16 +265,20 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.name"
               placeholder="Name"
-              register={register({ required: true })}
+              register={register({ required: 'Billing name is required' })}
             />
+            {errors['billing.name'] && errors['billing.name'].message}
           </div>
 
           <div className="mb-3 md:mb-6">
             <Input
               name="billing.address1"
               placeholder="Address"
-              register={register({ required: true })}
+              register={register({
+                required: 'Billing address line 1 is required',
+              })}
             />
+            {errors['billing.address1'] && errors['billing.address1'].message}
           </div>
 
           <div className="mb-3 md:mb-6">
@@ -275,14 +294,15 @@ function CheckoutPage({ elements, stripe }) {
               <Input
                 name="billing.city"
                 placeholder="City"
-                register={register({ required: true })}
+                register={register({ required: 'Billing city is required' })}
               />
+              {errors['billing.city'] && errors['billing.city'].message}
             </div>
             {activeBillingCountry && activeBillingCountry.states && (
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
                 <Select
                   name="billing.state"
-                  register={register({ required: true })}
+                  register={register({ required: 'Billing state is required' })}
                   options={activeBillingCountry.states.map(
                     ({ code: value, name }) => ({
                       value,
@@ -290,6 +310,7 @@ function CheckoutPage({ elements, stripe }) {
                     })
                   )}
                 />
+                {errors['billing.state'] && errors['billing.state'].message}
               </div>
             )}
           </div>
@@ -298,20 +319,22 @@ function CheckoutPage({ elements, stripe }) {
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="billing.country"
-                register={register({ required: true })}
+                register={register({ required: 'Billing country is required' })}
                 options={shippingCountries.map(({ code: value, name }) => ({
                   value,
                   name,
                 }))}
               />
+              {errors['billing.country'] && errors['billing.country'].message}
             </div>
 
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Input
                 name="billing.zip"
                 placeholder="ZIP / Postcode"
-                register={register({ required: true })}
+                register={register({ required: 'Billing ZIP is required' })}
               />
+              {errors['billing.zip'] && errors['billing.zip'].message}
             </div>
           </div>
 
