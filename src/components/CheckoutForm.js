@@ -26,6 +26,7 @@ const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($email: String!, $
 
 const defaultValues = {
   separateBilling: false,
+  'shipping.country': 'DE',
 };
 
 function CheckoutPage({ elements, stripe }) {
@@ -210,6 +211,21 @@ function CheckoutPage({ elements, stripe }) {
               errors={errors}
             />
           </div>
+
+          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+            <Select
+              name="shipping.country"
+              register={register({ required: 'Shipping country is required' })}
+              options={shippingCountries.map(({ code: value, name }) => ({
+                value,
+                name,
+              }))}
+              errors={errors}
+            />
+          </div>
+        </div>
+
+        <div className="md:flex -mx-3">
           {activeShippingCountry && activeShippingCountry.states && (
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
@@ -225,20 +241,6 @@ function CheckoutPage({ elements, stripe }) {
               />
             </div>
           )}
-        </div>
-
-        <div className="md:flex -mx-3">
-          <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-            <Select
-              name="shipping.country"
-              register={register({ required: 'Shipping country is required' })}
-              options={shippingCountries.map(({ code: value, name }) => ({
-                value,
-                name,
-              }))}
-              errors={errors}
-            />
-          </div>
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
