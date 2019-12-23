@@ -9,15 +9,15 @@ import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
 
-const CHECKOUT_MUTATION = `mutation checkout($name: String!, $email: String!, $total: Int!, $billingAddress: CheckoutAddressInput!, $shippingAddress: CheckoutAddressInput!, $items: [CheckoutItemInput!]!) {
-  checkout(input: {name: $name, email: $email, total: $total, billingAddress: $billingAddress, shippingAddress: $shippingAddress, items: $items}) {
+const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
+  checkout(input: $input) {
     graphCMSOrderId
     printfulOrderId
   }
 }`;
 
-const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($email: String!, $metadata: PaymentIntentMeta!, $total: Int!) {
-  createPaymentIntent(input: {email: $email, metadata: $metadata, total: $total}) {
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!!) {
+  createPaymentIntent(input: $input) {
     id
     clientSecret
     status
@@ -56,7 +56,7 @@ function CheckoutPage({ elements, stripe }) {
     try {
       const {
         email,
-        tel,
+        phone,
         shipping: { name, ...rest },
         billing: billingAddress,
       } = values;
@@ -70,18 +70,23 @@ function CheckoutPage({ elements, stripe }) {
 
       const shippingAddress = { name, ...rest };
 
+      const input = {
+        name,
+        email,
+        phone,
+        total: cartTotal,
+        shippingAddress,
+        billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
+        items: checkoutItems,
+      };
+
       const {
         data: {
           checkout: { graphCMSOrderId, printfulOrderId },
         },
       } = await checkout({
         variables: {
-          name,
-          email,
-          total: cartTotal,
-          shippingAddress,
-          billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
-          items: checkoutItems,
+          input,
         },
       });
 
@@ -91,9 +96,11 @@ function CheckoutPage({ elements, stripe }) {
         },
       } = await createPaymentIntent({
         variables: {
-          email,
-          metadata: { graphCMSOrderId, printfulOrderId },
-          total: cartTotal,
+          input: {
+            email,
+            metadata: { graphCMSOrderId, printfulOrderId },
+            total: cartTotal,
+          },
         },
       });
 
@@ -173,7 +180,7 @@ function CheckoutPage({ elements, stripe }) {
 
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Input
-              name="tel"
+              name="phone"
               type="tel"
               placeholder="Contact no."
               register={register}

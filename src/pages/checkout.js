@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SEO from '../components/SEO';
 import Checkout from '../components/Checkout';
 
 function CheckoutPage() {
@@ -11,6 +12,7 @@ function CheckoutPage() {
         <hr className="border-b border-gainsboro w-10" />
       </div>
 
+      <SEO pageTitle="Checkout" />
       <Checkout />
     </React.Fragment>
   );
