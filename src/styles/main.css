@@ -1,4 +1,4 @@
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,7 +11,7 @@ body,
 }
 
 html {
-  @apply bg-white font-sans;
+  @apply bg-white font-sans antialiased leading-normal;
 }
 
 .site-nav {

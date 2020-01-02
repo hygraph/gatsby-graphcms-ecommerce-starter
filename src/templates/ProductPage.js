@@ -44,7 +44,7 @@ function ProductPage({
 
       <div className="lg:flex -mx-6">
         <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
-          <div className="w-full overflow-hidden relative bg-gainsboro rounded">
+          <div className="w-full overflow-hidden relative bg-gainsboro rounded-lg">
             <Img
               fluid={
                 activeVariant
@@ -91,7 +91,7 @@ function ProductPage({
                   onChange={({ target: { value } }) =>
                     setActiveVariantId(value)
                   }
-                  className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
+                  className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
                 >
                   {variants.map((variant, index) => (
                     <option key={index} value={variant.id}>
@@ -124,7 +124,7 @@ function ProductPage({
                 <select
                   id="quantity"
                   value={variantQuantity}
-                  className="block appearance-none w-full bg-white border-2 border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded"
+                  className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
                   onChange={({ target: { value } }) =>
                     setVariantQuantity(value)
                   }
@@ -154,7 +154,7 @@ function ProductPage({
           </div>
           <div className="mb-6">
             <button
-              className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
+              className="block w-full bg-primary hover:bg-slategray px-4 py-3 rounded-lg text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
               onClick={() =>
                 addItem(
                   {

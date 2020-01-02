@@ -28,7 +28,7 @@ function Cart() {
 
           <Link
             to="/checkout"
-            className="bg-primary hover:bg-slategray px-4 py-3 rounded text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
+            className="bg-primary hover:bg-slategray px-4 py-3 rounded-lg text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
           >
             Checkout
           </Link>

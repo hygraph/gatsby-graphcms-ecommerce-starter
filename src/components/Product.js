@@ -12,7 +12,7 @@ function Product({ id, name, printfulProduct }) {
         to={`/products/${id}`}
         className="group no-underline w-full h-full flex"
       >
-        <div className="bg-gainsboro rounded cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">
+        <div className="bg-gainsboro rounded-lg cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">
           <Img
             fluid={printfulProduct.productImage.childImageSharp.fluid}
             alt={name}
@@ -20,7 +20,7 @@ function Product({ id, name, printfulProduct }) {
           />
 
           <div className="pt-3 md:pt-6 text-center">
-            <p className="text-slategray font-medium text-lg group-hover:text-primary mb-1">
+            <p className="text-slategray font-bold text-lg group-hover:text-primary mb-1">
               {name}
             </p>
             <p className="text-lightgray text-sm">{formattedPrice}</p>

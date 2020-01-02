@@ -63,7 +63,7 @@ function ReviewForm({ productId }) {
   ];
 
   return (
-    <div className="mb-6 border-2 border-gainsboro rounded">
+    <div className="mb-6 border-2 border-gainsboro rounded-lg">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="md:flex">
           <div className="md:w-1/4 p-6 bg-gainsboro flex justify-center items-center">
@@ -76,7 +76,10 @@ function ReviewForm({ productId }) {
             <div className="mb-3 md:mb-6">
               <div className="md:flex -mx-6">
                 {ratings.map(({ label, value }) => (
-                  <div key={value} className="product-rating md:w-1/5 px-6">
+                  <div
+                    key={value}
+                    className="product-rating md:w-1/5 px-6 mb-3 md:mb-0"
+                  >
                     <input
                       id={`rating[${value}]`}
                       type="radio"
@@ -88,7 +91,7 @@ function ReviewForm({ productId }) {
 
                     <label
                       htmlFor={`rating[${value}]`}
-                      className="bg-gainsboro border-2 border-transparent rounded p-3 flex flex-col items-center justify-center h-full cursor-pointer hover:border-slategray"
+                      className="bg-gainsboro border-2 border-transparent rounded-lg p-3 flex flex-col items-center justify-center h-full cursor-pointer hover:border-slategray"
                     >
                       {label}
                     </label>
@@ -135,7 +138,7 @@ function ReviewForm({ productId }) {
 
             <button
               type="submit"
-              className="bg-primary rounded text-white px-3 py-2 h-10 focus:outline-none font-bold"
+              className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
               disabled={isSubmitting}
             >
               Submit review

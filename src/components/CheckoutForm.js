@@ -147,7 +147,7 @@ function CheckoutPage({ elements, stripe }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
+      <div className="rounded-lg bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
         <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
           Shipping
         </h3>
@@ -267,7 +267,7 @@ function CheckoutPage({ elements, stripe }) {
       </div>
 
       {useSeparateBilling && (
-        <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
+        <div className="rounded-lg bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
           <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
             Billing
           </h3>
@@ -361,14 +361,14 @@ function CheckoutPage({ elements, stripe }) {
         </div>
       )}
 
-      <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
+      <div className="rounded-lg bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
         <h3 className="text-slategray text-2xl md:text-4xl font-bold mb-6">
           Pay
         </h3>
 
         <div className="mb-3 md:mb-6">
           <CardElement
-            className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded"
+            className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
             hidePostalCode={true}
             onChange={handleStripeChange}
             onReady={el => setValue('cardElement', el)}
@@ -384,7 +384,7 @@ function CheckoutPage({ elements, stripe }) {
         <div className="flex items-center justify-end">
           <button
             type="submit"
-            className="bg-primary rounded text-white px-3 py-2 h-10 focus:outline-none font-bold"
+            className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
             disabled={isSubmitting}
           >
             Pay for order
