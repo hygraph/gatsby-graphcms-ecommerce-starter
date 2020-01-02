@@ -7,7 +7,7 @@ function Select({ errors = {}, register, name, options, ...rest }) {
   const hasError = errors[name];
 
   const selectClass = classNames(
-    'block appearance-none w-full bg-white border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray rounded',
+    'block appearance-none w-full bg-gainsboro border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray rounded-lg',
     {
       'border-red focus:border-red': hasError,
       'border-gainsboro focus:border-slategray': !hasError,

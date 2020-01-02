@@ -33,8 +33,8 @@ function Header() {
   const { isEmpty } = useCart();
 
   return (
-    <header className="bg-white border-b-2 border-gainsboro w-full block flex-grow flex items-center w-auto justify-between">
-      <div className="container mx-auto p-6 w-full">
+    <header className="px-6 container mx-auto bg-white w-full block flex-grow flex items-center w-auto justify-between">
+      <div className="pt-6 w-full">
         <nav className="flex items-center justify-between flex-wrap">
           <LocaleLink to="/">
             <svg
@@ -50,11 +50,11 @@ function Header() {
             </svg>
           </LocaleLink>
 
-          <ul className="hidden md:block text-sm md:flex-grow md:ml-4">
+          <ul className="hidden md:mx-auto md:block md:flex-grow md:ml-4">
             <li className="block my-4 md:inline-block md:my-0">
               <LocaleLink
                 to="/"
-                className="text-slategray hover:text-primary mr-4"
+                className="text-lightgray hover:text-slategray hover:bg-gainsboro rounded-full py-2 px-3 font-medium"
               >
                 Catalog
               </LocaleLink>
@@ -66,7 +66,7 @@ function Header() {
                 className="block my-4 md:inline-block md:my-0"
               >
                 <LocaleLink
-                  className="text-slategray hover:text-primary mr-4"
+                  className="text-lightgray hover:text-slategray hover:bg-gainsboro rounded-full py-2 px-3 font-medium"
                   to={`/categories/${category.slug}`}
                 >
                   {category.name}
@@ -80,7 +80,7 @@ function Header() {
                 className="block my-4 md:inline-block md:my-0"
               >
                 <LocaleLink
-                  className="text-slategray hover:text-primary mr-4"
+                  className="text-lightgray hover:text-slategray hover:bg-gainsboro rounded-full py-2 px-3 font-medium"
                   to={`/collections/${collection.slug}`}
                 >
                   {collection.name}
@@ -93,7 +93,7 @@ function Header() {
             <div className="relative">
               <select
                 value={activeLocale}
-                className="block appearance-none bg-white border-none px-4 py-0 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded"
+                className="block appearance-none bg-white border-none px-4 py-0 pr-8 focus:outline-none focus:bg-white text-lightgray focus:text-slategray rounded-lg"
                 onChange={({ target: { value } }) => updateLocale(value)}
               >
                 {locales.map(({ label, path }, index) => (

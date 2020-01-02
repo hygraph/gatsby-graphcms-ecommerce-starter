@@ -7,7 +7,7 @@ function Input({ errors = {}, register, name, ...rest }) {
   const hasError = errors[name];
 
   const inputClass = classNames(
-    'appearance-none bg-white border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray w-full rounded',
+    'appearance-none bg-gainsboro border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-black w-full rounded-lg',
     {
       'border-red focus:border-red': hasError,
       'border-gainsboro focus:border-slategray': !hasError,
