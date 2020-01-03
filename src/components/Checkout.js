@@ -4,6 +4,7 @@ import { navigate } from 'gatsby';
 import { Elements } from 'react-stripe-elements';
 
 import CheckoutForm from '../components/CheckoutForm';
+import CheckoutItemList from './CheckoutItemList';
 
 function Checkout() {
   const { isEmpty } = useCart();
@@ -22,7 +23,16 @@ function Checkout() {
 
   return (
     <Elements>
-      <CheckoutForm />
+      <div className="md:flex -mx-4">
+        <div className="md:w-1/2 lg:w-2/5 px-4 order-last">
+          <div className="md:sticky md:top-0">
+            <CheckoutItemList />
+          </div>
+        </div>
+        <div className="md:w-1/2 lg:w-3/5 px-4 order-first">
+          <CheckoutForm />
+        </div>
+      </div>
     </Elements>
   );
 }
