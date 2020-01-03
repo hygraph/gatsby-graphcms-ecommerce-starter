@@ -10,7 +10,7 @@ Why settle for monolithic ecommerce platforms when you can make the most of the 
 - **[Stripe]()**: Used to securely process payments and Strong Customer Authentication.
 - **[Gatsby]()**: Statically build product pages and handle cart/checkout logic.
 - **[Postmark]()**: Deliver order received and dispatched email notifications to customers.
-- **[Printful]()**: Drop ship product inventory dynamically.
+- **[Printful]()**: Create inventory and drop ship with ease.
 
 --- DIAGRAM ---
 
