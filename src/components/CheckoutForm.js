@@ -16,7 +16,7 @@ const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   }
 }`;
 
-const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!!) {
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!) {
   createPaymentIntent(input: $input) {
     id
     clientSecret
