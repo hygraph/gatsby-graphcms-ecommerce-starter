@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { useCart } from 'react-use-cart';
+import { toast } from 'react-toastify';
 
 import Input from './Input';
 import Select from './Select';
@@ -35,7 +36,6 @@ function CheckoutPage({ elements, stripe }) {
     register,
     watch,
     setValue,
-    setError,
     errors,
     formState,
   } = useForm({ defaultValues });
@@ -43,6 +43,7 @@ function CheckoutPage({ elements, stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, items } = useCart();
+  const [checkoutError, setCheckoutError] = useState(null);
   const values = watch();
   const shippingCountryCode = watch('shipping.country');
   const billingCountryCode = watch('billing.country');
@@ -51,6 +52,16 @@ function CheckoutPage({ elements, stripe }) {
   useEffect(() => {
     register({ name: 'stripe' });
   }, [register]);
+
+  const handleCheckoutError = ({
+    message = 'Unable to process order.Please try again',
+  }) => {
+    setCheckoutError(message);
+
+    toast.error(message, {
+      className: 'bg-red',
+    });
+  };
 
   const onSubmit = async values => {
     try {
@@ -104,17 +115,15 @@ function CheckoutPage({ elements, stripe }) {
         },
       });
 
-      await stripe.confirmCardPayment(clientSecret, {
+      const { error } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement('card'),
         },
       });
+
+      if (error) throw new Error(error.message);
     } catch (err) {
-      setError(
-        'checkout',
-        'unableToProceed',
-        err.message || 'Unable to process order. Please try again.'
-      );
+      handleCheckoutError(err);
     }
   };
 
@@ -380,6 +389,8 @@ function CheckoutPage({ elements, stripe }) {
             </span>
           )}
         </div>
+
+        {checkoutError && <p className="text-red">{checkoutError}</p>}
 
         <div className="flex items-center justify-end">
           <button
