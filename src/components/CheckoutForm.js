@@ -10,6 +10,7 @@ import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
 import InputError from './InputError';
+import CheckoutSuccess from './CheckoutSuccess';
 
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
@@ -47,6 +48,7 @@ function checkoutReducer(checkoutState, { payload, type }) {
         processing: false,
         error: null,
         success: true,
+        orderId: payload.orderId,
       };
     default:
       throw new Error('Invalid action');
@@ -70,6 +72,7 @@ function CheckoutPage({ elements, stripe }) {
     processing: false,
     error: null,
     success: false,
+    orderId: null,
   });
   const values = watch();
   const shippingCountryCode = watch('shipping.country');
@@ -155,7 +158,10 @@ function CheckoutPage({ elements, stripe }) {
 
       if (error) throw new Error(error.message);
 
-      checkoutDispatch({ type: 'CHECKOUT_SUCCESS' });
+      checkoutDispatch({
+        type: 'CHECKOUT_SUCCESS',
+        payload: { orderId: graphCMSOrderId },
+      });
     } catch (err) {
       handleCheckoutError(err);
     }
@@ -187,6 +193,8 @@ function CheckoutPage({ elements, stripe }) {
   const activeBillingCountry = shippingCountries.find(
     country => country.code === billingCountryCode
   );
+
+  if (checkoutState.success) return <CheckoutSuccess {...checkoutState} />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
