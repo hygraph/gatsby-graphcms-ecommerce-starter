@@ -42,6 +42,7 @@ export const pageQuery = graphql`
               }
             }
             variants {
+              formattedPrice
               retail_price
             }
           }
