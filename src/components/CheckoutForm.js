@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
@@ -31,6 +31,28 @@ const defaultValues = {
   'shipping.country': 'DE',
 };
 
+function checkoutReducer(checkoutState, { payload, type }) {
+  switch (type) {
+    case 'CHECKOUT_PROCESSING':
+      return {
+        ...checkoutState,
+        processing: true,
+        error: null,
+      };
+    case 'CHECKOUT_ERROR':
+      return { ...checkoutState, processing: false, error: payload.message };
+    case 'CHECKOUT_SUCCESS':
+      return {
+        ...checkoutState,
+        processing: false,
+        error: null,
+        success: true,
+      };
+    default:
+      throw new Error('Invalid action');
+  }
+}
+
 function CheckoutPage({ elements, stripe }) {
   const {
     handleSubmit,
@@ -44,7 +66,11 @@ function CheckoutPage({ elements, stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, items } = useCart();
-  const [checkoutError, setCheckoutError] = useState(null);
+  const [checkoutState, checkoutDispatch] = useReducer(checkoutReducer, {
+    processing: false,
+    error: null,
+    success: false,
+  });
   const values = watch();
   const shippingCountryCode = watch('shipping.country');
   const billingCountryCode = watch('billing.country');
@@ -58,9 +84,9 @@ function CheckoutPage({ elements, stripe }) {
   }, [register]);
 
   const handleCheckoutError = ({
-    message = 'Unable to process order.Please try again',
+    message = 'Unable to process order. Please try again',
   }) => {
-    setCheckoutError(message);
+    checkoutDispatch({ type: 'CHECKOUT_ERROR', payload: { message } });
 
     toast.error(message, {
       className: 'bg-red',
@@ -68,6 +94,8 @@ function CheckoutPage({ elements, stripe }) {
   };
 
   const onSubmit = async values => {
+    checkoutDispatch({ type: 'CHECKOUT_PROCESSING' });
+
     try {
       const {
         email,
@@ -126,6 +154,8 @@ function CheckoutPage({ elements, stripe }) {
       });
 
       if (error) throw new Error(error.message);
+
+      checkoutDispatch({ type: 'CHECKOUT_SUCCESS' });
     } catch (err) {
       handleCheckoutError(err);
     }
@@ -385,8 +415,11 @@ function CheckoutPage({ elements, stripe }) {
           )}
         </div>
 
-        {checkoutError && <p className="text-red">{checkoutError}</p>}
-
+        {checkoutState.error && (
+          <p className="text-red">{checkoutState.error}</p>
+        )}
+        {checkoutState.processing && 'loading'}
+        {checkoutState.success && 'success'}
         <div className="flex items-center justify-end">
           <button
             type="submit"
