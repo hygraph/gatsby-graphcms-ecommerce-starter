@@ -293,7 +293,7 @@ function CheckoutPage({ elements, stripe }) {
           <div className="mb-3 md:mb-6">
             <Input
               name="billing.address1"
-              placeholder="Address"
+              placeholder="Address line 1"
               register={register({
                 required: 'Billing address line 1 is required',
               })}
@@ -319,6 +319,20 @@ function CheckoutPage({ elements, stripe }) {
                 errors={errors}
               />
             </div>
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Select
+                name="billing.country"
+                register={register({ required: 'Billing country is required' })}
+                options={shippingCountries.map(({ code: value, name }) => ({
+                  value,
+                  name,
+                }))}
+                errors={errors}
+              />
+            </div>
+          </div>
+
+          <div className="md:flex -mx-3">
             {activeBillingCountry && activeBillingCountry.states && (
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
                 <Select
@@ -334,20 +348,6 @@ function CheckoutPage({ elements, stripe }) {
                 />
               </div>
             )}
-          </div>
-
-          <div className="md:flex -mx-3">
-            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-              <Select
-                name="billing.country"
-                register={register({ required: 'Billing country is required' })}
-                options={shippingCountries.map(({ code: value, name }) => ({
-                  value,
-                  name,
-                }))}
-                errors={errors}
-              />
-            </div>
 
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Input
@@ -357,15 +357,6 @@ function CheckoutPage({ elements, stripe }) {
                 errors={errors}
               />
             </div>
-          </div>
-
-          <div className="flex items-center justify-end">
-            <button
-              type="submit"
-              className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
-            >
-              Continue to payment
-            </button>
           </div>
         </div>
       )}
