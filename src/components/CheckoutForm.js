@@ -199,6 +199,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.name"
             placeholder="Name"
+            disabled={checkoutState.processing}
             register={register({ required: 'Shipping name is required' })}
             errors={errors}
           />
@@ -210,6 +211,7 @@ function CheckoutPage({ elements, stripe }) {
               name="email"
               type="email"
               placeholder="Email address"
+              disabled={checkoutState.processing}
               register={register({
                 required: 'Email is required',
                 pattern: {
@@ -226,6 +228,7 @@ function CheckoutPage({ elements, stripe }) {
               name="phone"
               type="tel"
               placeholder="Contact no."
+              disabled={checkoutState.processing}
               register={register}
               errors={errors}
             />
@@ -236,6 +239,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.address1"
             placeholder="Address line 1"
+            disabled={checkoutState.processing}
             register={register({
               required: 'Shipping address line 1 is required',
             })}
@@ -247,6 +251,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.address2"
             placeholder="Apartment, suite, etc. (optional)"
+            disabled={checkoutState.processing}
             register={register}
             errors={errors}
           />
@@ -257,6 +262,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="shipping.city"
               placeholder="City"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping city is required' })}
               errors={errors}
             />
@@ -265,6 +271,7 @@ function CheckoutPage({ elements, stripe }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.country"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping country is required' })}
               options={shippingCountries.map(({ code: value, name }) => ({
                 value,
@@ -280,6 +287,7 @@ function CheckoutPage({ elements, stripe }) {
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="shipping.state"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Shipping state is required' })}
                 options={activeShippingCountry.states.map(
                   ({ code: value, name }) => ({
@@ -296,6 +304,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="shipping.zip"
               placeholder="ZIP / Postcode"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping ZIP is required' })}
               errors={errors}
             />
@@ -319,6 +328,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.name"
               placeholder="Name"
+              disabled={checkoutState.processing}
               register={register({ required: 'Billing name is required' })}
               errors={errors}
             />
@@ -328,6 +338,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.address1"
               placeholder="Address line 1"
+              disabled={checkoutState.processing}
               register={register({
                 required: 'Billing address line 1 is required',
               })}
@@ -339,6 +350,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.address2"
               placeholder="Apartment, suite, etc. (optional)"
+              disabled={checkoutState.processing}
               register={register}
               errors={errors}
             />
@@ -349,6 +361,7 @@ function CheckoutPage({ elements, stripe }) {
               <Input
                 name="billing.city"
                 placeholder="City"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Billing city is required' })}
                 errors={errors}
               />
@@ -356,6 +369,7 @@ function CheckoutPage({ elements, stripe }) {
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="billing.country"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Billing country is required' })}
                 options={shippingCountries.map(({ code: value, name }) => ({
                   value,
@@ -371,6 +385,7 @@ function CheckoutPage({ elements, stripe }) {
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
                 <Select
                   name="billing.state"
+                  disabled={checkoutState.processing}
                   register={register({ required: 'Billing state is required' })}
                   options={activeBillingCountry.states.map(
                     ({ code: value, name }) => ({
@@ -387,6 +402,7 @@ function CheckoutPage({ elements, stripe }) {
               <Input
                 name="billing.zip"
                 placeholder="ZIP / Postcode"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Billing ZIP is required' })}
                 errors={errors}
               />
@@ -404,6 +420,7 @@ function CheckoutPage({ elements, stripe }) {
           <CardElement
             className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
             hidePostalCode={true}
+            disabled={checkoutState.processing}
             onChange={handleStripeChange}
             onReady={el => setValue('cardElement', el)}
           />
