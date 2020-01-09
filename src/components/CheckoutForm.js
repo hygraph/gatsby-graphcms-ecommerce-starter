@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
+import InputError from './InputError';
 
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
@@ -50,7 +51,10 @@ function CheckoutPage({ elements, stripe }) {
   const useSeparateBilling = !!values.separateBilling;
 
   useEffect(() => {
-    register({ name: 'stripe' });
+    register(
+      { name: 'stripe' },
+      { required: 'Please provide payment details' }
+    );
   }, [register]);
 
   const handleCheckoutError = ({
@@ -374,10 +378,10 @@ function CheckoutPage({ elements, stripe }) {
             onReady={el => setValue('cardElement', el)}
           />
 
-          {values.stripe && values.stripe.error && (
-            <span className="text-red text-sm pt-3">
-              {values.stripe.error.message}
-            </span>
+          {errors.stripe && (
+            <React.Fragment>
+              <InputError message={errors.stripe.message} />
+            </React.Fragment>
           )}
         </div>
 
