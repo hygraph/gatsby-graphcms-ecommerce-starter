@@ -126,7 +126,7 @@ function ProductPage({
                   value={variantQuantity}
                   className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
                   onChange={({ target: { value } }) =>
-                    setVariantQuantity(value)
+                    setVariantQuantity(parseInt(value))
                   }
                 >
                   {new Array(5)
