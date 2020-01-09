@@ -2,6 +2,8 @@
 
 > Minimalist dropshipping swag store built with GraphCMS, Stripe, Gatsby, Postmark and Printful.
 
+[Read more](https://graphcms.com/blog/delivering-a-diy-store-powered-by-a-headless-cms-for-ecommerce/)
+
 ## The stack
 
 Why settle for monolithic ecommerce platforms when you can make the most of the best APIs to build what you want. In this example we use a variety of services to perform your typical ecommerce tasks. #DIYCommerce
@@ -11,8 +13,6 @@ Why settle for monolithic ecommerce platforms when you can make the most of the 
 - **[Gatsby](https://gatsbyjs.org)**: Statically build product pages and handle cart/checkout logic.
 - **[Postmark](https://postmarkapp.com)**: Deliver order received and dispatched email notifications to customers.
 - **[Printful](https://printful.com)**: Create inventory and drop ship with ease.
-
---- DIAGRAM ---
 
 ## How it works
 
@@ -49,7 +49,7 @@ Add the necessary variables to `.env`.
 
 ### 3. (optional): Configure Stripe/Printful webhooks
 
-... Configure hooks... Configure ngrok for local testing...
+TODO: ... Configure hooks... Configure ngrok for local testing...
 
 ### 4. Run locally
 
@@ -58,7 +58,3 @@ Once all dependencies and environment variables are satisfied, you can run Gatsb
 ```dosini
 yarn dev
 ```
-
-## Contributing
-
-## Support
