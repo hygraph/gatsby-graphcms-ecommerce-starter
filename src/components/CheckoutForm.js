@@ -425,6 +425,21 @@ function CheckoutPage({ elements, stripe }) {
         </h3>
 
         <div className="mb-3 md:mb-6">
+          <p className="leading-relaxed text-slategray">
+            <strong>This is a test checkout</strong>. You can simulate
+            transactions using any valid expiry date, CVC code and{' '}
+            <code className="text-black bg-gainsboro rounded-lg p-1">
+              4242 4242 4242 4242
+            </code>
+            , or{' '}
+            <code className="text-black bg-gainsboro rounded-lg p-1">
+              4000 0000 0000 3220
+            </code>{' '}
+            if you want trigger 3D Secure 2 authentication.
+          </p>
+        </div>
+
+        <div className="mb-3 md:mb-6">
           <CardElement
             className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
             hidePostalCode={true}
@@ -443,15 +458,90 @@ function CheckoutPage({ elements, stripe }) {
         {checkoutState.error && (
           <p className="text-red">{checkoutState.error}</p>
         )}
-        {checkoutState.processing && 'loading'}
-        {checkoutState.success && 'success'}
+        {checkoutState.processing && 'Please wait. Processing order.'}
+        {checkoutState.success && 'Order successfully received.'}
         <div className="flex items-center justify-end">
           <button
             type="submit"
             className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
             disabled={isSubmitting}
           >
-            Pay for order
+            {isSubmitting ? (
+              <svg
+                className="fill-current h-3"
+                viewBox="0 0 120 30"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="15" cy="15" r="15">
+                  <animate
+                    attributeName="r"
+                    from="15"
+                    to="15"
+                    begin="0s"
+                    dur="0.8s"
+                    values="15;9;15"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="fill-opacity"
+                    from="1"
+                    to="1"
+                    begin="0s"
+                    dur="0.8s"
+                    values="1;.5;1"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+                  <animate
+                    attributeName="r"
+                    from="9"
+                    to="9"
+                    begin="0s"
+                    dur="0.8s"
+                    values="9;15;9"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="fill-opacity"
+                    from="0.5"
+                    to="0.5"
+                    begin="0s"
+                    dur="0.8s"
+                    values=".5;1;.5"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                <circle cx="105" cy="15" r="15">
+                  <animate
+                    attributeName="r"
+                    from="15"
+                    to="15"
+                    begin="0s"
+                    dur="0.8s"
+                    values="15;9;15"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="fill-opacity"
+                    from="1"
+                    to="1"
+                    begin="0s"
+                    dur="0.8s"
+                    values="1;.5;1"
+                    calcMode="linear"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </svg>
+            ) : (
+              'Pay for order'
+            )}
           </button>
         </div>
       </div>
