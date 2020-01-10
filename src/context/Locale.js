@@ -35,6 +35,9 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
     locale => {
       dispatch({ type: 'UPDATE_LOCALE', locale });
 
+      if (['/cart', '/checkout', '/success'].includes(location.pathname))
+        return;
+
       navigate(
         `/${locale.toLowerCase()}${location.pathname.substring(3)}${
           location.search
