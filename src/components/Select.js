@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import InputError from './InputError';
 
-function Select({ errors = {}, register, name, options, ...rest }) {
+function Select({ disabled, errors = {}, register, name, options, ...rest }) {
   const hasError = errors[name];
 
   const selectClass = classNames(
@@ -11,13 +11,20 @@ function Select({ errors = {}, register, name, options, ...rest }) {
     {
       'border-red focus:border-red': hasError,
       'border-gainsboro focus:border-slategray': !hasError,
+      'opacity-50': disabled,
     }
   );
 
   return (
     <React.Fragment>
       <div className="relative">
-        <select name={name} ref={register} {...rest} className={selectClass}>
+        <select
+          name={name}
+          ref={register}
+          className={selectClass}
+          disabled={disabled}
+          {...rest}
+        >
           {options.map(({ value, name }) => (
             <option key={value} value={value}>
               {name}

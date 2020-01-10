@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import React, { useEffect, useReducer } from 'react';
+import { graphql, useStaticQuery, navigate } from 'gatsby';
 import useForm from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
+import InputError from './InputError';
 
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
@@ -30,6 +31,28 @@ const defaultValues = {
   'shipping.country': 'DE',
 };
 
+function checkoutReducer(checkoutState, { payload, type }) {
+  switch (type) {
+    case 'CHECKOUT_PROCESSING':
+      return {
+        ...checkoutState,
+        processing: true,
+        error: null,
+      };
+    case 'CHECKOUT_ERROR':
+      return { ...checkoutState, processing: false, error: payload.message };
+    case 'CHECKOUT_SUCCESS':
+      return {
+        ...checkoutState,
+        processing: false,
+        error: null,
+        success: true,
+      };
+    default:
+      throw new Error('Invalid action');
+  }
+}
+
 function CheckoutPage({ elements, stripe }) {
   const {
     handleSubmit,
@@ -42,28 +65,45 @@ function CheckoutPage({ elements, stripe }) {
   const { isSubmitting } = formState;
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
-  const { cartTotal, items } = useCart();
-  const [checkoutError, setCheckoutError] = useState(null);
+  const { cartTotal, emptyCart, items } = useCart();
+  const [checkoutState, checkoutDispatch] = useReducer(checkoutReducer, {
+    processing: false,
+    error: null,
+    success: false,
+  });
   const values = watch();
   const shippingCountryCode = watch('shipping.country');
   const billingCountryCode = watch('billing.country');
   const useSeparateBilling = !!values.separateBilling;
 
   useEffect(() => {
-    register({ name: 'stripe' });
+    register(
+      { name: 'stripe' },
+      { required: 'Please provide payment details' }
+    );
   }, [register]);
 
   const handleCheckoutError = ({
-    message = 'Unable to process order.Please try again',
+    message = 'Unable to process order. Please try again',
   }) => {
-    setCheckoutError(message);
+    checkoutDispatch({ type: 'CHECKOUT_ERROR', payload: { message } });
 
     toast.error(message, {
       className: 'bg-red',
     });
   };
 
+  const handleCheckoutSuccess = orderId => {
+    checkoutDispatch({ type: 'CHECKOUT_SUCCESS' });
+
+    emptyCart();
+
+    navigate('success', { state: { orderId } });
+  };
+
   const onSubmit = async values => {
+    checkoutDispatch({ type: 'CHECKOUT_PROCESSING' });
+
     try {
       const {
         email,
@@ -122,6 +162,8 @@ function CheckoutPage({ elements, stripe }) {
       });
 
       if (error) throw new Error(error.message);
+
+      handleCheckoutSuccess(graphCMSOrderId);
     } catch (err) {
       handleCheckoutError(err);
     }
@@ -165,6 +207,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.name"
             placeholder="Name"
+            disabled={checkoutState.processing}
             register={register({ required: 'Shipping name is required' })}
             errors={errors}
           />
@@ -176,6 +219,7 @@ function CheckoutPage({ elements, stripe }) {
               name="email"
               type="email"
               placeholder="Email address"
+              disabled={checkoutState.processing}
               register={register({
                 required: 'Email is required',
                 pattern: {
@@ -192,6 +236,7 @@ function CheckoutPage({ elements, stripe }) {
               name="phone"
               type="tel"
               placeholder="Contact no."
+              disabled={checkoutState.processing}
               register={register}
               errors={errors}
             />
@@ -202,6 +247,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.address1"
             placeholder="Address line 1"
+            disabled={checkoutState.processing}
             register={register({
               required: 'Shipping address line 1 is required',
             })}
@@ -213,6 +259,7 @@ function CheckoutPage({ elements, stripe }) {
           <Input
             name="shipping.address2"
             placeholder="Apartment, suite, etc. (optional)"
+            disabled={checkoutState.processing}
             register={register}
             errors={errors}
           />
@@ -223,6 +270,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="shipping.city"
               placeholder="City"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping city is required' })}
               errors={errors}
             />
@@ -231,6 +279,7 @@ function CheckoutPage({ elements, stripe }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.country"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping country is required' })}
               options={shippingCountries.map(({ code: value, name }) => ({
                 value,
@@ -246,6 +295,7 @@ function CheckoutPage({ elements, stripe }) {
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Select
                 name="shipping.state"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Shipping state is required' })}
                 options={activeShippingCountry.states.map(
                   ({ code: value, name }) => ({
@@ -262,6 +312,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="shipping.zip"
               placeholder="ZIP / Postcode"
+              disabled={checkoutState.processing}
               register={register({ required: 'Shipping ZIP is required' })}
               errors={errors}
             />
@@ -285,6 +336,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.name"
               placeholder="Name"
+              disabled={checkoutState.processing}
               register={register({ required: 'Billing name is required' })}
               errors={errors}
             />
@@ -293,7 +345,8 @@ function CheckoutPage({ elements, stripe }) {
           <div className="mb-3 md:mb-6">
             <Input
               name="billing.address1"
-              placeholder="Address"
+              placeholder="Address line 1"
+              disabled={checkoutState.processing}
               register={register({
                 required: 'Billing address line 1 is required',
               })}
@@ -305,6 +358,7 @@ function CheckoutPage({ elements, stripe }) {
             <Input
               name="billing.address2"
               placeholder="Apartment, suite, etc. (optional)"
+              disabled={checkoutState.processing}
               register={register}
               errors={errors}
             />
@@ -315,14 +369,31 @@ function CheckoutPage({ elements, stripe }) {
               <Input
                 name="billing.city"
                 placeholder="City"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Billing city is required' })}
                 errors={errors}
               />
             </div>
+            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
+              <Select
+                name="billing.country"
+                disabled={checkoutState.processing}
+                register={register({ required: 'Billing country is required' })}
+                options={shippingCountries.map(({ code: value, name }) => ({
+                  value,
+                  name,
+                }))}
+                errors={errors}
+              />
+            </div>
+          </div>
+
+          <div className="md:flex -mx-3">
             {activeBillingCountry && activeBillingCountry.states && (
               <div className="md:w-1/2 mb-3 md:mb-6 px-3">
                 <Select
                   name="billing.state"
+                  disabled={checkoutState.processing}
                   register={register({ required: 'Billing state is required' })}
                   options={activeBillingCountry.states.map(
                     ({ code: value, name }) => ({
@@ -334,38 +405,16 @@ function CheckoutPage({ elements, stripe }) {
                 />
               </div>
             )}
-          </div>
-
-          <div className="md:flex -mx-3">
-            <div className="md:w-1/2 mb-3 md:mb-6 px-3">
-              <Select
-                name="billing.country"
-                register={register({ required: 'Billing country is required' })}
-                options={shippingCountries.map(({ code: value, name }) => ({
-                  value,
-                  name,
-                }))}
-                errors={errors}
-              />
-            </div>
 
             <div className="md:w-1/2 mb-3 md:mb-6 px-3">
               <Input
                 name="billing.zip"
                 placeholder="ZIP / Postcode"
+                disabled={checkoutState.processing}
                 register={register({ required: 'Billing ZIP is required' })}
                 errors={errors}
               />
             </div>
-          </div>
-
-          <div className="flex items-center justify-end">
-            <button
-              type="submit"
-              className="bg-primary text-white px-3 py-2 h-10 focus:outline-none font-bold"
-            >
-              Continue to payment
-            </button>
           </div>
         </div>
       )}
@@ -379,19 +428,23 @@ function CheckoutPage({ elements, stripe }) {
           <CardElement
             className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
             hidePostalCode={true}
+            disabled={checkoutState.processing}
             onChange={handleStripeChange}
             onReady={el => setValue('cardElement', el)}
           />
 
-          {values.stripe && values.stripe.error && (
-            <span className="text-red text-sm pt-3">
-              {values.stripe.error.message}
-            </span>
+          {errors.stripe && (
+            <React.Fragment>
+              <InputError message={errors.stripe.message} />
+            </React.Fragment>
           )}
         </div>
 
-        {checkoutError && <p className="text-red">{checkoutError}</p>}
-
+        {checkoutState.error && (
+          <p className="text-red">{checkoutState.error}</p>
+        )}
+        {checkoutState.processing && 'loading'}
+        {checkoutState.success && 'success'}
         <div className="flex items-center justify-end">
           <button
             type="submit"
