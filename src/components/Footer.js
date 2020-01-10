@@ -3,8 +3,8 @@ import React from 'react';
 function Footer() {
   return (
     <div className="container mx-auto px-6">
-      <div className="md:flex items-center justify-between border-t-2 border-gainsboro py-6">
-        <p className="text-lightgray">
+      <div className="flex flex-col md:flex-row items-center md:justify-between border-t-2 border-gainsboro py-6">
+        <p className="text-lightgray mb-3 md:mb-0">
           Powered by GraphCMS, Printful, Gatsby &amp; Stripe
         </p>
 
@@ -73,22 +73,6 @@ function Footer() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="m20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.554v-11.452h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zm-15.11-13.019c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019h-3.564v-11.452h3.564zm15.106-20.452h-20.454c-.979 0-1.771.774-1.771 1.729v20.542c0 .956.792 1.729 1.771 1.729h20.451c.978 0 1.778-.773 1.778-1.729v-20.542c0-.955-.8-1.729-1.778-1.729z" />
-              </svg>
-            </a>
-          </li>
-          <li className="my-1">
-            <a
-              href="https://www.facebook.com/GraphCMS"
-              target="_blank"
-              className="text-lightgray hover:text-primary text-sm"
-              rel="noopener noreferrer"
-            >
-              <svg
-                className="fill-current w-5 h-5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="m23.9981 11.9991c0-6.62694-5.3721-11.9991-11.999-11.9991-6.62694 0-11.9991 5.37216-11.9991 11.9991 0 5.9891 4.38789 10.9531 10.1242 11.8533v-8.3848h-3.04662v-3.4685h3.04662v-2.64357c0-3.00727 1.7914-4.66839 4.5322-4.66839 1.3128 0 2.686.23435 2.686.23435v2.9529h-1.513c-1.4906 0-1.9555.92494-1.9555 1.87385v2.25086h3.3279l-.532 3.4685h-2.7959v8.3848c5.7364-.9002 10.1242-5.8642 10.1242-11.8533z" />
               </svg>
             </a>
           </li>

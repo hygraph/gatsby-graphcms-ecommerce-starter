@@ -20,7 +20,9 @@ function SuccessPage({ location }) {
     return (
       <React.Fragment>
         <div className="mb-6">
-          <h1 className="font-bold text-6xl mb-3 text-primary">Oops!</h1>
+          <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary">
+            Oops!
+          </h1>
 
           <hr className="border-b border-gainsboro w-10" />
         </div>
@@ -32,7 +34,9 @@ function SuccessPage({ location }) {
     <React.Fragment>
       <SEO pageTitle="Thank you for your order" />
       <div className="mb-6">
-        <h1 className="font-bold text-6xl mb-3 text-primary">Thank you!</h1>
+        <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary">
+          Thank you!
+        </h1>
 
         <hr className="border-b border-gainsboro w-10" />
       </div>

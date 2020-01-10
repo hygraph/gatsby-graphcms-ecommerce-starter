@@ -12,7 +12,7 @@ function CollectionPage({
   return (
     <React.Fragment>
       <SEO pageTitle={collection.name} />
-      <h1 className="font-bold text-6xl mb-3 text-primary">
+      <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary">
         {collection.name}
       </h1>
       <hr className="border-b border-gainsboro w-10" />

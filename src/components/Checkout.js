@@ -23,13 +23,13 @@ function Checkout() {
 
   return (
     <Elements>
-      <div className="md:flex -mx-4">
-        <div className="md:w-1/2 lg:w-2/5 px-4 order-last">
-          <div className="md:sticky md:top-0">
+      <div className="lg:flex -mx-4">
+        <div className="lg:w-1/2 lg:w-2/5 px-4 order-last">
+          <div className="lg:sticky lg:top-0">
             <CheckoutItemList />
           </div>
         </div>
-        <div className="md:w-1/2 lg:w-3/5 px-4 order-first">
+        <div className="lg:w-1/2 lg:w-3/5 px-4 order-first">
           <CheckoutForm />
         </div>
       </div>
