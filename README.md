@@ -16,11 +16,13 @@ Why settle for monolithic ecommerce platforms when you can make the most of the 
 
 ## How it works
 
-... Describe how the overall architecture works and outputs a functioning ecommerce store.
+1. Gatsby will source products from Printful, and together with GraphCMS, Gatsby will enrich the product nodes. This means we can use Printful for inventory and GraphCMS for presentation data.
 
-1. Add to Cart
-2. Checkout
-3. Pay with Stripe
+2. The "Add to Cart" function is handled client side, this is typically where you might reach to implement your own commerce API if you want to perform sophisticated logic around item taxes and handling discount codes.
+
+3. The checkout is handled by a custom GraphQL server which creates an order with Printful, handles 3D Secure 2 payments with Stripe and sends the order details onto GraphCMS.
+
+4. Orders are then automatically fulfilled with Printful once a payment is received, and in return updates GraphCMS via a webhook to set the order to fulfilled.
 
 ⚠️ You must have a payment method registered with Printful for orders to be fulfilled automatically. You will be charged for Printful orders once they are created via the API, it's your responsibility to capture payments/manage payouts any funds from the customer via Stripe.
 
@@ -34,7 +36,7 @@ If you'd rather check out a [demo](https://gatsby-graphcms-ecommerce-starter.net
 
 ### 1. Download and install dependencies
 
-```dosini
+```bash
 git clone git@github.com:graphcms/gatsby-graphcms-ecommerce-starter.git
 cd gatsby-graphcms-ecommerce-starter
 yarn # npm install
@@ -43,18 +45,20 @@ cp .env.sample .env
 
 ### 2. Setup development environment variables
 
+You will need to [create a project from template](https://graphcms.com/docs/getting-started/start-from-scratch/#start-from-template) inside GraphCMS to carefully match what is expected from GraphCMS.
+
 You'll need an account with GraphCMS, Stripe and Printful for this demo to fully work. It's recommended you use separate API keys for development and production.
 
 Add the necessary variables to `.env`.
 
 ### 3. (optional): Configure Stripe/Printful webhooks
 
-TODO: ... Configure hooks... Configure ngrok for local testing...
+More details coming soon
 
 ### 4. Run locally
 
 Once all dependencies and environment variables are satisfied, you can run Gatsby locally to build in development:
 
-```dosini
+```bash
 yarn dev
 ```
