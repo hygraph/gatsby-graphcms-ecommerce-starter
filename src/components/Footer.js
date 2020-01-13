@@ -11,7 +11,7 @@ function Footer() {
         <ul className="inline-flex">
           <li className="my-1">
             <a
-              href="https://github.com/graphcms/gatsby-graphcms-ecommere-starter"
+              href="https://github.com/graphcms/gatsby-graphcms-ecommerce-starter"
               target="_blank"
               rel="noopener noreferrer"
               className="text-lightgray hover:text-primary text-sm"
