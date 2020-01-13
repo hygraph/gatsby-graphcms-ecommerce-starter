@@ -32,7 +32,7 @@ If you wish to extend and work with this example locally, follow the instruction
 
 If you'd rather check out a [demo](https://gatsby-graphcms-ecommerce-starter.netlify.com) or deploy to your own Netlify, you can do that too.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/graphcms/gatsby-graphcms-ecommerce-starter)
+First, you will need accounts at GraphCMS, Stripe, Gatsby, Postmark and Printful.
 
 ### 1. Download and install dependencies
 
