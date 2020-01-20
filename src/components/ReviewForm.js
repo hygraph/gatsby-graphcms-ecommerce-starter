@@ -23,11 +23,11 @@ function ReviewForm({ productId }) {
       </p>
     );
 
-  const onSubmit = async values => {
+  const onSubmit = async ({ rating, ...values }) => {
     try {
       await submitReview({
         variables: {
-          input: { ...values, productId },
+          input: { productId, rating: parseInt(rating), ...values },
         },
       });
     } catch (err) {
