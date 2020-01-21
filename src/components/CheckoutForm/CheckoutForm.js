@@ -55,7 +55,7 @@ function CheckoutForm({ elements, stripe }) {
       'shipping.country': 'DE',
     },
   });
-  const { handleSubmit, watch, setValue } = methods;
+  const { handleSubmit, watch } = methods;
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, emptyCart, items } = useCart();
