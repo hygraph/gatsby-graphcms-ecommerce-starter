@@ -10,7 +10,10 @@ const calculateShippingTaxesResolver = async (
       ...rest
     } = input.shippingAddress;
 
-    const data = await dataSources.PrintfulAPI.calculateShipping({
+    const {
+      currency: shippingCurrency,
+      rate: shippingRate,
+    } = await dataSources.PrintfulAPI.calculateShipping({
       recipient: {
         country_code,
         state_code,
@@ -24,7 +27,7 @@ const calculateShippingTaxesResolver = async (
       ),
     });
 
-    console.log(data);
+    return { shippingCurrency, shippingRate };
   } catch (err) {
     return err;
   }
