@@ -9,9 +9,18 @@ import CheckoutContext from '../../context/Checkout';
 import usePrintfulShippingCountries from '../../hooks/usePrintfulShippingCountries';
 
 function ShippingForm() {
-  const { errors, register, watch } = useFormContext();
+  const {
+    errors,
+    formState: { isValid },
+    register,
+    watch,
+  } = useFormContext();
   const { shippingCountries } = usePrintfulShippingCountries();
-  const { processing: checkoutProcessing } = useContext(CheckoutContext);
+  const {
+    allowPayment,
+    checkoutPayment,
+    processing: checkoutProcessing,
+  } = useContext(CheckoutContext);
 
   const { shipping: { country: shippingCountryCode } = {} } = watch({
     nest: true,
@@ -20,6 +29,14 @@ function ShippingForm() {
   const activeShippingCountry = shippingCountries.find(
     country => country.code === shippingCountryCode
   );
+
+  const calculateShipping = () => {
+    if (!isValid) return;
+
+    checkoutPayment();
+  };
+
+  const disableInput = allowPayment || checkoutProcessing;
 
   return (
     <div className="rounded-lg bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
@@ -31,7 +48,7 @@ function ShippingForm() {
         <Input
           name="shipping.name"
           placeholder="Name"
-          disabled={checkoutProcessing}
+          disabled={disableInput}
           register={register({ required: 'Shipping name is required' })}
           errors={errors}
         />
@@ -43,7 +60,7 @@ function ShippingForm() {
             name="email"
             type="email"
             placeholder="Email address"
-            disabled={checkoutProcessing}
+            disabled={disableInput}
             register={register({
               required: 'Email is required',
               pattern: {
@@ -60,7 +77,7 @@ function ShippingForm() {
             name="phone"
             type="tel"
             placeholder="Contact no."
-            disabled={checkoutProcessing}
+            disabled={disableInput}
             register={register}
             errors={errors}
           />
@@ -71,7 +88,7 @@ function ShippingForm() {
         <Input
           name="shipping.address1"
           placeholder="Address line 1"
-          disabled={checkoutProcessing}
+          disabled={disableInput}
           register={register({
             required: 'Shipping address line 1 is required',
           })}
@@ -83,7 +100,7 @@ function ShippingForm() {
         <Input
           name="shipping.address2"
           placeholder="Apartment, suite, etc. (optional)"
-          disabled={checkoutProcessing}
+          disabled={disableInput}
           register={register}
           errors={errors}
         />
@@ -94,7 +111,7 @@ function ShippingForm() {
           <Input
             name="shipping.city"
             placeholder="City"
-            disabled={checkoutProcessing}
+            disabled={disableInput}
             register={register({ required: 'Shipping city is required' })}
             errors={errors}
           />
@@ -103,7 +120,7 @@ function ShippingForm() {
         <div className="md:w-1/2 mb-3 md:mb-6 px-3">
           <Select
             name="shipping.country"
-            disabled={checkoutProcessing}
+            disabled={disableInput}
             register={register({ required: 'Shipping country is required' })}
             options={shippingCountries.map(({ code: value, name }) => ({
               value,
@@ -119,7 +136,7 @@ function ShippingForm() {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.state"
-              disabled={checkoutProcessing}
+              disabled={disableInput}
               register={register({ required: 'Shipping state is required' })}
               options={activeShippingCountry.states.map(
                 ({ code: value, name }) => ({
@@ -136,17 +153,23 @@ function ShippingForm() {
           <Input
             name="shipping.zip"
             placeholder="ZIP / Postcode"
-            disabled={checkoutProcessing}
+            disabled={disableInput}
             register={register({ required: 'Shipping ZIP is required' })}
             errors={errors}
           />
         </div>
       </div>
 
-      <div>
+      <div className="flex items-center justify-between">
         <Checkbox name="separateBilling" register={register}>
           Use different billing address
         </Checkbox>
+        <button
+          onClick={calculateShipping}
+          className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
+        >
+          Calculate shipping
+        </button>
       </div>
     </div>
   );

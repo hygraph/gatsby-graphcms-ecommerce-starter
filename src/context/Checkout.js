@@ -15,9 +15,15 @@ function reducer(state, { payload, type }) {
     case 'CHECKOUT_SUCCESS':
       return {
         ...state,
+        allowPayment: false,
         processing: false,
         error: null,
         success: true,
+      };
+    case 'CHECKOUT_PAYMENT':
+      return {
+        ...state,
+        allowPayment: true,
       };
     default:
       throw new Error('Invalid action');
@@ -26,6 +32,7 @@ function reducer(state, { payload, type }) {
 
 function CheckoutProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, {
+    allowPayment: false,
     processing: false,
     error: null,
     success: false,
@@ -33,6 +40,10 @@ function CheckoutProvider({ children }) {
 
   const checkoutError = payload => {
     dispatch({ type: 'CHECKOUT_ERROR', payload });
+  };
+
+  const checkoutPayment = () => {
+    dispatch({ type: 'CHECKOUT_PAYMENT' });
   };
 
   const checkoutProcessing = () => {
@@ -45,7 +56,13 @@ function CheckoutProvider({ children }) {
 
   return (
     <CheckoutContext.Provider
-      value={{ ...state, checkoutError, checkoutProcessing, checkoutSuccess }}
+      value={{
+        ...state,
+        checkoutError,
+        checkoutPayment,
+        checkoutProcessing,
+        checkoutSuccess,
+      }}
     >
       {children}
     </CheckoutContext.Provider>
