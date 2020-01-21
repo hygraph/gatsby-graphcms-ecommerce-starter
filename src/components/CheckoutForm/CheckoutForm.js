@@ -30,8 +30,12 @@ function CheckoutForm({ elements, stripe }) {
   const methods = useForm({
     defaultValues: {
       separateBilling: false,
-      'billing.country': 'DE',
-      'shipping.country': 'DE',
+      billing: {
+        country: 'DE',
+      },
+      shipping: {
+        country: 'DE',
+      },
     },
   });
   const { handleSubmit, watch } = methods;
