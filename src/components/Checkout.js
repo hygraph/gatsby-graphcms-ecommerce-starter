@@ -3,6 +3,7 @@ import { useCart } from 'react-use-cart';
 import { navigate } from 'gatsby';
 import { Elements } from 'react-stripe-elements';
 
+import { CheckoutProvider } from '../context/Checkout';
 import CheckoutForm from '../components/CheckoutForm';
 import CheckoutItemList from './CheckoutItemList';
 
@@ -30,7 +31,9 @@ function Checkout() {
           </div>
         </div>
         <div className="lg:w-1/2 lg:w-3/5 px-4 order-first">
-          <CheckoutForm />
+          <CheckoutProvider>
+            <CheckoutForm />
+          </CheckoutProvider>
         </div>
       </div>
     </Elements>

@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useFormContext, ErrorMessage } from 'react-hook-form';
 import { CardElement } from 'react-stripe-elements';
 
 import LoadingSVG from '../../svg/loading.svg';
 
-function PaymentForm({ error, processing, success }) {
+import CheckoutContext from '../../context/Checkout';
+
+function PaymentForm() {
   const { errors, register, setValue } = useFormContext();
+  const {
+    error: checkoutError,
+    processing: checkoutProcessing,
+    success: checkoutSuccess,
+  } = useContext(CheckoutContext);
 
   useEffect(() => {
     register(
@@ -41,7 +48,7 @@ function PaymentForm({ error, processing, success }) {
         <CardElement
           className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
           hidePostalCode={true}
-          disabled={processing}
+          disabled={checkoutProcessing}
           onChange={handleStripeChange}
           onReady={el => setValue('cardElement', el)}
         />
@@ -57,16 +64,16 @@ function PaymentForm({ error, processing, success }) {
         )}
       </div>
 
-      {error && <p className="text-red">{error}</p>}
-      {processing && 'Please wait. Processing order.'}
-      {success && 'Order successfully received.'}
+      {checkoutError && <p className="text-red">{checkoutError}</p>}
+      {checkoutProcessing && 'Please wait. Processing order.'}
+      {checkoutSuccess && 'Order successfully received.'}
       <div className="flex items-center justify-end">
         <button
           type="submit"
           className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
-          disabled={processing}
+          disabled={checkoutProcessing}
         >
-          {processing ? <LoadingSVG /> : 'Pay for order'}
+          {checkoutProcessing ? <LoadingSVG /> : 'Pay for order'}
         </button>
       </div>
     </div>

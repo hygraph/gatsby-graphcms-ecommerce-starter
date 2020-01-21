@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useContext } from 'react';
 import { navigate } from 'gatsby';
 import { useForm, FormContext } from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
@@ -6,9 +6,10 @@ import { injectStripe } from 'react-stripe-elements';
 import { useCart } from 'react-use-cart';
 import { toast } from 'react-toastify';
 
-import ShippingForm from './ShippingForm';
 import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
+import ShippingForm from './ShippingForm';
+import CheckoutContext from '../../context/Checkout';
 
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
@@ -25,28 +26,6 @@ const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentInt
   }
 }`;
 
-function checkoutReducer(checkoutState, { payload, type }) {
-  switch (type) {
-    case 'CHECKOUT_PROCESSING':
-      return {
-        ...checkoutState,
-        processing: true,
-        error: null,
-      };
-    case 'CHECKOUT_ERROR':
-      return { ...checkoutState, processing: false, error: payload.message };
-    case 'CHECKOUT_SUCCESS':
-      return {
-        ...checkoutState,
-        processing: false,
-        error: null,
-        success: true,
-      };
-    default:
-      throw new Error('Invalid action');
-  }
-}
-
 function CheckoutForm({ elements, stripe }) {
   const methods = useForm({
     defaultValues: {
@@ -59,19 +38,17 @@ function CheckoutForm({ elements, stripe }) {
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, emptyCart, items } = useCart();
-  const [checkoutState, checkoutDispatch] = useReducer(checkoutReducer, {
-    processing: false,
-    error: null,
-    success: false,
-  });
   const { separateBilling } = watch();
+  const { checkoutError, checkoutProcessing, checkoutSuccess } = useContext(
+    CheckoutContext
+  );
 
   const useSeparateBilling = !!separateBilling;
 
   const handleCheckoutError = ({
     message = 'Unable to process order. Please try again',
   }) => {
-    checkoutDispatch({ type: 'CHECKOUT_ERROR', payload: { message } });
+    checkoutError({ message });
 
     toast.error(message, {
       className: 'bg-red',
@@ -79,7 +56,7 @@ function CheckoutForm({ elements, stripe }) {
   };
 
   const handleCheckoutSuccess = orderId => {
-    checkoutDispatch({ type: 'CHECKOUT_SUCCESS' });
+    checkoutSuccess();
 
     emptyCart();
 
@@ -87,7 +64,7 @@ function CheckoutForm({ elements, stripe }) {
   };
 
   const onSubmit = async values => {
-    checkoutDispatch({ type: 'CHECKOUT_PROCESSING' });
+    checkoutProcessing();
 
     try {
       const {
@@ -157,9 +134,9 @@ function CheckoutForm({ elements, stripe }) {
   return (
     <FormContext {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ShippingForm {...checkoutState} />
-        {useSeparateBilling && <BillingForm {...checkoutState} />}
-        <PaymentForm {...checkoutState} />
+        <ShippingForm />
+        {useSeparateBilling && <BillingForm />}
+        <PaymentForm />
       </form>
     </FormContext>
   );

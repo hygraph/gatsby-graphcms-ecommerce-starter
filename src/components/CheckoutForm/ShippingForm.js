@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import Input from '../Input';
 import Select from '../Select';
 import Checkbox from '../Checkbox';
+import CheckoutContext from '../../context/Checkout';
 
 import usePrintfulShippingCountries from '../../hooks/usePrintfulShippingCountries';
 
-function ShippingForm({ processing }) {
+function ShippingForm() {
   const { errors, register, watch } = useFormContext();
   const { shippingCountries } = usePrintfulShippingCountries();
+  const { processing: checkoutProcessing } = useContext(CheckoutContext);
 
   const { shipping: { country: shippingCountryCode } = {} } = watch({
     nest: true,
@@ -29,7 +31,7 @@ function ShippingForm({ processing }) {
         <Input
           name="shipping.name"
           placeholder="Name"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register({ required: 'Shipping name is required' })}
           errors={errors}
         />
@@ -41,7 +43,7 @@ function ShippingForm({ processing }) {
             name="email"
             type="email"
             placeholder="Email address"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({
               required: 'Email is required',
               pattern: {
@@ -58,7 +60,7 @@ function ShippingForm({ processing }) {
             name="phone"
             type="tel"
             placeholder="Contact no."
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register}
             errors={errors}
           />
@@ -69,7 +71,7 @@ function ShippingForm({ processing }) {
         <Input
           name="shipping.address1"
           placeholder="Address line 1"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register({
             required: 'Shipping address line 1 is required',
           })}
@@ -81,7 +83,7 @@ function ShippingForm({ processing }) {
         <Input
           name="shipping.address2"
           placeholder="Apartment, suite, etc. (optional)"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register}
           errors={errors}
         />
@@ -92,7 +94,7 @@ function ShippingForm({ processing }) {
           <Input
             name="shipping.city"
             placeholder="City"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Shipping city is required' })}
             errors={errors}
           />
@@ -101,7 +103,7 @@ function ShippingForm({ processing }) {
         <div className="md:w-1/2 mb-3 md:mb-6 px-3">
           <Select
             name="shipping.country"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Shipping country is required' })}
             options={shippingCountries.map(({ code: value, name }) => ({
               value,
@@ -117,7 +119,7 @@ function ShippingForm({ processing }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="shipping.state"
-              disabled={processing}
+              disabled={checkoutProcessing}
               register={register({ required: 'Shipping state is required' })}
               options={activeShippingCountry.states.map(
                 ({ code: value, name }) => ({
@@ -134,7 +136,7 @@ function ShippingForm({ processing }) {
           <Input
             name="shipping.zip"
             placeholder="ZIP / Postcode"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Shipping ZIP is required' })}
             errors={errors}
           />

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import Input from '../Input';
 import Select from '../Select';
+import CheckoutContext from '../../context/Checkout';
 
 import usePrintfulShippingCountries from '../../hooks/usePrintfulShippingCountries';
 
-function BillingForm({ processing }) {
+function BillingForm() {
   const { errors, register, watch } = useFormContext();
   const { shippingCountries } = usePrintfulShippingCountries();
+  const { processing: checkoutProcessing } = useContext(CheckoutContext);
 
   const { billing: { country: billingCountryCode } = {} } = watch({
     nest: true,
@@ -28,7 +30,7 @@ function BillingForm({ processing }) {
         <Input
           name="billing.name"
           placeholder="Name"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register({ required: 'Billing name is required' })}
           errors={errors}
         />
@@ -38,7 +40,7 @@ function BillingForm({ processing }) {
         <Input
           name="billing.address1"
           placeholder="Address line 1"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register({
             required: 'Billing address line 1 is required',
           })}
@@ -50,7 +52,7 @@ function BillingForm({ processing }) {
         <Input
           name="billing.address2"
           placeholder="Apartment, suite, etc. (optional)"
-          disabled={processing}
+          disabled={checkoutProcessing}
           register={register}
           errors={errors}
         />
@@ -61,7 +63,7 @@ function BillingForm({ processing }) {
           <Input
             name="billing.city"
             placeholder="City"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Billing city is required' })}
             errors={errors}
           />
@@ -69,7 +71,7 @@ function BillingForm({ processing }) {
         <div className="md:w-1/2 mb-3 md:mb-6 px-3">
           <Select
             name="billing.country"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Billing country is required' })}
             options={shippingCountries.map(({ code: value, name }) => ({
               value,
@@ -85,7 +87,7 @@ function BillingForm({ processing }) {
           <div className="md:w-1/2 mb-3 md:mb-6 px-3">
             <Select
               name="billing.state"
-              disabled={processing}
+              disabled={checkoutProcessing}
               register={register({ required: 'Billing state is required' })}
               options={activeBillingCountry.states.map(
                 ({ code: value, name }) => ({
@@ -102,7 +104,7 @@ function BillingForm({ processing }) {
           <Input
             name="billing.zip"
             placeholder="ZIP / Postcode"
-            disabled={processing}
+            disabled={checkoutProcessing}
             register={register({ required: 'Billing ZIP is required' })}
             errors={errors}
           />
