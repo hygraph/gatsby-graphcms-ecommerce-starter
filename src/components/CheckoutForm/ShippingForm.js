@@ -12,18 +12,11 @@ import CheckoutContext from '../../context/Checkout';
 import usePrintfulShippingCountries from '../../hooks/usePrintfulShippingCountries';
 
 function ShippingForm() {
-  const {
-    errors,
-    formState: { isValid },
-    register,
-    watch,
-  } = useFormContext();
+  const { errors, register, watch } = useFormContext();
   const { shippingCountries } = usePrintfulShippingCountries();
-  const {
-    allowPayment,
-    checkoutPayment,
-    processing: checkoutProcessing,
-  } = useContext(CheckoutContext);
+  const { allowPayment, processing: checkoutProcessing } = useContext(
+    CheckoutContext
+  );
 
   const { shipping: { country: shippingCountryCode } = {} } = watch({
     nest: true,
