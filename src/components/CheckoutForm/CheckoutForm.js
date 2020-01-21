@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { navigate } from 'gatsby';
 import { useForm, FormContext } from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
