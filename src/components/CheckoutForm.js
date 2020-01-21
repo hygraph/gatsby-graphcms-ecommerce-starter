@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { graphql, useStaticQuery, navigate } from 'gatsby';
-import useForm from 'react-hook-form';
+import { useForm, ErrorMessage } from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { useCart } from 'react-use-cart';
@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import Input from './Input';
 import Select from './Select';
 import Checkbox from './Checkbox';
-import InputError from './InputError';
 
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
@@ -450,7 +449,11 @@ function CheckoutPage({ elements, stripe }) {
 
           {errors.stripe && (
             <React.Fragment>
-              <InputError message={errors.stripe.message} />
+              <ErrorMessage
+                as={<p className="mt-2 text-red text-sm" />}
+                name="stripe"
+                errors={errors}
+              />
             </React.Fragment>
           )}
         </div>
