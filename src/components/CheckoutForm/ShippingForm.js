@@ -161,7 +161,11 @@ function ShippingForm() {
       </div>
 
       <div className="flex items-center justify-between">
-        <Checkbox name="separateBilling" register={register}>
+        <Checkbox
+          name="separateBilling"
+          disabled={disableInput}
+          register={register}
+        >
           Use different billing address
         </Checkbox>
         <button

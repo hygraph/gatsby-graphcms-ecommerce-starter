@@ -6,7 +6,7 @@ function Input({ disabled, errors = {}, register, name, ...rest }) {
   const inputClass = classNames(
     'appearance-none bg-gainsboro border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-black w-full rounded-lg',
     {
-      'opacity-50': disabled,
+      'cursor-not-allowed opacity-50': disabled,
     }
   );
 

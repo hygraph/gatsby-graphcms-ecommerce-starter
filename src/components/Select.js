@@ -6,7 +6,7 @@ function Select({ disabled, errors = {}, register, name, options, ...rest }) {
   const selectClass = classNames(
     'block appearance-none w-full bg-gainsboro border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray rounded-lg',
     {
-      'opacity-50': disabled,
+      'cursor-not-allowed opacity-50': disabled,
     }
   );
 
