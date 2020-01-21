@@ -15,6 +15,8 @@ const CALCULATE_MUTATION = `mutation calculateShippingTaxes($input: CalculateShi
   calculateShippingTaxes(input: $input) {
     shippingCurrency
     shippingRate
+    taxRate
+    taxRequired
   }
 }`;
 

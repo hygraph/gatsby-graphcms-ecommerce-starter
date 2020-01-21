@@ -15,7 +15,8 @@ const typeDefs = gql`
   type ShippingTaxes {
     shippingCurrency: String!
     shippingRate: String!
-    taxRate: String!
+    taxRate: Float!
+    taxRequired: Boolean!
   }
 
   type Order {

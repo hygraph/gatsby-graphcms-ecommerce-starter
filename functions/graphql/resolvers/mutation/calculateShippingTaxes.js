@@ -27,7 +27,18 @@ const calculateShippingTaxesResolver = async (
       ),
     });
 
-    return { shippingCurrency, shippingRate };
+    const {
+      rate: taxRate,
+      required: taxRequired,
+    } = await dataSources.PrintfulAPI.calculateTaxes({
+      recipient: {
+        country_code,
+        state_code,
+        ...rest,
+      },
+    });
+
+    return { shippingCurrency, shippingRate, taxRate, taxRequired };
   } catch (err) {
     return err;
   }
