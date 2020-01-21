@@ -30,12 +30,6 @@ function ShippingForm() {
     country => country.code === shippingCountryCode
   );
 
-  const calculateShipping = () => {
-    if (!isValid) return;
-
-    checkoutPayment();
-  };
-
   const disableInput = allowPayment || checkoutProcessing;
 
   return (
@@ -168,12 +162,15 @@ function ShippingForm() {
         >
           Use different billing address
         </Checkbox>
-        <button
-          onClick={calculateShipping}
-          className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
-        >
-          Calculate shipping
-        </button>
+        {!allowPayment && (
+          <button
+            type="submit"
+            className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
+            disabled={checkoutProcessing}
+          >
+            Calculate shipping
+          </button>
+        )}
       </div>
     </div>
   );

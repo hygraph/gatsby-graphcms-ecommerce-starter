@@ -11,6 +11,13 @@ import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
 import CheckoutContext from '../../context/Checkout';
 
+const CALCULATE_MUTATION = `mutation calculateShippingTaxes($input: CalculateShippingTaxesInput!) {
+  calculateShippingTaxes(input: $input) {
+    shippingCurrency
+    shippingRate
+  }
+}`;
+
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(input: $input) {
     graphCMSOrderId
@@ -30,22 +37,32 @@ function CheckoutForm({ elements, stripe }) {
   const methods = useForm({
     defaultValues: {
       separateBilling: false,
+      email: 'jonathan.steele@graphcms.com',
       billing: {
         country: 'DE',
       },
       shipping: {
+        name: 'Jonathan Steele',
+        address1: 'Torstraße 60',
+        city: 'Berlin',
+        zip: '10119',
         country: 'DE',
       },
     },
   });
   const { handleSubmit, watch } = methods;
+  const [calculate] = useMutation(CALCULATE_MUTATION);
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, emptyCart, items } = useCart();
   const { separateBilling } = watch();
-  const { checkoutError, checkoutProcessing, checkoutSuccess } = useContext(
-    CheckoutContext
-  );
+  const {
+    allowPayment,
+    checkoutPayment,
+    checkoutError,
+    checkoutProcessing,
+    checkoutSuccess,
+  } = useContext(CheckoutContext);
 
   const useSeparateBilling = !!separateBilling;
 
@@ -67,7 +84,29 @@ function CheckoutForm({ elements, stripe }) {
     navigate('success', { state: { orderId } });
   };
 
-  const onSubmit = async values => {
+  const calculateShippingTaxes = async values => {
+    checkoutProcessing();
+
+    try {
+      const input = {
+        shippingAddress: values.shipping,
+        items: items.map(({ id: variantId, description, image, ...rest }) => ({
+          variantId,
+          ...rest,
+        })),
+      };
+
+      const data = await calculate({ variables: { input } });
+
+      console.log(data);
+
+      checkoutPayment();
+    } catch (err) {
+      handleCheckoutError(err);
+    }
+  };
+
+  const submitOrder = async values => {
     checkoutProcessing();
 
     try {
@@ -137,7 +176,11 @@ function CheckoutForm({ elements, stripe }) {
 
   return (
     <FormContext {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(
+          allowPayment ? submitOrder : calculateShippingTaxes
+        )}
+      >
         <ShippingForm />
         {useSeparateBilling && <BillingForm />}
         <PaymentForm />

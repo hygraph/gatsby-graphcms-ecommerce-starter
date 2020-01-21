@@ -24,6 +24,8 @@ function reducer(state, { payload, type }) {
       return {
         ...state,
         allowPayment: true,
+        processing: false,
+        error: null,
       };
     default:
       throw new Error('Invalid action');
