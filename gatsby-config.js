@@ -15,6 +15,14 @@ module.exports = {
         purgeOnly: ['src/main.css'],
       },
     },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /svg/,
+        },
+      },
+    },
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-graphql`,
