@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
+import classnames from 'classnames';
+
+import LoadingSVG from '../../svg/loading.svg';
 
 import Input from '../Input';
 import Select from '../Select';
@@ -162,15 +165,16 @@ function ShippingForm() {
         >
           Use different billing address
         </Checkbox>
-        {!allowPayment && (
-          <button
-            type="submit"
-            className="bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold"
-            disabled={checkoutProcessing}
-          >
-            Calculate shipping
-          </button>
-        )}
+        <button
+          type="submit"
+          className={classnames(
+            'bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold',
+            { 'cursor-not-allowed opacity-50': disableInput }
+          )}
+          disabled={disableInput}
+        >
+          {checkoutProcessing ? <LoadingSVG /> : 'Calculate shipping'}
+        </button>
       </div>
     </div>
   );
