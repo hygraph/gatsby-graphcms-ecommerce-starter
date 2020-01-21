@@ -29,7 +29,9 @@ class PrintfulAPI extends RESTDataSource {
 
   async calculateShipping({ items, recipient }) {
     try {
-      const { result: data } = await this.post(`shipping/rates`, {
+      const {
+        result: [data],
+      } = await this.post(`shipping/rates`, {
         items,
         recipient,
       });
