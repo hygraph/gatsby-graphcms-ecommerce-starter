@@ -6,9 +6,16 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    calculateShippingTaxes(input: CalculateShippingTaxesInput!): ShippingTaxes
     checkout(input: CheckoutInput!): Order
     createPaymentIntent(input: PaymentIntentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
+  }
+
+  type ShippingTaxes {
+    shippingCurrency: String!
+    shippingRate: String!
+    taxRate: String!
   }
 
   type Order {
@@ -34,6 +41,11 @@ const typeDefs = gql`
     REQUIRES_CONFIRMATION
     REQUIRES_PAYMENT_METHOD
     SUCCEEDED
+  }
+
+  input CalculateShippingTaxesInput {
+    items: [CheckoutItemInput!]!
+    shippingAddress: CheckoutAddressInput!
   }
 
   input SubmitReviewInput {
