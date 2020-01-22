@@ -53,7 +53,7 @@ function CheckoutForm({ elements, stripe }) {
     },
   });
   const { handleSubmit, watch } = methods;
-  const [calculate] = useMutation(CALCULATE_MUTATION);
+  const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
   const { cartTotal, emptyCart, items } = useCart();
@@ -64,6 +64,8 @@ function CheckoutForm({ elements, stripe }) {
     checkoutError,
     checkoutProcessing,
     checkoutSuccess,
+    updateShipping,
+    updateTax,
   } = useContext(CheckoutContext);
 
   const useSeparateBilling = !!separateBilling;
@@ -86,7 +88,7 @@ function CheckoutForm({ elements, stripe }) {
     navigate('success', { state: { orderId } });
   };
 
-  const calculateShippingTaxes = async values => {
+  const calculateOrderCosts = async values => {
     checkoutProcessing();
 
     try {
@@ -98,7 +100,14 @@ function CheckoutForm({ elements, stripe }) {
         })),
       };
 
-      const data = await calculate({ variables: { input } });
+      const {
+        data: {
+          estimateOrderCosts: { shippingRate, taxRate, vatRate },
+        },
+      } = await estimateOrderCosts({ variables: { input } });
+
+      updateShipping(Math.round(shippingRate * 100));
+      updateTax(Math.round(taxRate + vatRate * 100));
 
       checkoutPayment();
     } catch (err) {
@@ -178,7 +187,7 @@ function CheckoutForm({ elements, stripe }) {
     <FormContext {...methods}>
       <form
         onSubmit={handleSubmit(
-          allowPayment ? submitOrder : calculateShippingTaxes
+          allowPayment ? submitOrder : calculateOrderCosts
         )}
       >
         <ShippingForm />

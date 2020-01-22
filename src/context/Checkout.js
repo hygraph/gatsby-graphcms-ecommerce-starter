@@ -20,6 +20,17 @@ function reducer(state, { payload, type }) {
         error: null,
         success: true,
       };
+    case 'CHECKOUT_UPDATE_SHIPPING':
+      return {
+        ...state,
+        shipping: payload,
+      };
+    case 'CHECKOUT_UPDATE_TAX':
+      return {
+        ...state,
+
+        tax: payload,
+      };
     case 'CHECKOUT_PAYMENT':
       return {
         ...state,
@@ -38,6 +49,8 @@ function CheckoutProvider({ children }) {
     processing: false,
     error: null,
     success: false,
+    shipping: 0,
+    tax: 0,
   });
 
   const checkoutError = payload => {
@@ -56,6 +69,14 @@ function CheckoutProvider({ children }) {
     dispatch({ type: 'CHECKOUT_SUCCESS' });
   };
 
+  const updateShipping = payload => {
+    dispatch({ type: 'CHECKOUT_UPDATE_SHIPPING', payload });
+  };
+
+  const updateTax = payload => {
+    dispatch({ type: 'CHECKOUT_UPDATE_TAX', payload });
+  };
+
   return (
     <CheckoutContext.Provider
       value={{
@@ -64,6 +85,8 @@ function CheckoutProvider({ children }) {
         checkoutPayment,
         checkoutProcessing,
         checkoutSuccess,
+        updateShipping,
+        updateTax,
       }}
     >
       {children}
