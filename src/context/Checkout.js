@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import { useCart } from 'react-use-cart';
 
 const CheckoutContext = createContext();
 
@@ -44,6 +45,7 @@ function reducer(state, { payload, type }) {
 }
 
 function CheckoutProvider({ children }) {
+  const { cartTotal } = useCart();
   const [state, dispatch] = useReducer(reducer, {
     allowPayment: false,
     processing: false,
@@ -69,6 +71,8 @@ function CheckoutProvider({ children }) {
     dispatch({ type: 'CHECKOUT_SUCCESS' });
   };
 
+  const orderTotal = cartTotal + state.tax + state.shipping;
+
   const updateShipping = payload => {
     dispatch({ type: 'CHECKOUT_UPDATE_SHIPPING', payload });
   };
@@ -85,6 +89,7 @@ function CheckoutProvider({ children }) {
         checkoutPayment,
         checkoutProcessing,
         checkoutSuccess,
+        orderTotal,
         updateShipping,
         updateTax,
       }}

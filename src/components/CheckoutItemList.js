@@ -6,15 +6,13 @@ import CheckoutContext from '../context/Checkout';
 
 function CheckoutItemList() {
   const { items, cartTotal } = useCart();
-  const { shipping, tax } = useContext(CheckoutContext);
+  const { orderTotal, shipping, tax } = useContext(CheckoutContext);
 
   const formatValue = value =>
     new Intl.NumberFormat('de-DE', {
       style: 'currency',
       currency: 'EUR',
     }).format(value / 100);
-
-  const orderTotal = cartTotal + shipping + tax;
 
   return (
     <div className="rounded bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
