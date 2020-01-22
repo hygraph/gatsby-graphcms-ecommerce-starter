@@ -28,13 +28,23 @@ function PaymentForm() {
 
   return (
     <div className="rounded-lg bg-white border-2 border-gainsboro p-3 md:p-6 my-3 md:my-6">
-      <h3
-        className={classnames('text-slategray text-2xl md:text-4xl font-bold', {
-          'mb-6': allowPayment,
-        })}
-      >
-        Pay
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3
+          className={classnames(
+            'text-slategray text-2xl md:text-4xl font-bold',
+            {
+              'mb-6': allowPayment,
+            }
+          )}
+        >
+          Pay
+        </h3>
+        {!allowPayment && (
+          <p className="ml-4 text-lightgray text-sm">
+            You must calculate shipping totals before proceeding to payment
+          </p>
+        )}
+      </div>
       {allowPayment && (
         <React.Fragment>
           <div className="mb-3 md:mb-6">
