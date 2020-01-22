@@ -11,12 +11,12 @@ import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
 import CheckoutContext from '../../context/Checkout';
 
-const CALCULATE_MUTATION = `mutation calculateShippingTaxes($input: CalculateShippingTaxesInput!) {
-  calculateShippingTaxes(input: $input) {
-    shippingCurrency
+const CALCULATE_MUTATION = `mutation estimateOrderCosts,($input: EstimateOrderCostsInput!) {
+  estimateOrderCosts,(input: $input) {
+    currency
     shippingRate
     taxRate
-    taxRequired
+    vatRate
   }
 }`;
 
@@ -99,8 +99,6 @@ function CheckoutForm({ elements, stripe }) {
       };
 
       const data = await calculate({ variables: { input } });
-
-      console.log(data);
 
       checkoutPayment();
     } catch (err) {

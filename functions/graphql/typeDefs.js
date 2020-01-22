@@ -6,17 +6,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    calculateShippingTaxes(input: CalculateShippingTaxesInput!): ShippingTaxes
+    estimateOrderCosts(input: EstimateOrderCostsInput!): OrderCosts
     checkout(input: CheckoutInput!): Order
     createPaymentIntent(input: PaymentIntentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
   }
 
-  type ShippingTaxes {
-    shippingCurrency: String!
-    shippingRate: String!
+  type OrderCosts {
+    currency: String!
+    shippingRate: Float!
     taxRate: Float!
-    taxRequired: Boolean!
+    vatRate: Float!
   }
 
   type Order {
@@ -44,7 +44,7 @@ const typeDefs = gql`
     SUCCEEDED
   }
 
-  input CalculateShippingTaxesInput {
+  input EstimateOrderCostsInput {
     items: [CheckoutItemInput!]!
     shippingAddress: CheckoutAddressInput!
   }

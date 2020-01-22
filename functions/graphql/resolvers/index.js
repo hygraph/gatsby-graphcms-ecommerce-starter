@@ -1,6 +1,6 @@
 const order = require('./query/order');
 
-const calculateShippingTaxes = require('./mutation/calculateShippingTaxes');
+const estimateOrderCosts = require('./mutation/estimateOrderCosts');
 const checkout = require('./mutation/checkout');
 const createPaymentIntent = require('./mutation/createPaymentIntent');
 const submitReview = require('./mutation/submitReview');
@@ -10,9 +10,9 @@ const resolvers = {
     order,
   },
   Mutation: {
-    calculateShippingTaxes,
     checkout,
     createPaymentIntent,
+    estimateOrderCosts,
     submitReview,
   },
   PaymentIntentStatus: {
