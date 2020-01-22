@@ -56,7 +56,7 @@ function CheckoutForm({ elements, stripe }) {
   const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
   const [checkout] = useMutation(CHECKOUT_MUTATION);
   const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
-  const { cartTotal, emptyCart, items } = useCart();
+  const { emptyCart, items } = useCart();
   const { separateBilling } = watch();
   const {
     allowPayment,
@@ -64,6 +64,7 @@ function CheckoutForm({ elements, stripe }) {
     checkoutError,
     checkoutProcessing,
     checkoutSuccess,
+    orderTotal,
     updateShipping,
     updateTax,
   } = useContext(CheckoutContext);
@@ -139,7 +140,7 @@ function CheckoutForm({ elements, stripe }) {
         name,
         email,
         phone,
-        total: cartTotal,
+        total: orderTotal,
         shippingAddress,
         billingAddress: useSeparateBilling ? billingAddress : shippingAddress,
         items: checkoutItems,
@@ -164,7 +165,7 @@ function CheckoutForm({ elements, stripe }) {
           input: {
             email,
             metadata: { graphCMSOrderId, printfulOrderId },
-            total: cartTotal,
+            total: orderTotal,
           },
         },
       });
