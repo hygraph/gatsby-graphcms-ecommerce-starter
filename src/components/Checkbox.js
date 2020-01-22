@@ -1,14 +1,25 @@
 import React from 'react';
+import classNames from 'classnames';
 
-function Checkbox({ register, name, children, ...rest }) {
+function Checkbox({ disabled, register, name, children, ...rest }) {
+  const labelClass = classNames('block', {
+    'cursor-not-allowed': disabled,
+    'cursor-pointed': !disabled,
+  });
+
+  const inputClass = classNames('mr-3 leading-tight', {
+    'cursor-not-allowed opacity-50': disabled,
+  });
+
   return (
-    <label className="block cursor-pointer" htmlFor={name}>
+    <label className={labelClass} htmlFor={name}>
       <input
         id={name}
         name={name}
         type="checkbox"
         ref={register}
-        className="mr-3 leading-tight"
+        className={inputClass}
+        disabled={disabled}
         {...rest}
       />
       <span className="text-sm text-slategray">{children}</span>

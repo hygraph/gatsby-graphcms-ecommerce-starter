@@ -1,17 +1,12 @@
 import React from 'react';
+import { ErrorMessage } from 'react-hook-form';
 import classNames from 'classnames';
 
-import InputError from './InputError';
-
 function Select({ disabled, errors = {}, register, name, options, ...rest }) {
-  const hasError = errors[name];
-
   const selectClass = classNames(
     'block appearance-none w-full bg-gainsboro border-2 px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray rounded-lg',
     {
-      'border-red focus:border-red': hasError,
-      'border-gainsboro focus:border-slategray': !hasError,
-      'opacity-50': disabled,
+      'cursor-not-allowed opacity-50': disabled,
     }
   );
 
@@ -42,7 +37,11 @@ function Select({ disabled, errors = {}, register, name, options, ...rest }) {
           </svg>
         </div>
       </div>
-      {hasError && <InputError message={hasError.message} />}
+      <ErrorMessage
+        as={<p className="mt-2 text-red text-sm" />}
+        name={name}
+        errors={errors}
+      />
     </React.Fragment>
   );
 }

@@ -6,9 +6,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    estimateOrderCosts(input: EstimateOrderCostsInput!): OrderCosts
     checkout(input: CheckoutInput!): Order
     createPaymentIntent(input: PaymentIntentInput!): PaymentIntent
     submitReview(input: SubmitReviewInput!): Review
+  }
+
+  type OrderCosts {
+    currency: String!
+    shippingRate: Float!
+    taxRate: Float!
+    vatRate: Float!
   }
 
   type Order {
@@ -34,6 +42,11 @@ const typeDefs = gql`
     REQUIRES_CONFIRMATION
     REQUIRES_PAYMENT_METHOD
     SUCCEEDED
+  }
+
+  input EstimateOrderCostsInput {
+    items: [CheckoutItemInput!]!
+    shippingAddress: CheckoutAddressInput!
   }
 
   input SubmitReviewInput {
