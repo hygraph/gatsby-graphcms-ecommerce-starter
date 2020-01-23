@@ -158,6 +158,7 @@ function CheckoutForm({ elements, stripe }) {
       } = await createPaymentIntent({
         variables: {
           input: {
+            description: `SWAG store Printful order ${printfulOrderId}`,
             email,
             metadata: { graphCMSOrderId, printfulOrderId },
             total: orderTotal,

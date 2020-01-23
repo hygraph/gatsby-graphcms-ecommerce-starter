@@ -87,6 +87,7 @@ const typeDefs = gql`
   }
 
   input PaymentIntentInput {
+    description: String!
     email: String!
     metadata: PaymentIntentMeta!
     total: Int!

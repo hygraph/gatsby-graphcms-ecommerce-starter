@@ -1,6 +1,6 @@
 const createPaymentIntentResolver = async (
   _,
-  { input: { email, metadata, total } },
+  { input: { description, email, metadata, total } },
   { stripe }
 ) => {
   try {
@@ -11,6 +11,7 @@ const createPaymentIntentResolver = async (
     } = await stripe.paymentIntents.create({
       amount: total,
       currency: 'eur',
+      description,
       metadata,
       receipt_email: email,
     });
