@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import LoadingSVG from '../../svg/loading.svg';
 
 import CheckoutContext from '../../context/Checkout';
+import PaymentInfo from './PaymentInfo';
 
 function PaymentForm() {
   const { errors, register, setValue } = useFormContext();
@@ -47,20 +48,7 @@ function PaymentForm() {
       </div>
       {allowPayment && (
         <React.Fragment>
-          <div className="mb-3 md:mb-6">
-            <p className="leading-relaxed text-slategray">
-              <strong>This is a test checkout</strong>. You can simulate
-              transactions using any valid expiry date, CVC code and{' '}
-              <code className="text-black bg-gainsboro rounded-lg p-1">
-                4242 4242 4242 4242
-              </code>
-              , or{' '}
-              <code className="text-black bg-gainsboro rounded-lg p-1">
-                4000 0000 0000 3220
-              </code>{' '}
-              if you want trigger 3D Secure 2 authentication.
-            </p>
-          </div>
+          <PaymentInfo />
 
           <div className="mb-3 md:mb-6">
             <CardElement
