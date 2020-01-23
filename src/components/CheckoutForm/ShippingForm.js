@@ -150,25 +150,27 @@ function ShippingForm() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <Checkbox
-          name="separateBilling"
-          disabled={disableInput}
-          register={register}
-        >
-          Use different billing address
-        </Checkbox>
-        <button
-          type="submit"
-          className={classnames(
-            'bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold',
-            { 'cursor-not-allowed opacity-50': disableInput }
-          )}
-          disabled={disableInput}
-        >
-          {checkoutProcessing ? <LoadingSVG /> : 'Calculate shipping'}
-        </button>
-      </div>
+      {!allowPayment && (
+        <div className="flex items-center justify-between">
+          <Checkbox
+            name="separateBilling"
+            disabled={disableInput}
+            register={register}
+          >
+            Use different billing address
+          </Checkbox>
+          <button
+            type="submit"
+            className={classnames(
+              'bg-primary rounded-lg text-white px-3 py-2 h-10 focus:outline-none font-bold',
+              { 'cursor-not-allowed opacity-50': disableInput }
+            )}
+            disabled={disableInput}
+          >
+            {checkoutProcessing ? <LoadingSVG /> : 'Calculate shipping'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
