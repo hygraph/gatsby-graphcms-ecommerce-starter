@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useFormContext, ErrorMessage } from 'react-hook-form';
-import { CardElement } from 'react-stripe-elements';
+import { CardElement } from '@stripe/react-stripe-js';
 import classnames from 'classnames';
 
 import LoadingSVG from '../../svg/loading.svg';
@@ -53,7 +53,7 @@ function PaymentForm() {
           <div className="mb-3 md:mb-6">
             <CardElement
               className="appearance-none bg-white border-2 border-gainsboro px-4 py-3 pr-8 focus:outline-none focus:border-slategray focus:bg-white text-slategray focus:outline-none w-full rounded-lg"
-              hidePostalCode={true}
+              options={{ hidePostalCode: true }}
               disabled={checkoutProcessing}
               onChange={handleStripeChange}
               onReady={el => setValue('cardElement', el)}

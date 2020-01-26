@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { navigate } from 'gatsby';
 import { useForm, FormContext } from 'react-hook-form';
 import { useMutation } from 'graphql-hooks';
-import { injectStripe } from 'react-stripe-elements';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from 'react-use-cart';
 import { toast } from 'react-toastify';
 
@@ -35,7 +35,7 @@ const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentInt
   }
 }`;
 
-function CheckoutForm({ elements, stripe }) {
+function CheckoutForm() {
   const methods = useForm({
     defaultValues: {
       separateBilling: false,
@@ -63,6 +63,8 @@ function CheckoutForm({ elements, stripe }) {
     updateShipping,
     updateTax,
   } = useContext(CheckoutContext);
+  const stripe = useStripe();
+  const elements = useElements();
 
   const useSeparateBilling = !!separateBilling;
 
@@ -195,4 +197,4 @@ function CheckoutForm({ elements, stripe }) {
   );
 }
 
-export default injectStripe(CheckoutForm);
+export default CheckoutForm;
