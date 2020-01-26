@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StripeProvider as Stripe } from 'react-stripe-elements';
+import React from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 function StripeProvider({ children }) {
-  const [stripe, setStripe] = useState(null);
+  const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY);
 
-  useEffect(() => {
-    if (window.Stripe) {
-      setStripe(window.Stripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY));
-    } else {
-      document.querySelector('#stripe-js').addEventListener('load', () => {
-        setStripe(window.Stripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY));
-      });
-    }
-  }, []);
-
-  return <Stripe stripe={stripe}>{children}</Stripe>;
+  return <Elements stripe={stripePromise}>{children}</Elements>;
 }
 
 export default StripeProvider;

@@ -8,6 +8,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "1.0.0-beta.3",
+    "@stripe/stripe-js": "1.0.0-beta.4",
     "apollo-datasource-graphql": "1.3.2",
     "apollo-datasource-rest": "^0.6.9",
     "apollo-server-lambda": "2.9.12",
@@ -21,7 +23,6 @@
     "gatsby-plugin-react-helmet": "^3.1.18",
     "gatsby-plugin-react-svg": "3.0.0",
     "gatsby-plugin-sharp": "^2.3.3",
-    "gatsby-plugin-stripe": "1.2.3",
     "gatsby-source-filesystem": "^2.1.42",
     "gatsby-source-graphql": "2.1.20",
     "gatsby-source-printful": "1.2.0",
@@ -36,7 +37,6 @@
     "react-dom": "16.10.2",
     "react-helmet": "^5.2.1",
     "react-hook-form": "4.5.6",
-    "react-stripe-elements": "6.0.1",
     "react-toastify": "^5.4.1",
     "react-use-cart": "1.2.2",
     "stripe": "^7.14.0"
