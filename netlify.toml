@@ -2,3 +2,6 @@
   command = "yarn build"
   publish = "public"
   functions = "functions"
+
+[dev]
+  autoLaunch = false
