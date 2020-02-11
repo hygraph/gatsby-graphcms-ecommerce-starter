@@ -36,7 +36,7 @@ class PrintfulAPI extends RESTDataSource {
 
       return data;
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 }
