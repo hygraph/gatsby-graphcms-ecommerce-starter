@@ -24,11 +24,11 @@ function ProductsPage({
 }
 
 export const pageQuery = graphql`
-  query ProductsQuery($locale: GraphCMS_Locale!) {
+  query ProductsQuery($locales: [GraphCMS_Locale!]!) {
     cms {
-      products {
+      products(locales: $locales) {
         id
-        name(locale: $locale)
+        name
         printfulProductId
         printfulProduct {
           productImage {

@@ -23,17 +23,17 @@ function CategoryPage({
 }
 
 export const pageQuery = graphql`
-  query CategoryQuery($slug: String!, $locale: GraphCMS_Locale!) {
+  query CategoryQuery($slug: String!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      category(where: { slug: $slug }) {
-        name(locale: $locale)
+      category(locales: $locales, where: { slug: $slug }) {
+        name
         slug
         products {
           id
-          description(locale: $locale) {
+          description {
             markdown
           }
-          name(locale: $locale)
+          name
           printfulProductId
           printfulProduct {
             productImage {
