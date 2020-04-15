@@ -14,6 +14,8 @@ function ProductPage({
   },
   location,
 }) {
+  if (!product) return null;
+
   const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
   const [firstVariant] = variants;

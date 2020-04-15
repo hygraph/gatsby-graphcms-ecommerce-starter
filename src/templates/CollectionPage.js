@@ -9,6 +9,8 @@ function CollectionPage({
     cms: { collection },
   },
 }) {
+  if (!collection) return null;
+
   return (
     <React.Fragment>
       <SEO pageTitle={collection.name} />

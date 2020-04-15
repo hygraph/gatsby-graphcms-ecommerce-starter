@@ -9,6 +9,8 @@ function CategoryPage({
     cms: { category },
   },
 }) {
+  if (!category) return null;
+
   return (
     <React.Fragment>
       <SEO pageTitle={category.name} />

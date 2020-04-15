@@ -9,6 +9,8 @@ function ProductsPage({
     cms: { products },
   },
 }) {
+  if (!products) return null;
+
   return (
     <React.Fragment>
       <SEO pageTitle="Products" />
