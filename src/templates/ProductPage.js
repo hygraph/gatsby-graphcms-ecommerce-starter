@@ -14,8 +14,6 @@ function ProductPage({
   },
   location,
 }) {
-  if (!product) return null;
-
   const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
   const [firstVariant] = variants;
@@ -32,6 +30,8 @@ function ProductPage({
   useEffect(() => {
     navigate(`?variantId=${activeVariantId}`, { replace: true });
   }, [activeVariantId]);
+
+  if (!product) return null;
 
   return (
     <React.Fragment>
