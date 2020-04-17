@@ -9,6 +9,8 @@ function CollectionPage({
     cms: { collection },
   },
 }) {
+  if (!collection) return null;
+
   return (
     <React.Fragment>
       <SEO pageTitle={collection.name} />
@@ -23,17 +25,17 @@ function CollectionPage({
 }
 
 export const pageQuery = graphql`
-  query CollectionQuery($slug: String!, $locale: GraphCMS_Locale!) {
+  query CollectionQuery($slug: String!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      collection(where: { slug: $slug }) {
-        name(locale: $locale)
+      collection(locales: $locales, where: { slug: $slug }) {
+        name
         slug
         products {
           id
-          description(locale: $locale) {
+          description {
             markdown
           }
-          name(locale: $locale)
+          name
           printfulProductId
           printfulProduct {
             productImage {

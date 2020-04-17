@@ -27,7 +27,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       path: buildLocalePath({ locale, path: `/` }),
       component: require.resolve(`../../templates/ProductsPage.js`),
       context: {
-        locale: locale.path,
+        locales: locale.path,
       },
     });
 
@@ -36,7 +36,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         createPage({
           path: buildLocalePath({ locale, path: `/categories/${slug}` }),
           component: require.resolve(`../../templates/CategoryPage.js`),
-          context: { slug, locale: locale.path },
+          context: { slug, locales: locale.path },
         })
       );
     }
@@ -46,7 +46,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         createPage({
           path: buildLocalePath({ locale, path: `/collections/${slug}` }),
           component: require.resolve(`../../templates/CollectionPage.js`),
-          context: { slug, locale: locale.path },
+          context: { slug, locales: locale.path },
         })
       );
     }
@@ -56,7 +56,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
         createPage({
           path: buildLocalePath({ locale, path: `/products/${id}` }),
           component: require.resolve(`../../templates/ProductPage.js`),
-          context: { id, locale: locale.path },
+          context: { id, locales: locale.path },
         });
       });
     }

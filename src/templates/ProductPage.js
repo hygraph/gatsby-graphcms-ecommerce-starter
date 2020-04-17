@@ -31,6 +31,8 @@ function ProductPage({
     navigate(`?variantId=${activeVariantId}`, { replace: true });
   }, [activeVariantId]);
 
+  if (!product) return null;
+
   return (
     <React.Fragment>
       <SEO
@@ -181,14 +183,14 @@ function ProductPage({
 }
 
 export const pageQuery = graphql`
-  query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
+  query ProductQuery($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      product(where: { id: $id }) {
+      product(locales: $locales, where: { id: $id }) {
         id
-        description(locale: $locale) {
+        description {
           markdown
         }
-        name(locale: $locale)
+        name
         printfulProductId
         printfulProduct {
           productImage {
