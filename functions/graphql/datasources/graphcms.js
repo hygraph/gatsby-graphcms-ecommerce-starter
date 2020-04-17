@@ -18,9 +18,9 @@ const createOrderMutation = gql`
     $email: String!
     $phone: String
     $total: Int!
-    $items: [OrderItemCreateWithoutOrderInput!]!
-    $billingAddress: AddressCreateWithoutBillingOrderInput!
-    $shippingAddress: AddressCreateWithoutShippingOrderInput!
+    $items: [OrderItemCreateInput!]!
+    $billingAddress: AddressCreateInput!
+    $shippingAddress: AddressCreateInput!
   ) {
     createOrder(
       data: {
