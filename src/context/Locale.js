@@ -22,7 +22,11 @@ function reducer(state, { type, locale }) {
 
 const defaultLocale = locales.find(locale => locale.default);
 
-function LocaleProvider({ children, locale = defaultLocale.path, location }) {
+function LocaleProvider({
+  children,
+  locale = defaultLocale.path,
+  location: { pathname, search },
+}) {
   const [savedLocale, saveLocale] = useLocalStorage(
     'graphcms-swag-store',
     JSON.stringify({
@@ -35,16 +39,9 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
     locale => {
       dispatch({ type: 'UPDATE_LOCALE', locale });
 
-      if (['/cart', '/checkout', '/success'].includes(location.pathname))
-        return;
-
-      navigate(
-        `/${locale.toLowerCase()}${location.pathname.substring(3)}${
-          location.search
-        }`
-      );
+      navigate(`/${locale.toLowerCase()}${pathname.substring(3)}${search}`);
     },
-    [location.pathname, location.search]
+    [pathname, search]
   );
 
   useEffect(() => {

@@ -16,7 +16,7 @@ function Layout({ children, location, pageContext: { locale } }) {
       <LocaleProvider locale={locale} location={location}>
         <Banner />
 
-        <Header />
+        <Header {...location} />
 
         <div className="container mx-auto p-6 md:py-12 lg:py-16">
           {children}
