@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useEffect,
-  useReducer,
-} from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import { navigate } from '@reach/router';
 
 import locales from '../../config/locales';
@@ -22,7 +17,11 @@ function reducer(state, { type, locale }) {
 
 const defaultLocale = locales.find(locale => locale.default);
 
-function LocaleProvider({ children, locale = defaultLocale.path, location }) {
+function LocaleProvider({
+  children,
+  locale = defaultLocale.path,
+  location: { pathname, search },
+}) {
   const [savedLocale, saveLocale] = useLocalStorage(
     'graphcms-swag-store',
     JSON.stringify({
@@ -30,22 +29,18 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
     })
   );
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedLocale));
+  const [, localePath] = pathname.split('/');
 
-  const updateLocale = useCallback(
-    locale => {
-      dispatch({ type: 'UPDATE_LOCALE', locale });
+  const updateLocale = locale =>
+    navigate(`/${locale.toLowerCase()}${pathname.substring(3)}${search}`);
 
-      if (['/cart', '/checkout', '/success'].includes(location.pathname))
-        return;
-
-      navigate(
-        `/${locale.toLowerCase()}${location.pathname.substring(3)}${
-          location.search
-        }`
-      );
-    },
-    [location.pathname, location.search]
-  );
+  useEffect(() => {
+    if (
+      localePath !== state.activeLocale &&
+      locales.map(({ path }) => path).includes(localePath)
+    )
+      dispatch({ type: 'UPDATE_LOCALE', locale: localePath });
+  }, [localePath, state.activeLocale]);
 
   useEffect(() => {
     saveLocale(JSON.stringify(state));
