@@ -6,7 +6,6 @@ require('isomorphic-fetch');
 const BUILD_HOOK = process.env.BUILD_HOOK;
 
 exports.handler = async () => {
-  console.log(process.env.BUILD_HOOK);
   try {
     await fetch(BUILD_HOOK, {
       method: 'post',
