@@ -39,10 +39,15 @@ function CheckoutForm() {
   const methods = useForm({
     defaultValues: {
       separateBilling: false,
+      email: 'jonathan.steele@graphcms.com',
       billing: {
         country: 'DE',
       },
       shipping: {
+        name: 'Jonathan Steele',
+        address1: 'Torstraße 60',
+        city: 'Berlin',
+        zip: '10119',
         country: 'DE',
       },
     },

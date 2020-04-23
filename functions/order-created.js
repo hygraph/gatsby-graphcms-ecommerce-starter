@@ -6,23 +6,11 @@ const postmark = new PostmarkClient(process.env.POSTMARK_API_KEY);
 
 exports.handler = async event => {
   const {
-    info: { fieldName, responseData },
+    data: { draftOrder },
   } = JSON.parse(event.body);
 
-  if (fieldName !== 'createOrder')
-    return {
-      statusCode: 422,
-      body: JSON.stringify({
-        message: 'No action required.',
-      }),
-    };
-
   try {
-    const {
-      id,
-      email: to,
-      billingAddress: { name },
-    } = responseData;
+    const { id, email: to, name } = draftOrder;
 
     await postmark.sendEmailBatchWithTemplates([
       {
