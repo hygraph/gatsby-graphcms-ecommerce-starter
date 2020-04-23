@@ -6,19 +6,12 @@ const postmark = new PostmarkClient(process.env.POSTMARK_API_KEY);
 
 exports.handler = async event => {
   const {
-    info: {
-      fieldName,
-      responseData: {
-        id,
-        email: to,
-        fulfilled,
-        fulfilledSent,
-        billingAddress: { name },
-      },
+    data: {
+      publishedOrder: { id, email: to, fulfilled, name },
     },
   } = JSON.parse(event.body);
 
-  if (fieldName !== 'updateOrder' || !fulfilled || fulfilledSent)
+  if (!fulfilled)
     return {
       statusCode: 422,
       body: JSON.stringify({
