@@ -40,6 +40,19 @@ html {
   @apply border-slategray;
 }
 
+.ais-SearchBox-form {
+  @apply bg-gainsboro rounded flex;
+}
+
+.ais-SearchBox-input {
+  @apply bg-transparent appearance-none px-4 py-2 w-full outline-none;
+}
+
+.ais-SearchBox-submit,
+.ais-SearchBox-reset {
+  @apply px-2;
+}
+
 .ais-RefinementList-label,
 .ais-ToggleRefinement-label {
   @apply py-2 flex items-center cursor-pointer;
