@@ -13,6 +13,7 @@ module.exports = {
       options: {
         tailwind: true,
         purgeOnly: ['src/main.css'],
+        whitelistPatterns: ['/^ap-/', '^algolia-', '/^ais-'],
       },
     },
     {
