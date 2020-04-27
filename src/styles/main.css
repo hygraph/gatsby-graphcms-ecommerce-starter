@@ -39,3 +39,46 @@ html {
 .product-rating input[type='radio']:active + label {
   @apply border-slategray;
 }
+
+.ais-RefinementList-label,
+.ais-ToggleRefinement-label {
+  @apply py-2 flex items-center cursor-pointer;
+}
+
+.ais-RefinementList-item,
+.ais-ToggleRefinement-label {
+  @apply text-slategray;
+}
+
+.ais-RefinementList-item.ais-RefinementList-item--selected {
+  @apply text-primary;
+}
+
+.ais-RefinementList-checkbox,
+.ais-ToggleRefinement-checkbox {
+  @apply mr-3;
+}
+
+.ais-RefinementList-count {
+  @apply bg-gainsboro rounded-full p-1 w-5 h-5 flex items-center justify-center ml-auto text-lightgray text-xs;
+}
+
+.ais-Hits .ais-Hits-list {
+  @apply flex flex-wrap -mx-6;
+}
+
+.ais-Hits .ais-Hits-item {
+  @apply p-3 h-full w-full flex;
+}
+
+@screen md {
+  .ais-Hits .ais-Hits-item {
+    @apply p-6;
+  }
+}
+
+@screen lg {
+  .ais-Hits .ais-Hits-item {
+    @apply w-1/2;
+  }
+}

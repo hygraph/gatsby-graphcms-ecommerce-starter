@@ -5,7 +5,7 @@ function Footer() {
     <div className="container mx-auto px-6">
       <div className="flex flex-col md:flex-row items-center md:justify-between border-t-2 border-gainsboro py-6">
         <p className="text-lightgray mb-3 md:mb-0">
-          Powered by GraphCMS, Printful, Gatsby &amp; Stripe
+          Powered by GraphCMS, Printful, Gatsby, Algolia &amp; Stripe
         </p>
 
         <ul className="inline-flex">
