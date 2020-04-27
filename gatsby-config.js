@@ -43,5 +43,19 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_API_KEY,
+        queries: [
+          {
+            query: require('./src/utils/algolia-query'),
+            transformer: require('./src/utils/algolia-transformer'),
+          },
+        ],
+      },
+    },
   ],
 };
