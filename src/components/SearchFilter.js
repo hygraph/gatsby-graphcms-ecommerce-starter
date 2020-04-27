@@ -1,8 +1,16 @@
 import React from 'react';
-import { RefinementList, ToggleRefinement } from 'react-instantsearch-dom';
+import {
+  SearchBox,
+  RefinementList,
+  ToggleRefinement,
+} from 'react-instantsearch-dom';
 
 const SearchFilter = () => (
   <React.Fragment>
+    <div className="mb-6">
+      <SearchBox />
+    </div>
+
     <div className="mb-6">
       <h3 className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray">
         Category
