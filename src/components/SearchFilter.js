@@ -25,7 +25,7 @@ const SearchFilter = () => (
       <ToggleRefinement
         attribute="hasReviews"
         label="Has reviews"
-        value={false}
+        value={true}
       />
     </div>
   </React.Fragment>

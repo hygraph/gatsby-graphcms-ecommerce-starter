@@ -2,6 +2,7 @@ import React from 'react';
 import { Hits } from 'react-instantsearch-dom';
 
 import SearchFilter from './SearchFilter';
+import SearchHit from './SearchHit';
 
 const SearchResults = () => (
   <div className="flex flex-wrap -mx-6">
@@ -10,7 +11,7 @@ const SearchResults = () => (
     </aside>
 
     <main className="w-full md:w-3/4 flex flex-wrap px-6">
-      <Hits hitComponent={hit => <pre>{JSON.stringify(hit, null, 2)}</pre>} />
+      <Hits hitComponent={SearchHit} />
     </main>
   </div>
 );

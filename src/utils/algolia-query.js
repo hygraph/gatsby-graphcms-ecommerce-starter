@@ -7,6 +7,9 @@ const algoliaQuery = `
         printfulProductId
         printfulProduct {
           thumbnail_url
+          variants {
+            formattedPrice
+          }
         }
         category {
           name
@@ -17,6 +20,7 @@ const algoliaQuery = `
         reviews {
           id
         }
+        
       }
     }
   }
