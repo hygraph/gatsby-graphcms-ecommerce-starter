@@ -6,12 +6,12 @@ const postmark = new PostmarkClient(process.env.POSTMARK_API_KEY);
 
 exports.handler = async event => {
   const {
-    data: { draftOrder },
+    data: {
+      DRAFT: { id, email: to, name },
+    },
   } = JSON.parse(event.body);
 
   try {
-    const { id, email: to, name } = draftOrder;
-
     await postmark.sendEmailBatchWithTemplates([
       {
         from: process.env.POSTMARK_STORE_OWNER_EMAIL,

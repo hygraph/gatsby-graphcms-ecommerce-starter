@@ -7,7 +7,7 @@ const postmark = new PostmarkClient(process.env.POSTMARK_API_KEY);
 exports.handler = async event => {
   const {
     data: {
-      publishedOrder: { id, email: to, fulfilled, name },
+      PUBLISHED: { id, email: to, fulfilled, name },
     },
   } = JSON.parse(event.body);
 
