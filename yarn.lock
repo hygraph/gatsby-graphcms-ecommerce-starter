@@ -2291,7 +2291,7 @@ apollo-link-http-common@^0.2.15:
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
 
-apollo-link-http@^1.5.16, apollo-link-http@^1.5.4:
+apollo-link-http@^1.5.4:
   version "1.5.16"
   resolved "https://registry.yarnpkg.com/apollo-link-http/-/apollo-link-http-1.5.16.tgz#44fe760bcc2803b8a7f57fc9269173afb00f3814"
   integrity sha512-IA3xA/OcrOzINRZEECI6IdhRp/Twom5X5L9jMehfzEo2AXdeRwAMlH5LuvTZHgKD8V1MBnXdM6YXawXkTDSmJw==
@@ -2300,7 +2300,7 @@ apollo-link-http@^1.5.16, apollo-link-http@^1.5.4:
     apollo-link-http-common "^0.2.15"
     tslib "^1.9.3"
 
-apollo-link@1.2.13, apollo-link@^1.2.13, apollo-link@^1.2.2, apollo-link@^1.2.3:
+apollo-link@^1.2.13, apollo-link@^1.2.2, apollo-link@^1.2.3:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.13.tgz#dff00fbf19dfcd90fddbc14b6a3f9a771acac6c4"
   integrity sha512-+iBMcYeevMm1JpYgwDEIDt/y0BB7VWyvlm/7x+TIPNLHCTCMgcEgDuW5kH86iQZWo0I7mNwQiTOz+/3ShPFmBw==
@@ -6566,19 +6566,6 @@ gatsby-source-graphcms@2.0.0-next.8:
     he "1.2.0"
     node-fetch "2.6.1"
 
-gatsby-source-graphql@2.1.20:
-  version "2.1.20"
-  resolved "https://registry.yarnpkg.com/gatsby-source-graphql/-/gatsby-source-graphql-2.1.20.tgz#3c965b6242538b034ed9dc966312944d1cc98f64"
-  integrity sha512-gp+Q0NJfGlXOFVb4TKZFPiAzpNwOS6uKhLTevbBaHU/EmrWYOrxYg7/JxVTjI0nC3ncJ+eNIfTL4AvFLPBIdMw==
-  dependencies:
-    "@babel/runtime" "^7.6.3"
-    apollo-link "1.2.13"
-    apollo-link-http "^1.5.16"
-    graphql-tools "^3.1.1"
-    invariant "^2.2.4"
-    node-fetch "^1.7.3"
-    uuid "^3.3.3"
-
 gatsby-source-printful@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/gatsby-source-printful/-/gatsby-source-printful-1.2.0.tgz#6ad4542ad24f9d3556d028fad439419a29920f70"
@@ -7156,17 +7143,6 @@ graphql-tag@^2.9.2:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
   integrity sha512-jApXqWBzNXQ8jYa/HLkZJaVw9jgwNqZkywa2zfFn16Iv1Zb7ELNHkJaXHR7Quvd5SIGsy6Ny7SUKATgnu05uEg==
-
-graphql-tools@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-3.1.1.tgz#d593358f01e7c8b1671a17b70ddb034dea9dbc50"
-  integrity sha512-yHvPkweUB0+Q/GWH5wIG60bpt8CTwBklCSzQdEHmRUgAdEQKxw+9B7zB3dG7wB3Ym7M7lfrS4Ej+jtDZfA2UXg==
-  dependencies:
-    apollo-link "^1.2.2"
-    apollo-utilities "^1.0.1"
-    deprecated-decorator "^0.1.6"
-    iterall "^1.1.3"
-    uuid "^3.1.0"
 
 graphql-tools@^4.0.0:
   version "4.0.6"
@@ -9530,7 +9506,7 @@ node-fetch@2.6.1:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
-node-fetch@^1.0.1, node-fetch@^1.7.3:
+node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   integrity sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
