@@ -3,19 +3,21 @@ const locales = require('../../../config/locales');
 
 const createPages = async ({ graphql, actions: { createPage } }) => {
   const {
-    data: {
-      cms: { categories, collections, products },
-    },
+    data: { categories, collections, products },
   } = await graphql(`
     {
-      cms {
-        categories {
+      categories: allGraphCmsCategory {
+        nodes {
           slug
         }
-        collections {
+      }
+      collections: allGraphCmsCollection {
+        nodes {
           slug
         }
-        products {
+      }
+      products: allGraphCmsProduct {
+        nodes {
           id
         }
       }
