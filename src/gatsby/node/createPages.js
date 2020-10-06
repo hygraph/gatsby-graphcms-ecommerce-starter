@@ -18,7 +18,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
       }
       products: allGraphCmsProduct {
         nodes {
-          id
+          id: remoteId
         }
       }
     }
