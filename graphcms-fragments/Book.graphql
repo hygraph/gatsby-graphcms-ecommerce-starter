@@ -1,0 +1,10 @@
+fragment Book on Book {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  title
+  author
+  isbn
+}

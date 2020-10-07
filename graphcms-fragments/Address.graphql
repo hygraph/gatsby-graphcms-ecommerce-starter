@@ -1,0 +1,27 @@
+fragment Address on Address {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  billingOrder {
+    ... on Order {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  shippingOrder {
+    ... on Order {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  name
+  address1
+  address2
+  city
+  country
+  state
+  zip
+  phone
+}

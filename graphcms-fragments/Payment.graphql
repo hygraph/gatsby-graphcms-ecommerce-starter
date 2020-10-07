@@ -1,0 +1,16 @@
+fragment Payment on Payment {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  order {
+    ... on Order {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  amount
+  stripeId
+  stripeData
+}

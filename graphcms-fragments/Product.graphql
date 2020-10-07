@@ -1,0 +1,46 @@
+fragment Product on Product {
+  stage
+  locale
+  remoteId: id
+  createdAt(variation: COMBINED)
+  updatedAt(variation: COMBINED)
+  publishedAt(variation: COMBINED)
+  name
+  description {
+    ... on RichText {
+      raw
+      html
+      markdown
+      text
+    }
+  }
+  price
+  images {
+    ... on Asset {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+    }
+  }
+  printfulProductId
+  collections {
+    ... on Collection {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+    }
+  }
+  category {
+    ... on Category {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+    }
+  }
+  reviews {
+    ... on Review {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+}
