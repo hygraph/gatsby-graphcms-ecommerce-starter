@@ -20,8 +20,8 @@ function ProductsPage({ data: { products } }) {
 }
 
 export const pageQuery = graphql`
-  query ProductsQuery($locales: GraphCMS_Locale!) {
-    products: allGraphCmsProduct(filter: { locale: { eq: $locales } }) {
+  query ProductsQuery($locale: GraphCMS_Locale!) {
+    products: allGraphCmsProduct(filter: { locale: { eq: $locale } }) {
       nodes {
         id
         name

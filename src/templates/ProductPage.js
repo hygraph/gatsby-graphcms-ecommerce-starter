@@ -180,8 +180,8 @@ function ProductPage({ data: { product }, location }) {
 }
 
 export const pageQuery = graphql`
-  query ProductQuery($id: ID!, $locales: GraphCMS_Locale!) {
-    product: graphCmsProduct(locale: { eq: $locales }, remoteId: { eq: $id }) {
+  query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
+    product: graphCmsProduct(locale: { eq: $locale }, remoteId: { eq: $id }) {
       id
       description {
         markdown

@@ -21,8 +21,8 @@ function CategoryPage({ data: { category } }) {
 }
 
 export const pageQuery = graphql`
-  query CategoryQuery($slug: String!, $locales: GraphCMS_Locale!) {
-    category: graphCmsCategory(locale: { eq: $locales }, slug: { eq: $slug }) {
+  query CategoryQuery($slug: String!, $locale: GraphCMS_Locale!) {
+    category: graphCmsCategory(locale: { eq: $locale }, slug: { eq: $slug }) {
       name
       slug
       products {

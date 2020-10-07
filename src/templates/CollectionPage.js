@@ -21,9 +21,9 @@ function CollectionPage({ data: { collection } }) {
 }
 
 export const pageQuery = graphql`
-  query CollectionQuery($slug: String!, $locales: GraphCMS_Locale!) {
+  query CollectionQuery($slug: String!, $locale: GraphCMS_Locale!) {
     collection: graphCmsCollection(
-      locale: { eq: $locales }
+      locale: { eq: $locale }
       slug: { eq: $slug }
     ) {
       name
