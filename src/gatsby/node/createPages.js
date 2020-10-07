@@ -34,7 +34,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     });
 
     if (categories) {
-      categories.forEach(({ slug }) =>
+      categories.nodes.forEach(({ slug }) =>
         createPage({
           path: buildLocalePath({ locale, path: `/categories/${slug}` }),
           component: require.resolve(`../../templates/CategoryPage.js`),
@@ -44,7 +44,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     }
 
     if (collections) {
-      collections.forEach(({ slug }) =>
+      collections.nodes.forEach(({ slug }) =>
         createPage({
           path: buildLocalePath({ locale, path: `/collections/${slug}` }),
           component: require.resolve(`../../templates/CollectionPage.js`),
@@ -54,7 +54,7 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     }
 
     if (products) {
-      products.forEach(({ id }) => {
+      products.nodes.forEach(({ id }) => {
         createPage({
           path: buildLocalePath({ locale, path: `/products/${id}` }),
           component: require.resolve(`../../templates/ProductPage.js`),
