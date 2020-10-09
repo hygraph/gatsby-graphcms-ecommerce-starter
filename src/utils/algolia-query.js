@@ -1,6 +1,6 @@
 const algoliaQuery = `
   {
-    allGraphCmsProduct(filter: { locale: { eq: en } }) {
+    products: allGraphCmsProduct(filter: { locale: { eq: en } }) {
       nodes {
         objectID: remoteId
         name
