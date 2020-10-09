@@ -1,7 +1,5 @@
 const algoliaTransformer = ({
-  data: {
-    cms: { products },
-  },
+  data: { products }
 }) =>
   products.map(
     ({
