@@ -1,0 +1,25 @@
+fragment Category on Category {
+  stage
+  locale
+  remoteId: id
+  createdAt(variation: COMBINED)
+  updatedAt(variation: COMBINED)
+  publishedAt(variation: COMBINED)
+  name
+  slug
+  description {
+    ... on RichText {
+      raw
+      html
+      markdown
+      text
+    }
+  }
+  products {
+    ... on Product {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+    }
+  }
+}

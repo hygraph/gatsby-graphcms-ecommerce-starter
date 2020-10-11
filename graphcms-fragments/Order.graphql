@@ -1,0 +1,37 @@
+fragment Order on Order {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  name
+  email
+  phone
+  fulfilled
+  total
+  totalPaid
+  orderItems {
+    ... on OrderItem {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  payments {
+    ... on Payment {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  billingAddress {
+    ... on Address {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  shippingAddress {
+    ... on Address {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+}

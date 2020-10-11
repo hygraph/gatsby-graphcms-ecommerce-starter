@@ -3,13 +3,13 @@ import Img from 'gatsby-image';
 
 import LocaleLink from './LocaleLink';
 
-function Product({ id, name, printfulProduct }) {
+function Product({ id, name, printfulProduct, remoteId }) {
   const [{ formattedPrice }] = printfulProduct.variants;
 
   return (
     <article key={id} className="p-6 w-full md:w-1/2 lg:w-1/3">
       <LocaleLink
-        to={`/products/${id}`}
+        to={`/products/${remoteId}`}
         className="group no-underline w-full h-full flex"
       >
         <div className="bg-gainsboro rounded-lg cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">

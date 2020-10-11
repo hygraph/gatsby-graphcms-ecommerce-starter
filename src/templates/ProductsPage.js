@@ -4,13 +4,7 @@ import { graphql } from 'gatsby';
 import ProductGrid from '../components/ProductGrid';
 import SEO from '../components/SEO';
 
-function ProductsPage({
-  data: {
-    cms: { products },
-  },
-}) {
-  if (!products) return null;
-
+function ProductsPage({ data: { products } }) {
   return (
     <React.Fragment>
       <SEO pageTitle="Products" />
@@ -20,15 +14,15 @@ function ProductsPage({
 
       <hr className="border-b border-gainsboro w-10" />
 
-      <ProductGrid products={products} />
+      <ProductGrid products={products.nodes} />
     </React.Fragment>
   );
 }
 
 export const pageQuery = graphql`
-  query ProductsQuery($locales: [GraphCMS_Locale!]!) {
-    cms {
-      products(locales: $locales) {
+  query ProductsQuery($locale: GraphCMS_Locale!) {
+    products: allGraphCmsProduct(filter: { locale: { eq: $locale } }) {
+      nodes {
         id
         name
         printfulProductId
@@ -45,6 +39,7 @@ export const pageQuery = graphql`
             retail_price
           }
         }
+        remoteId
       }
     }
   }

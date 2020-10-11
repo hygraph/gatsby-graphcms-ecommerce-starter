@@ -1,9 +1,7 @@
 const algoliaTransformer = ({
-  data: {
-    cms: { products },
-  },
+  data: { products }
 }) =>
-  products.map(
+  products.nodes.map(
     ({
       printfulProductId,
       printfulProduct: { thumbnail_url: image, variants },

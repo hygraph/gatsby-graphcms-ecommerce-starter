@@ -8,13 +8,15 @@ import locales from '../../config/locales';
 
 const query = graphql`
   query NavQuery {
-    cms {
-      categories {
+    categories: allGraphCmsCategory(filter: { locale: { eq: en } }) {
+      nodes {
         id
         name
         slug
       }
-      collections {
+    }
+    collections: allGraphCmsCollection(filter: { locale: { eq: en } }) {
+      nodes {
         id
         name
         slug
@@ -25,9 +27,7 @@ const query = graphql`
 `;
 
 function Header({ pathname }) {
-  const {
-    cms: { categories, collections },
-  } = useStaticQuery(query);
+  const { categories, collections } = useStaticQuery(query);
   const { isEmpty } = useCart();
   const { activeLocale, updateLocale } = useContext(LocaleContext);
 
@@ -63,7 +63,7 @@ function Header({ pathname }) {
               </LocaleLink>
             </li>
 
-            {categories.map(category => (
+            {categories.nodes.map(category => (
               <li
                 key={category.id}
                 className="block my-4 md:inline-block md:my-0"
@@ -77,7 +77,7 @@ function Header({ pathname }) {
               </li>
             ))}
 
-            {collections.map(collection => (
+            {collections.nodes.map(collection => (
               <li
                 key={collection.id}
                 className="block my-4 md:inline-block md:my-0"

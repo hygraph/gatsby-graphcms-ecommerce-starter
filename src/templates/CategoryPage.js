@@ -4,11 +4,7 @@ import { graphql } from 'gatsby';
 import ProductGrid from '../components/ProductGrid';
 import SEO from '../components/SEO';
 
-function CategoryPage({
-  data: {
-    cms: { category },
-  },
-}) {
+function CategoryPage({ data: { category } }) {
   if (!category) return null;
 
   return (
@@ -25,32 +21,31 @@ function CategoryPage({
 }
 
 export const pageQuery = graphql`
-  query CategoryQuery($slug: String!, $locales: [GraphCMS_Locale!]!) {
-    cms {
-      category(locales: $locales, where: { slug: $slug }) {
+  query CategoryQuery($slug: String!, $locale: GraphCMS_Locale!) {
+    category: graphCmsCategory(locale: { eq: $locale }, slug: { eq: $slug }) {
+      name
+      slug
+      products {
+        id
+        description {
+          markdown
+        }
         name
-        slug
-        products {
-          id
-          description {
-            markdown
-          }
-          name
-          printfulProductId
-          printfulProduct {
-            productImage {
-              childImageSharp {
-                fluid(maxWidth: 560) {
-                  ...GatsbyImageSharpFluid
-                }
+        printfulProductId
+        printfulProduct {
+          productImage {
+            childImageSharp {
+              fluid(maxWidth: 560) {
+                ...GatsbyImageSharpFluid
               }
             }
-            variants {
-              formattedPrice
-              retail_price
-            }
+          }
+          variants {
+            formattedPrice
+            retail_price
           }
         }
+        remoteId
       }
     }
   }

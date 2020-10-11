@@ -8,12 +8,7 @@ import { navigate } from '@reach/router';
 import ReviewsList from '../components/ReviewsList';
 import SEO from '../components/SEO';
 
-function ProductPage({
-  data: {
-    cms: { product },
-  },
-  location,
-}) {
+function ProductPage({ data: { product }, location }) {
   const { variantId } = queryString.parse(location.search);
   const { variants } = product.printfulProduct;
   const [firstVariant] = variants;
@@ -177,58 +172,43 @@ function ProductPage({
         </div>
       </div>
 
-      <ReviewsList productId={product.id} reviews={product.reviews} />
+      {product.reviews ? (
+        <ReviewsList productId={product.id} reviews={product.reviews} />
+      ) : null}
     </React.Fragment>
   );
 }
 
 export const pageQuery = graphql`
-  query ProductQuery($id: ID!, $locales: [GraphCMS_Locale!]!) {
-    cms {
-      product(locales: $locales, where: { id: $id }) {
-        id
-        description {
-          markdown
-        }
-        name
-        printfulProductId
-        printfulProduct {
-          productImage {
-            childImageSharp {
-              fluid(maxWidth: 560) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-          variants {
-            id
-            formattedPrice
-            name
-            retail_price
-            splitName
-            variantImage {
-              childImageSharp {
-                fluid(maxWidth: 560) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+  query ProductQuery($id: ID!, $locale: GraphCMS_Locale!) {
+    product: graphCmsProduct(locale: { eq: $locale }, remoteId: { eq: $id }) {
+      id
+      description {
+        markdown
+      }
+      name
+      printfulProductId
+      printfulProduct {
+        productImage {
+          childImageSharp {
+            fluid(maxWidth: 560) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
-        reviews(orderBy: createdAt_DESC) {
+        variants {
           id
-          email
-          gravatar {
+          formattedPrice
+          name
+          retail_price
+          splitName
+          variantImage {
             childImageSharp {
               fluid(maxWidth: 560) {
                 ...GatsbyImageSharpFluid
               }
             }
           }
-          name
-          headline
-          message
-          rating
         }
       }
     }

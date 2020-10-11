@@ -26,14 +26,11 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     {
-      resolve: `gatsby-source-graphql`,
+      resolve: `gatsby-source-graphcms`,
       options: {
-        typeName: `GraphCMS`,
-        fieldName: `cms`,
-        url: process.env.GRAPHCMS_ENDPOINT,
-        headers: {
-          Authorization: `Bearer ${process.env.GRAPHCMS_QUERY_TOKEN}`,
-        },
+        endpoint: process.env.GRAPHCMS_ENDPOINT,
+        token: process.env.GRAPHCMS_QUERY_TOKEN,
+        locales: ['en', 'de'],
       },
     },
     {

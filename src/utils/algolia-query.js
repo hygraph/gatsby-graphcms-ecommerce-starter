@@ -1,8 +1,8 @@
 const algoliaQuery = `
   {
-    cms {
-      products {
-        objectID: id
+    products: allGraphCmsProduct(filter: { locale: { eq: en } }) {
+      nodes {
+        objectID: remoteId
         name
         printfulProductId
         printfulProduct {
@@ -18,9 +18,8 @@ const algoliaQuery = `
           name
         }
         reviews {
-          id
+          id: remoteId
         }
-        
       }
     }
   }

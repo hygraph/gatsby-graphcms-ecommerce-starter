@@ -1,0 +1,17 @@
+fragment OrderItem on OrderItem {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  order {
+    ... on Order {
+      remoteTypeName: __typename
+      remoteId: id
+    }
+  }
+  name
+  quantity
+  price
+  variantId
+}
