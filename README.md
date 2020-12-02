@@ -45,7 +45,7 @@ cp .env.sample .env
 
 ### 2. Setup development environment variables
 
-You will need to [create a project from template](https://docs.graphcms.com/docs/getting-started/start-from-scratch#start-from-template) inside GraphCMS to carefully match what is expected from GraphCMS.
+You will need to create a project from template inside GraphCMS to carefully match what is expected from GraphCMS.
 
 You'll need an account with GraphCMS, Stripe and Printful for this demo to fully work. It's recommended you use separate API keys for development and production.
 
