@@ -1,3 +1,7 @@
+THIS REPO IS ARCHIVED. YOU SHOULD NOW VISIT https://github.com/GraphCMS/graphcms-commerce-starter
+
+---
+
 # gatsby-graphcms-ecommerce-starter
 
 > Minimalist dropshipping swag store built with GraphCMS, Stripe, Gatsby, Postmark and Printful.
